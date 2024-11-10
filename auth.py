@@ -1,136 +1,191 @@
 import json
-import hashlib
 import os
-from datetime import datetime
+import datetime
 
+DATA_FILE = "data/kebun_data.json"
 
-# Nama file JSON untuk menyimpan data pengguna
-DATA_FILE = "data/data_pengelola.json"
-
-# Fungsi untuk memuat data dari file JSON
 def load_data():
    if os.path.exists(DATA_FILE):
-
-DATA_FILE = "data/data_pengelola.json"
-
-def initialize_data_directory():
-   os.makedirs("data", exist_ok=True)
-
-def load_data():
-   initialize_data_directory()
-   if os.path.exists(DATA_FILE) and os.path.getsize(DATA_FILE) > 0:
-
       with open(DATA_FILE, "r") as file:
          return json.load(file)
-   return {}
-
-
-# Fungsi untuk menyimpan data ke file JSON
-def save_data(data):
-   with open(DATA_FILE, "w") as file:
-      json.dump(data, file, indent=4)
-
-# Fungsi untuk hash password
-def hash_password(password):
-   return hashlib.sha256(password.encode()).hexdigest()
-
-# Fungsi registrasi
-def register():
-   data = load_data()
-   print("=== Registrasi Pengelola ===")
-   id_pengelola = input("ID Pengelola: ")
-
-def save_data(data):
-   initialize_data_directory()
-   with open(DATA_FILE, "w") as file:
-      json.dump(data, file, indent=4)
-
-def hash_password(password):
-   return hashlib.sha256(password.encode()).hexdigest()
-
-def generate_user_id(data):
-   user_id = f"user{len(data) + 1}"
-   while user_id in data:
-      user_id = f"user{len(data) + 1}"
-   return user_id
-
-def register():
-   data = load_data()
-   print("\n=== Registrasi Pengelola ===\n")
-
-   nama = input("Nama: ")
-   username = input("Username: ")
-   email = input("Email: ")
-   password = input("Password: ")
-   no_telepon = input("Nomor Telepon: ")
-   alamat_kebun = input("Alamat Kebun: ")
-   tanggal_registrasi = datetime.now().strftime("%Y-%m-%d")
-
-
-   # Cek apakah email sudah terdaftar
-
-   for user in data.values():
-      if user['email'] == email:
-         print("Email sudah terdaftar! Gunakan email lain.")
-         return
-
-
-   # Simpan data pengelola baru
-
-
-   data[id_pengelola] = {
-      "id": id_pengelola,
-      "nama": nama,
-      "username": username,
-      "email": email,
-      "password": hash_password(password),
-      "no_telepon": no_telepon,
-      "alamat_kebun": alamat_kebun,
-      "tanggal_registrasi": tanggal_registrasi
+   return {
+      "tanaman": [],
+      "pengingat": [],
+      "panen": [],
+      "pupuk": [],
+      "keuangan": [],
+      "pekerja": []
    }
 
+def save_data(data):
+   with open(DATA_FILE, "w") as file:
+      json.dump(data, file, indent=4)
+
+# Fitur 1: Pencatatan Tanaman
+def catat_tanaman():
+   data = load_data()
+   print("\n=== Pencatatan Tanaman ===")
+   tanggal_tanam = input("Tanggal Penanaman (YYYY-MM-DD): ")
+   jenis_tanaman = input("Jenis Tanaman: ")
+   kategori = input("Kategori Tanaman: ")
+   pertumbuhan = input("Kondisi Pertumbuhan: ")
+
+   tanaman = {
+      "tanggal_tanam": tanggal_tanam,
+      "jenis_tanaman": jenis_tanaman,
+      "kategori": kategori,
+      "pertumbuhan": pertumbuhan
+   }
+   data["tanaman"].append(tanaman)
    save_data(data)
-   print("Registrasi berhasil!")
+   print("Tanaman berhasil dicatat.")
 
-
-# Fungsi login
-def login():
+# Fitur 2: Pengingat Penyiraman dan Pemupukan
+def pengingat_penyiraman_pemupukan():
    data = load_data()
-   print("=== Login Pengelola ===")
-   email = input("Email: ")
-   password = input("Password: ")
+   print("\n=== Pengingat Penyiraman dan Pemupukan ===")
+   tanggal_jadwal = input("Tanggal Penyiraman/Pemupukan (YYYY-MM-DD): ")
+   jenis = input("Jenis Pengingat (Penyiraman/Pemupukan): ")
+   tanaman_id = input("ID Tanaman: ")
 
-   # Hash password yang diinputkan
-   hashed_password = hash_password(password)
+   pengingat = {
+      "tanggal_jadwal": tanggal_jadwal,
+      "jenis": jenis,
+      "tanaman_id": tanaman_id
+   }
+   data["pengingat"].append(pengingat)
+   save_data(data)
+   print("Pengingat berhasil disimpan.")
 
-   # Verifikasi email dan password
-   for user in data.values():
-      if user["email"] == email and user["password"] == hashed_password:
-         print("Login berhasil! Selamat datang,", user["nama"])
-         return True
-
-   print("Email atau password salah.")
-   return False
-
-   print("Silakan login dengan akun baru Anda.")
-   login()
-
-def login():
+# Fitur 3: Pencatatan Panen
+def catat_panen():
    data = load_data()
-   print("\n=== Login Pengelola ===\n")
+   print("\n=== Pencatatan Panen ===")
+   tanggal_panen = input("Tanggal Panen (YYYY-MM-DD): ")
+   tanaman_id = input("ID Tanaman: ")
+   jumlah = input("Jumlah Panen: ")
+   kualitas = input("Kualitas Panen: ")
+
+   panen = {
+      "tanggal_panen": tanggal_panen,
+      "tanaman_id": tanaman_id,
+      "jumlah": jumlah,
+      "kualitas": kualitas
+   }
+   data["panen"].append(panen)
+   save_data(data)
+   print("Hasil panen berhasil dicatat.")
+
+# Fitur 4: Pengelolaan Pupuk
+def kelola_pupuk():
+   data = load_data()
+   print("\n=== Pengelolaan Pupuk ===")
+   nama_pupuk = input("Nama Pupuk: ")
+   jumlah_awal = int(input("Jumlah Awal (kg): "))
+   jumlah_digunakan = int(input("Jumlah Digunakan (kg): "))
+   jumlah_tersisa = jumlah_awal - jumlah_digunakan
+
+   pupuk = {
+      "nama_pupuk": nama_pupuk,
+      "jumlah_awal": jumlah_awal,
+      "jumlah_digunakan": jumlah_digunakan,
+      "jumlah_tersisa": jumlah_tersisa
+   }
+   data["pupuk"].append(pupuk)
+   save_data(data)
+   print("Data pupuk berhasil disimpan.")
+
+# Fitur 5: Manajemen Keuangan
+def catat_keuangan():
+   data = load_data()
+   print("\n=== Manajemen Keuangan ===")
+   tipe_transaksi = input("Jenis Transaksi (Pemasukan/Pengeluaran): ")
+   jumlah = int(input("Jumlah: "))
+   keterangan = input("Keterangan: ")
+
+   transaksi = {
+      "tipe_transaksi": tipe_transaksi,
+      "jumlah": jumlah,
+      "keterangan": keterangan,
+      "tanggal": datetime.datetime.now().strftime("%Y-%m-%d")
+   }
+   data["keuangan"].append(transaksi)
+   save_data(data)
+   print("Transaksi keuangan berhasil dicatat.")
+
+# Fitur 6: Daftar Pekerja
+def catat_pekerja():
+   data = load_data()
+   print("\n=== Daftar Pekerja ===")
+   nama = input("Nama Pekerja: ")
+   peran = input("Peran: ")
+
+   pekerja = {
+      "nama": nama,
+      "peran": peran
+   }
+   data["pekerja"].append(pekerja)
+   save_data(data)
+   print("Data pekerja berhasil disimpan.")
+
+# Fitur 7: Pencarian
+def pencarian():
+   data = load_data()
+   print("\n=== Fitur Pencarian ===")
+   keyword = input("Masukkan kata kunci pencarian: ").lower()
+
+   results = {
+      "tanaman": [tanaman for tanaman in data["tanaman"] if keyword in tanaman["jenis_tanaman"].lower()],
+      "pengingat": [pengingat for pengingat in data["pengingat"] if keyword in pengingat["jenis"].lower()],
+      "panen": [panen for panen in data["panen"] if keyword in panen["tanaman_id"]],
+      "pupuk": [pupuk for pupuk in data["pupuk"] if keyword in pupuk["nama_pupuk"].lower()],
+      "keuangan": [transaksi for transaksi in data["keuangan"] if keyword in transaksi["keterangan"].lower()],
+      "pekerja": [pekerja for pekerja in data["pekerja"] if keyword in pekerja["nama"].lower()]
+   }
+   
+   print(f"Hasil pencarian untuk '{keyword}':")
+   for category, items in results.items():
+      if items:
+         print(f"\n{category.capitalize()}:")
+         for item in items:
+               print(item)
+      else:
+         print(f"\n{category.capitalize()}: Tidak ada hasil yang ditemukan")
+
+# Fungsi untuk menampilkan menu utama
+def main_menu():
    while True:
-      email = input("Email: ")
-      password = input("Password: ")
+      print("\n=== Aplikasi Manajemen Kebun ===")
+      print("1. Pencatatan Tanaman")
+      print("2. Pengingat Penyiraman dan Pemupukan")
+      print("3. Pencatatan Panen")
+      print("4. Pengelolaan Pupuk")
+      print("5. Manajemen Keuangan")
+      print("6. Daftar Pekerja")
+      print("7. Pencarian")
+      print("0. Keluar")
 
-      hashed_password = hash_password(password)
+      pilihan = input("Pilih opsi (0-7): ")
 
-      for user in data.values():
-         if user["email"] == email and user["password"] == hashed_password:
-               print("Login berhasil! Selamat datang,", user["nama"])
-               return True, user
+      if pilihan == "1":
+         catat_tanaman()
+      elif pilihan == "2":
+         pengingat_penyiraman_pemupukan()
+      elif pilihan == "3":
+         catat_panen()
+      elif pilihan == "4":
+         kelola_pupuk()
+      elif pilihan == "5":
+         catat_keuangan()
+      elif pilihan == "6":
+         catat_pekerja()
+      elif pilihan == "7":
+         pencarian()
+      elif pilihan == "0":
+         print("Keluar dari aplikasi.")
+         break
+      else:
+         print("Pilihan tidak valid. Silakan coba lagi.")
 
-      print("Email atau password salah. Coba lagi.")
-      retry = input("Apakah ingin mencoba login lagi? (y/n): ")
-      if retry.lower() != 'y':
-         return False, None
- main
+if __name__ == "__main__":
+   main_menu()
