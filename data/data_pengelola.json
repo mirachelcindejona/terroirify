@@ -1,0 +1,22 @@
+{
+    "user1": {
+        "id": "user1",
+        "nama": "Udin",
+        "username": "udinadi",
+        "email": "udin@gmail.com",
+        "password": "9b8769a4a742959a2d0298c36fb70623f2dfacda8436237df08d8dfd5b37374c",
+        "no_telepon": "088981234",
+        "alamat_kebun": "bandung",
+        "tanggal_registrasi": "2024-11-10"
+    },
+    "user2": {
+        "id": "user2",
+        "nama": "asep",
+        "username": "asepudin",
+        "email": "asep@gmail.com",
+        "password": "9b8769a4a742959a2d0298c36fb70623f2dfacda8436237df08d8dfd5b37374c",
+        "no_telepon": "0898778882",
+        "alamat_kebun": "Bandung",
+        "tanggal_registrasi": "2024-11-10"
+    }
+}
