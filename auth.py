@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 # Nama file JSON untuk menyimpan data pengguna
-DATA_FILE = "data_pengelola.json"
+DATA_FILE = "data/data_pengelola.json"
 
 # Fungsi untuk memuat data dari file JSON
 def load_data():
