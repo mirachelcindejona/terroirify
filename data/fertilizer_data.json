@@ -1,0 +1,9 @@
+{
+    "001": {
+        "id_pupuk": "001",
+        "name": "gacor1",
+        "stock": 10,
+        "reception_date": "2024-11-12",
+        "usage_notes": "tes 1"
+    }
+}
