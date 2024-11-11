@@ -1,4 +1,6 @@
 from auth import register, login
+from daftar_pekerja import create_pekerja, read_pekerja, update_pekerja, delete_pekerja
+# from pupuk import 
 # from kebun import (
 #    catat_tanaman,
 #    pengingat_penyiraman_pemupukan,
