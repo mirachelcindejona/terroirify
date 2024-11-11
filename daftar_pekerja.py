@@ -3,7 +3,7 @@ import hashlib
 import os
 from datetime import datetime
 
-# Nama file JSON untuk menyimpan data pekerja
+# Nama file untuk menyimpan data pekerja
 DATA_FILE = "data/data_pekerja.json"
 
 # Fungsi untuk memuat data dari file JSON
@@ -17,17 +17,19 @@ def load_data():
 def save_data(data):
     with open(DATA_FILE, "w") as file:
         json.dump(data, file, indent=4)
-
-# Fungsi untuk hash password
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+        
+def generate_id(data):
+    pekerja_id = f"00{len(data) + 1}"
+    while pekerja_id in data:
+        pekerja_id = f"00{len(data) + 1}"
+    return pekerja_id
 
 # Fungsi untuk menambahkan data pekerja baru (CREATE)
-def create_pekerja():
+def tambah_pekerja():
     data = load_data()
     
     print("=== Tambah Pekerja Baru ===")
-    id_pekerja = input("ID Pekerja: ")
+    id_pekerja = generate_id(data)
     id_pengelola = input("ID Pengelola: ")
     nama = input("Nama Lengkap: ")
 
@@ -38,8 +40,7 @@ def create_pekerja():
             break
         else:
             print("Email sudah terdaftar! Gunakan email lain.")
-    
-    password = input("Password: ")
+  
     kontak = input("Kontak: ")
     status = input("Status (aktif/non-aktif): ")
     tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ")
@@ -49,10 +50,7 @@ def create_pekerja():
 
     # Tambahkan pekerja baru ke data
     data[id_pekerja] = {
-        "informasi_login": {
-            "email": email,
-            "password": hash_password(password)
-        },
+        "informasi_login": {"email": email},
         "profil_pekerja": {
             "id": int(id_pekerja),
             "id_pengelola": int(id_pengelola),
@@ -67,7 +65,6 @@ def create_pekerja():
             "jam_kerja": jam_kerja
         }
     }
-
     save_data(data)
     print("Pekerja baru berhasil ditambahkan!")
 
@@ -153,7 +150,7 @@ def main():
         pilihan = input("Pilih menu: ")
         
         if pilihan == "1":
-            create_pekerja()
+            tambah_pekerja()
         elif pilihan == "2":
             read_pekerja()
         elif pilihan == "3":
