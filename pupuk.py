@@ -1,63 +1,128 @@
-import argparse
 import json
+import os
 from datetime import datetime
 
-# File to store fertilizer data
-DATA_FILE = 'fertilizer_data.json'
+# File untuk menyimpan data pupuk
+DATA_FILE = 'data/fertilizer_data.json'
 
-# Load data from the file
+def initialize_data_directory():
+    os.makedirs("data", exist_ok=True)
+
+# Memuat data dari file
 def load_data():
-    try:
+    initialize_data_directory()
+    if os.path.exists(DATA_FILE) and os.path.getsize(DATA_FILE) > 0:
         with open(DATA_FILE, 'r') as file:
             return json.load(file)
-    except FileNotFoundError:
-        return []
+    return {}
 
-# Save data to the file
+# Menyimpan data ke file
 def save_data(data):
     with open(DATA_FILE, 'w') as file:
         json.dump(data, file, indent=4)
 
-# Add new fertilizer data
-def add_fertilizer(args):
+def generate_id(data):
+    pupuk_id = f"00{len(data) + 1}"
+    while pupuk_id in data:
+        pupuk_id = f"00{len(data) + 1}"
+    return pupuk_id
+
+# Fungsi untuk menambah data pupuk
+def add_fertilizer():
     data = load_data()
-    fertilizer = {
-        'id': args.id,
-        'name': args.name,
-        'stock': args.stock,
-        'reception_date': args.reception_date,
-        'usage_notes': args.usage_notes
+    id_pupuk = generate_id(data)
+    name = input("Masukkan nama pupuk: ")
+    stock = input("Masukkan jumlah stok pupuk: ")
+    reception_date = input("Masukkan tanggal penerimaan stok (YYYY-MM-DD): ")
+    usage_notes = input("Masukkan catatan penggunaan pupuk: ")
+
+    try:
+        id_pupuk = id_pupuk
+        stock = int(stock)
+        datetime.strptime(reception_date, '%Y-%m-%d')  # Validasi format tanggal
+    except ValueError as e:
+        print(f"Error: {e}")
+        return
+
+    data = load_data()
+    data[id_pupuk] = {
+        'id_pupuk': id_pupuk,
+        'name': name,
+        'stock': stock,
+        'reception_date': reception_date,
+        'usage_notes': usage_notes
     }
-    data.append(fertilizer)
     save_data(data)
-    print("Fertilizer data added successfully.")
+    print("Data pupuk berhasil ditambahkan.")
 
-# View all fertilizer data
-def view_fertilizers(args):
+# Fungsi untuk melihat semua data pupuk
+def view_fertilizers():
     data = load_data()
-    for fertilizer in data:
-        print(f"ID: {fertilizer['id']}, Name: {fertilizer['name']}, Stock: {fertilizer['stock']}, Reception Date: {fertilizer['reception_date']}, Usage Notes: {fertilizer['usage_notes']}")
+    if data:
+        for pupuk_id, fertilizer in data.items():
+            print(f"ID: {fertilizer['id_pupuk']}, Name: {fertilizer['name']}, Stock: {fertilizer['stock']}, Reception Date: {fertilizer['reception_date']}, Usage Notes: {fertilizer['usage_notes']}")
+    else:
+        print("Tidak ada data pupuk.")
 
-# Setup CLI
+# Fungsi untuk memperbarui data pupuk
+def update_fertilizer():
+    id_pupuk = input("Masukkan ID pupuk yang ingin diperbarui: ")
+    name = input("Masukkan nama baru pupuk: ")
+    stock = input("Masukkan jumlah stok baru pupuk: ")
+    reception_date = input("Masukkan tanggal penerimaan stok baru (YYYY-MM-DD): ")
+    usage_notes = input("Masukkan catatan penggunaan baru pupuk: ")
+
+    try:
+        stock = int(stock)
+        datetime.strptime(reception_date, '%Y-%m-%d')  # Validasi format tanggal
+    except ValueError as e:
+        print(f"Error: {e}")
+        return
+
+    data = load_data()
+    if id_pupuk in data:
+        data[id_pupuk] = {
+            'id_pupuk': id_pupuk,
+            'name': name,
+            'stock': stock,
+            'reception_date': reception_date,
+            'usage_notes': usage_notes
+        }
+        save_data(data)
+        print("Data pupuk berhasil diperbarui.")
+    else:
+        print("Pupuk dengan ID yang ditentukan tidak ditemukan.")
+
+# Fungsi untuk menghapus data pupuk
+def delete_fertilizer():
+    id_pupuk = input("Masukkan ID pupuk yang ingin dihapus: ")
+
+    data = load_data()
+    if id_pupuk in data:
+        del data[id_pupuk]
+        save_data(data)
+        print("Data pupuk berhasil dihapus.")
+    else:
+        print("Pupuk dengan ID yang ditentukan tidak ditemukan.")
+
+# Fungsi utama untuk menjalankan program secara interaktif
 def main():
-    parser = argparse.ArgumentParser(description="Fertilizer Management CLI")
-    subparsers = parser.add_subparsers()
-
-    # Add fertilizer command
-    parser_add = subparsers.add_parser('add', help='Add new fertilizer data')
-    parser_add.add_argument('--id', type=int, required=True, help='ID of the fertilizer')
-    parser_add.add_argument('--name', type=str, required=True, help='Name of the fertilizer')
-    parser_add.add_argument('--stock', type=int, required=True, help='Stock of the fertilizer')
-    parser_add.add_argument('--reception_date', type=str, required=True, help='Reception date of the fertilizer (YYYY-MM-DD)')
-    parser_add.add_argument('--usage_notes', type=str, required=True, help='Usage notes of the fertilizer')
-    parser_add.set_defaults(func=add_fertilizer)
-
-    # View fertilizers command
-    parser_view = subparsers.add_parser('view', help='View all fertilizer data')
-    parser_view.set_defaults(func=view_fertilizers)
-
-    args = parser.parse_args()
-    args.func(args)
+    while True:
+        print("Pilih perintah: add, view, update, delete, atau exit")
+        command = input("Masukkan perintah: ").strip().lower()
+        if command == 'add':
+            add_fertilizer()
+        elif command == 'view':
+            view_fertilizers()
+        elif command == 'update':
+            update_fertilizer()
+        elif command == 'delete':
+            delete_fertilizer()
+        elif command == 'exit':
+            print("Keluar dari program.")
+            break
+        else:
+            print("Perintah tidak dikenali. Silakan coba lagi.")
 
 if __name__ == '__main__':
     main()
