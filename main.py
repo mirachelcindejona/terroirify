@@ -1,8 +1,8 @@
+import json
 from auth import register, login, clear_login_data
 from daftar_pekerja import menu_pekerja
 from pupuk import menu_pupuk
 from panen import menu_panen
-import json
 
 DATA_LOGIN = "data/data_login.json"
 
