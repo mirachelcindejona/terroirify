@@ -4,8 +4,11 @@ from datetime import datetime
 DATA_PANEN = "data/data_panen.json"
 
 def load_data():
-    with open(DATA_PANEN, "r") as file:
-        return json.load(file)
+    try:
+        with open(DATA_PANEN, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
 def save_data(data):
     with open(DATA_PANEN, "w") as file:
@@ -28,9 +31,13 @@ def add_panen():
     kualitas_panen = input("Kualitas Panen: ")
     harga_per_unit = input("Harga Per Unit (Rp): ")
 
-    jumlah_panen = float(jumlah_panen)
-    harga_per_unit = float(harga_per_unit)
-    datetime.strptime(tanggal_panen, "%Y-%m-%d")
+    try:
+        jumlah_panen = float(jumlah_panen)
+        harga_per_unit = float(harga_per_unit)
+        datetime.strptime(tanggal_panen, "%Y-%m-%d")
+    except ValueError:
+        print("Error: Input tidak valid. Pastikan jumlah panen dan harga per unit adalah angka, dan tanggal dalam format yang benar.")
+        return
 
     data[id_panen] = {
         "id": id_panen,
@@ -74,9 +81,13 @@ def update_panen():
     kualitas_panen = input("Kualitas Panen: ")
     harga_per_unit = input("Harga Per Unit (Rp): ")
 
-    jumlah_panen = float(jumlah_panen)
-    harga_per_unit = float(harga_per_unit)
-    datetime.strptime(tanggal_panen, "%Y-%m-%d")
+    try:
+        jumlah_panen = float(jumlah_panen)
+        harga_per_unit = float(harga_per_unit)
+        datetime.strptime(tanggal_panen, "%Y-%m-%d")
+    except ValueError:
+        print("Error: Input tidak valid. Pastikan jumlah panen dan harga per unit adalah angka, dan tanggal dalam format yang benar.")
+        return
 
     data[id_panen] = {
         "id": id_panen,

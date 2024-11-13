@@ -6,8 +6,11 @@ DATA_PENGELOLA = "data/data_pengelola.json"
 DATA_LOGIN = "data/data_login.json"
 
 def load_data():
-    with open(DATA_PENGELOLA, "r") as file:
-        return json.load(file)
+    try:
+        with open(DATA_PENGELOLA, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
 def save_data(data):
     with open(DATA_PENGELOLA, "w") as file:
