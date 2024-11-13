@@ -55,15 +55,15 @@ def main_menu():
             pilihan = input("Pilih opsi (1-8): ")
 
             if pilihan == "1":
-                catat_tanaman()
+                menu_tanaman()
             elif pilihan == "2":
-                pengingat_penyiraman_pemupukan()
+                menu_pengingat()
             elif pilihan == "3":
                 menu_panen()
             elif pilihan == "4":
                 menu_pupuk()
             elif pilihan == "5":
-                catat_keuangan()
+                menu_keuangan()
             elif pilihan == "6":
                 menu_pekerja()
             elif pilihan == "7":
