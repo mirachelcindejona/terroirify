@@ -4,8 +4,11 @@ from datetime import datetime
 DATA_PUPUK = "data/data_pupuk.json"
 
 def load_data():
-    with open(DATA_PUPUK, "r") as file:
-        return json.load(file)
+    try:
+        with open(DATA_PUPUK, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
 def save_data(data):
     with open(DATA_PUPUK, "w") as file:
@@ -27,8 +30,12 @@ def add_pupuk():
     tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
     catatan = input("Catatan Penggunaan: ")
 
-    stok = int(stok)
-    datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+    try:
+        stok = int(stok)
+        datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+    except ValueError:
+        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
+        return
 
     data[id_pupuk] = {
         "id": id_pupuk,
@@ -69,8 +76,12 @@ def update_pupuk():
     tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
     catatan = input("Catatan Penggunaan: ")
 
-    stok = int(stok)
-    datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+    try:
+        stok = int(stok)
+        datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+    except ValueError:
+        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
+        return
 
     data[id_pupuk] = {
         "id": id_pupuk,

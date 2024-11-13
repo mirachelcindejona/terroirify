@@ -4,8 +4,11 @@ from datetime import datetime
 DATA_PEKERJA = "data/data_pekerja.json"
 
 def load_data():
-    with open(DATA_PEKERJA, "r") as file:
-        return json.load(file)
+    try:
+        with open(DATA_PEKERJA, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
 def save_data(data):
     with open(DATA_PEKERJA, "w") as file:
@@ -18,8 +21,11 @@ def generate_id(data):
     return pekerja_id
 
 def get_data_login():
-    with open("data/data_login.json", "r") as file:
-        return json.load(file)
+    try:
+        with open("data/data_login.json", "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
 def add_pekerja():
     data = load_data()
@@ -37,7 +43,11 @@ def add_pekerja():
     hari_kerja = input("Hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
     jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
 
-    datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+    try:
+        datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+    except ValueError:
+        print("Error: Format tanggal tidak valid.")
+        return
 
     # Cek email unik
     for pekerja in data.values():
@@ -106,7 +116,11 @@ def update_pekerja():
     hari_kerja = input("Hari Kerja (pisahkan dengan koma): ").split(",")
     jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
 
-    datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+    try:
+        datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+    except ValueError:
+        print("Error: Format tanggal tidak valid.")
+        return
 
     # Cek email unik kecuali untuk pekerja yang sedang diupdate
     for pid, pekerja in data.items():

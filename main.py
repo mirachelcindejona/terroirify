@@ -7,10 +7,13 @@ import json
 DATA_LOGIN = "data/data_login.json"
 
 def get_current_user():
-    with open(DATA_LOGIN, "r") as file:
-        data = json.load(file)
-        if data and len(data) > 0:
-            return data
+    try:
+        with open(DATA_LOGIN, "r") as file:
+            data = json.load(file)
+            if data and len(data) > 0:
+                return data
+            return None
+    except (FileNotFoundError, json.JSONDecodeError):
         return None
 
 current_user = get_current_user()
