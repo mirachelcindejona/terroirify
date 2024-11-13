@@ -1,82 +1,84 @@
 import json
 import hashlib
-import os
 from datetime import datetime
 
-DATA_FILE = "data/data_pengelola.json"
-
-def initialize_data_directory():
-   os.makedirs("data", exist_ok=True)
+DATA_PENGELOLA = "data/data_pengelola.json"
+DATA_LOGIN = "data/data_login.json"
 
 def load_data():
-   initialize_data_directory()
-   if os.path.exists(DATA_FILE) and os.path.getsize(DATA_FILE) > 0:
-      with open(DATA_FILE, "r") as file:
-         return json.load(file)
-   return {}
+    with open(DATA_PENGELOLA, "r") as file:
+        return json.load(file)
 
 def save_data(data):
-   initialize_data_directory()
-   with open(DATA_FILE, "w") as file:
-      json.dump(data, file, indent=4)
+    with open(DATA_PENGELOLA, "w") as file:
+        json.dump(data, file, indent=4)
+
+def save_login_data(user_data):
+    with open(DATA_LOGIN, "w") as file:
+        json.dump(user_data, file, indent=4)
+
+def clear_login_data():
+    with open(DATA_LOGIN, "w") as file:
+        json.dump({}, file, indent=4)
 
 def hash_password(password):
-   return hashlib.sha256(password.encode()).hexdigest()
+    return hashlib.sha256(password.encode()).hexdigest()
 
 def generate_user_id(data):
-   user_id = f"user{len(data) + 1}"
-   while user_id in data:
-      user_id = f"user{len(data) + 1}"
-   return user_id
+    id_pengelola = f"PNGL0{len(data) + 1}"
+    while id_pengelola in data:
+        id_pengelola = f"PNGL0{len(data) + 1}"
+    return id_pengelola
 
 def register():
-   data = load_data()
-   print("=== Registrasi Pengelola ===")
-   id_pengelola = generate_user_id(data)
-   nama = input("Nama: ")
-   username = input("Username: ")
-   email = input("Email: ")
-   password = input("Password: ")
-   no_telepon = input("Nomor Telepon: ")
-   alamat_kebun = input("Alamat Kebun: ")
-   tanggal_registrasi = datetime.now().strftime("%Y-%m-%d")
+    data = load_data()
+    print("\n=== Registrasi Pengelola ===")
+    id_pengelola = generate_user_id(data)
+    nama = input("Nama: ")
+    username = input("Username: ")
+    email = input("Email: ")
+    password = input("Password: ")
+    no_telepon = input("Nomor Telepon: ")
+    alamat_kebun = input("Alamat Kebun: ")
+    tanggal_registrasi = datetime.now().strftime("%Y-%m-%d")
 
-   for user in data.values():
-      if user['email'] == email:
-         print("Email sudah terdaftar! Gunakan email lain.")
-         return
+    for user in data.values():
+        if user['email'] == email:
+            print("Email sudah terdaftar! Gunakan email lain.")
+            return False, None
 
-   data[id_pengelola] = {
-      "id": id_pengelola,
-      "nama": nama,
-      "username": username,
-      "email": email,
-      "password": hash_password(password),
-      "no_telepon": no_telepon,
-      "alamat_kebun": alamat_kebun,
-      "tanggal_registrasi": tanggal_registrasi
-   }
+    data[id_pengelola] = {
+        "id": id_pengelola,
+        "nama": nama,
+        "username": username,
+        "email": email,
+        "password": hash_password(password),
+        "no_telepon": no_telepon,
+        "alamat_kebun": alamat_kebun,
+        "tanggal_registrasi": tanggal_registrasi
+    }
 
-   save_data(data)
-   print("Registrasi berhasil!")
-   print("Silakan login dengan akun baru Anda.")
-   login()
+    save_data(data)
+    print("Registrasi berhasil!")
+    print("Silakan login dengan akun baru Anda.")
+    return login()
 
 def login():
-   data = load_data()
-   print("=== Login Pengelola ===")
-   while True:
-      email = input("Email: ")
-      password = input("Password: ")
+    data = load_data()
+    print("\n=== Login Pengelola ===")
+    while True:
+        email = input("Email: ")
+        password = input("Password: ")
 
-      hashed_password = hash_password(password)
+        hashed_password = hash_password(password)
 
-      for user in data.values():
-         if user["email"] == email and user["password"] == hashed_password:
-               print("Login berhasil! Selamat datang,", user["nama"])
-               return True, user
+        for user in data.values():
+            if user["email"] == email and user["password"] == hashed_password:
+                print("Login berhasil! Selamat datang,", user["nama"])
+                save_login_data(user)
+                return True, user
 
-      print("Email atau password salah. Coba lagi.")
-      retry = input("Apakah ingin mencoba login lagi? (y/n): ")
-      if retry.lower() != 'y':
-         return False, None
+        print("Email atau password salah. Coba lagi.")
+        retry = input("Apakah ingin mencoba login lagi? (y/n): ")
+        if retry.lower() != 'y':
+            return False, None

@@ -1,46 +1,35 @@
 import json
-import hashlib
-import os
 from datetime import datetime
 
-# Nama file untuk menyimpan data pekerja
-DATA_FILE = "data/data_pekerja.json"
+DATA_PEKERJA = "data/data_pekerja.json"
 
-# Fungsi untuk memuat data dari file JSON
 def load_data():
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as file:
-            return json.load(file)
-    return {}
+    with open(DATA_PEKERJA, "r") as file:
+        return json.load(file)
 
-# Fungsi untuk menyimpan data ke file JSON
 def save_data(data):
-    with open(DATA_FILE, "w") as file:
+    with open(DATA_PEKERJA, "w") as file:
         json.dump(data, file, indent=4)
-        
+
 def generate_id(data):
-    pekerja_id = f"00{len(data) + 1}"
+    pekerja_id = f"PKJ0{len(data) + 1}"
     while pekerja_id in data:
-        pekerja_id = f"00{len(data) + 1}"
+        pekerja_id = f"PKJ0{len(data) + 1}"
     return pekerja_id
 
-# Fungsi untuk menambahkan data pekerja baru (CREATE)
-def tambah_pekerja():
-    data = load_data()
-    
-    print("=== Tambah Pekerja Baru ===")
-    id_pekerja = generate_id(data)
-    id_pengelola = input("ID Pengelola: ")
-    nama = input("Nama Lengkap: ")
+def get_data_login():
+    with open("data/data_login.json", "r") as file:
+        return json.load(file)
 
-    # Cek dan minta email baru hingga tidak terdaftar
-    while True:
-        email = input("Email: ")
-        if not is_email_used(data, email):
-            break
-        else:
-            print("Email sudah terdaftar! Gunakan email lain.")
-  
+def add_pekerja():
+    data = load_data()
+    user_login = get_data_login()
+    
+    print("\n=== Tambah Pekerja Baru ===")
+    id_pekerja = generate_id(data)
+    id_pengelola = user_login['id']
+    nama = input("Nama Lengkap: ")
+    email = input("Email: ")
     kontak = input("Kontak: ")
     status = input("Status (aktif/non-aktif): ")
     tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ")
@@ -48,109 +37,133 @@ def tambah_pekerja():
     hari_kerja = input("Hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
     jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
 
-    # Tambahkan pekerja baru ke data
-    data[id_pekerja] = {
-        "informasi_login": {"email": email},
-        "profil_pekerja": {
-            "id": int(id_pekerja),
-            "id_pengelola": int(id_pengelola),
-            "nama": nama,
-            "kontak": kontak,
-            "status": status,
-            "tanggal_bergabung": tanggal_bergabung,
-            "posisi_jabatan": posisi_jabatan
-        },
-        "jadwal_kerja": {
-            "hari_kerja": hari_kerja,
-            "jam_kerja": jam_kerja
-        }
-    }
-    save_data(data)
-    print("Pekerja baru berhasil ditambahkan!")
+    datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
 
-# Fungsi untuk menampilkan data pekerja (READ)
+    # Cek email unik
+    for pekerja in data.values():
+        if pekerja['email'] == email:
+            print("Email sudah terdaftar! Gunakan email lain.")
+            return
+
+    data[id_pekerja] = {
+        "id": id_pekerja,
+        "id_pengelola": id_pengelola,
+        "nama": nama,
+        "email": email,
+        "kontak": kontak,
+        "status": status,
+        "tanggal_bergabung": tanggal_bergabung,
+        "posisi_jabatan": posisi_jabatan,
+        "hari_kerja": hari_kerja,
+        "jam_kerja": jam_kerja
+    }
+    
+    save_data(data)
+    print("Data pekerja berhasil ditambahkan!")
+
 def read_pekerja():
     data = load_data()
-    print("=== Data Semua Pekerja ===")
-    for pekerja in data.values():
-        print(json.dumps(pekerja, indent=4))
+    user_login = get_data_login()
+    if data:
+        print("\n=== Data Pekerja ===")
+        for pekerja_id, pekerja in data.items():
+            if pekerja['id_pengelola'] == user_login['id']:
+                print(f"ID: {pekerja['id']}")
+                print(f"ID Pengelola: {pekerja['id_pengelola']}")
+                print(f"Nama: {pekerja['nama']}")
+                print(f"Email: {pekerja['email']}")
+                print(f"Kontak: {pekerja['kontak']}")
+                print(f"Status: {pekerja['status']}")
+                print(f"Tanggal Bergabung: {pekerja['tanggal_bergabung']}")
+                print(f"Posisi/Jabatan: {pekerja['posisi_jabatan']}")
+                print(f"Hari Kerja: {', '.join(pekerja['hari_kerja'])}")
+                print(f"Jam Kerja: {pekerja['jam_kerja']}")
+                print("-" * 30)
+    else:
+        print("Tidak ada data pekerja.")
 
-# Fungsi untuk memperbarui data pekerja (UPDATE)
 def update_pekerja():
     data = load_data()
-    id_pekerja = input("Masukkan ID pekerja yang akan diupdate: ")
+    user_login = get_data_login()
+        
+    id_pekerja = input("Masukkan ID pekerja yang akan diperbarui: ")
     
     if id_pekerja not in data:
         print("Pekerja dengan ID tersebut tidak ditemukan.")
         return
-    
-    print("=== Update Data Pekerja ===")
+        
+    if data[id_pekerja]['id_pengelola'] != user_login['id']:
+        print("Anda tidak memiliki akses untuk mengubah data pekerja ini!")
+        return
+        
+    print("\n=== Update Data Pekerja ===")
     nama = input("Nama Lengkap: ")
+    email = input("Email: ")
     kontak = input("Kontak: ")
     status = input("Status (aktif/non-aktif): ")
+    tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ")
     posisi_jabatan = input("Posisi/Jabatan: ")
-
-    # Cek email baru atau gunakan email lama
-    while True:
-        email = input("Email (biarkan kosong untuk tidak mengubah): ")
-        if email == "":  # Tidak ingin mengubah email
-            email = data[id_pekerja]["informasi_login"]["email"]
-            break
-        elif not is_email_used(data, email) or email == data[id_pekerja]["informasi_login"]["email"]:
-            # Email baru boleh dipakai atau sama dengan email lama
-            break
-        else:
-            print("Email sudah terdaftar! Gunakan email lain.")
-
-    hari_kerja = input("Hari Kerja (pisahkan dengan koma, misalnya: Senin,Selasa): ").split(",")
+    hari_kerja = input("Hari Kerja (pisahkan dengan koma): ").split(",")
     jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
 
-    # Update data pekerja
-    pekerja = data[id_pekerja]
-    pekerja["profil_pekerja"]["nama"] = nama
-    pekerja["profil_pekerja"]["kontak"] = kontak
-    pekerja["profil_pekerja"]["status"] = status
-    pekerja["profil_pekerja"]["posisi_jabatan"] = posisi_jabatan
-    pekerja["informasi_login"]["email"] = email
-    pekerja["jadwal_kerja"]["hari_kerja"] = hari_kerja
-    pekerja["jadwal_kerja"]["jam_kerja"] = jam_kerja
+    datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
 
+    # Cek email unik kecuali untuk pekerja yang sedang diupdate
+    for pid, pekerja in data.items():
+        if pekerja['email'] == email and pid != id_pekerja:
+            print("Email sudah terdaftar! Gunakan email lain.")
+            return
+
+    data[id_pekerja].update({
+        "nama": nama,
+        "email": email,
+        "kontak": kontak,
+        "status": status,
+        "tanggal_bergabung": tanggal_bergabung,
+        "posisi_jabatan": posisi_jabatan,
+        "hari_kerja": hari_kerja,
+        "jam_kerja": jam_kerja
+    })
+    
     save_data(data)
     print("Data pekerja berhasil diperbarui!")
 
-# Fungsi untuk menghapus data pekerja (DELETE)
 def delete_pekerja():
     data = load_data()
+    user_login = get_data_login()
+        
     id_pekerja = input("Masukkan ID pekerja yang akan dihapus: ")
     
-    if id_pekerja in data:
+    if id_pekerja not in data:
+        print("Pekerja dengan ID tersebut tidak ditemukan.")
+        return
+        
+    if data[id_pekerja]['id_pengelola'] != user_login['id']:
+        print("Anda tidak memiliki akses untuk menghapus data pekerja ini!")
+        return
+    
+    konfirmasi = input(f"Anda yakin ingin menghapus pekerja {data[id_pekerja]['nama']}? (y/n): ")
+    if konfirmasi.lower() == 'y':
         del data[id_pekerja]
         save_data(data)
         print("Pekerja berhasil dihapus!")
     else:
-        print("Pekerja dengan ID tersebut tidak ditemukan.")
+        print("Penghapusan dibatalkan.")
 
-# Fungsi untuk memeriksa apakah email sudah digunakan oleh pekerja lain
-def is_email_used(data, email):
-    for pekerja in data.values():
-        if pekerja["informasi_login"]["email"] == email:
-            return True
-    return False
-
-# Menu utama
-def main():
+def menu_pekerja():
+    from main import main_menu
     while True:
-        print("\n=== Sistem Manajemen Data Pekerja ===")
+        print("\n=== Menu Pekerja ===")
         print("1. Tambah Pekerja")
         print("2. Lihat Semua Pekerja")
         print("3. Update Data Pekerja")
         print("4. Hapus Pekerja")
-        print("5. Keluar")
+        print("5. Kembali ke Awal")
         
         pilihan = input("Pilih menu: ")
         
         if pilihan == "1":
-            tambah_pekerja()
+            add_pekerja()
         elif pilihan == "2":
             read_pekerja()
         elif pilihan == "3":
@@ -158,10 +171,6 @@ def main():
         elif pilihan == "4":
             delete_pekerja()
         elif pilihan == "5":
-            print("Keluar dari program.")
-            break
+            main_menu()
         else:
             print("Pilihan tidak valid. Silakan pilih lagi.")
-
-if __name__ == "__main__":
-    main()

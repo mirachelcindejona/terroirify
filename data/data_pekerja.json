@@ -1,86 +1,31 @@
 {
-    "001": {
-        "informasi_login": {
-            "email": "agussalim1@gmail.com",
-            "password": "de33f25c4e7d699a278c84a435ebf8ba94f908bfe20ca8abec4c313d6bc4c027"
-        },
-        "profil_pekerja": {
-            "id": 1,
-            "id_pengelola": 98765,
-            "nama": "Agus Salim",
-            "kontak": "0897765643",
-            "status": "aktif",
-            "tanggal_bergabung": "2023",
-            "posisi_jabatan": "tukang "
-        },
-        "jadwal_kerja": {
-            "hari_kerja": [
-                "Senin"
-            ],
-            "jam_kerja": "08:00 - 11:00"
-        }
+    "PKJ01": {
+        "id": "PKJ01",
+        "id_pengelola": "PNGL01",
+        "nama": "Nurjaman",
+        "email": "jaman@gmail.com",
+        "kontak": "089876677",
+        "status": "aktif",
+        "tanggal_bergabung": "2024-09-21",
+        "posisi_jabatan": "petani",
+        "hari_kerja": [
+            "Senin",
+            " Kamis"
+        ],
+        "jam_kerja": "08:00 - 15:00"
     },
-    "002": {
-        "informasi_login": {
-            "email": "raka123@gmail.com",
-            "password": "7a83d6a509f63f80782d25f00b69ee9ea5c4a91758b165cc4696e121d3e33c31"
-        },
-        "profil_pekerja": {
-            "id": 2,
-            "id_pengelola": 98765,
-            "nama": "",
-            "kontak": "",
-            "status": "non-aktif",
-            "tanggal_bergabung": "2023-10-09",
-            "posisi_jabatan": ""
-        },
-        "jadwal_kerja": {
-            "hari_kerja": [
-                ""
-            ],
-            "jam_kerja": ""
-        }
-    },
-    "003": {
-        "informasi_login": {
-            "email": "& C:/Users/ThinkPad/AppData/Local/Microsoft/WindowsApps/python3.11.exe \"c:/Users/ThinkPad/OneDrive/Documents/RPL 24/TUBES/terroirify/main.py\"",
-            "password": "5323566e502fb104c456cefe40fefa5e18c023306dd1232512ec0fa24909badd"
-        },
-        "profil_pekerja": {
-            "id": 3,
-            "id_pengelola": 98765,
-            "nama": "Rahman Bro",
-            "kontak": "& C:/Users/ThinkPad/AppData/Local/Microsoft/WindowsApps/python3.11.exe \"c:/Users/ThinkPad/OneDrive/Documents/RPL 24/TUBES/terroirify/main.py\"",
-            "status": "",
-            "tanggal_bergabung": "",
-            "posisi_jabatan": ""
-        },
-        "jadwal_kerja": {
-            "hari_kerja": [
-                ""
-            ],
-            "jam_kerja": ""
-        }
-    },
-    "004": {
-        "informasi_login": {
-            "email": "ahmad1@gmail.com"
-        },
-        "profil_pekerja": {
-            "id": 4,
-            "id_pengelola": 98765,
-            "nama": "Ahmad ",
-            "kontak": "0897654321",
-            "status": "aktif",
-            "tanggal_bergabung": "2023-11-11",
-            "posisi_jabatan": "petani kebun A"
-        },
-        "jadwal_kerja": {
-            "hari_kerja": [
-                "Rabu",
-                " Jumat"
-            ],
-            "jam_kerja": "07:00 - 10:00"
-        }
+    "PKJ02": {
+        "id": "PKJ02",
+        "id_pengelola": "PNGL01",
+        "nama": "Wahyu",
+        "email": "wahyu@gmail.com",
+        "kontak": "08987765567",
+        "status": "aktif",
+        "tanggal_bergabung": "2024-09-21",
+        "posisi_jabatan": "petani",
+        "hari_kerja": [
+            "Senin"
+        ],
+        "jam_kerja": "09:00 - 14:00"
     }
 }
