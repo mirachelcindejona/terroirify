@@ -3,6 +3,7 @@ from auth import register, login, clear_login_data
 from daftar_pekerja import menu_pekerja
 from pupuk import menu_pupuk
 from panen import menu_panen
+from pemasukan import menu_pemasukan
 
 DATA_LOGIN = "data/data_login.json"
 
@@ -50,12 +51,13 @@ def main_menu():
             print("2. Pengingat Penyiraman dan Pemupukan")
             print("3. Pencatatan Panen")
             print("4. Pengelolaan Pupuk")
-            print("5. Manajemen Keuangan")
-            print("6. Daftar Pekerja")
-            print("7. Pencarian")
-            print("8. Logout")
+            print("5. Pemasukan")
+            print("6. Pengeluaran")
+            print("7. Daftar Pekerja")
+            print("8. Pencarian")
+            print("9. Logout")
 
-            pilihan = input("Pilih opsi (1-8): ")
+            pilihan = input("Pilih opsi (1-9): ")
 
             if pilihan == "1":
                 menu_tanaman()
@@ -66,12 +68,14 @@ def main_menu():
             elif pilihan == "4":
                 menu_pupuk()
             elif pilihan == "5":
-                menu_keuangan()
+                menu_pemasukan()
             elif pilihan == "6":
-                menu_pekerja()
+                menu_pengeluaran()
             elif pilihan == "7":
-                pencarian()
+                menu_pekerja()
             elif pilihan == "8":
+                pencarian()
+            elif pilihan == "9":
                 is_logged_in = False
                 current_user = None
                 clear_login_data()
