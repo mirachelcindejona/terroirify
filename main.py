@@ -4,6 +4,7 @@ from daftar_pekerja import menu_pekerja
 from pupuk import menu_pupuk
 from panen import menu_panen
 from pemasukan import menu_pemasukan
+from pengeluaran import menu_pengeluaran
 
 DATA_LOGIN = "data/data_login.json"
 
