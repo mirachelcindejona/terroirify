@@ -17,15 +17,31 @@
     "PKJ02": {
         "id": "PKJ02",
         "id_pengelola": "PNGL01",
-        "nama": "Wahyu",
+        "nama": "Wahyu Slebew",
         "email": "wahyu@gmail.com",
         "kontak": "08987765567",
         "status": "aktif",
         "tanggal_bergabung": "2024-09-21",
         "posisi_jabatan": "petani",
         "hari_kerja": [
-            "Senin"
+            "Selasa",
+            " Kamis"
         ],
-        "jam_kerja": "09:00 - 14:00"
+        "jam_kerja": "08:00 - 13:00"
+    },
+    "PKJ03": {
+        "id": "PKJ03",
+        "id_pengelola": "PNGL02",
+        "nama": "Hardi Slamet",
+        "email": "hardi12@gmail.com",
+        "kontak": "08765456709",
+        "status": "aktif",
+        "tanggal_bergabung": "2024-12-10",
+        "posisi_jabatan": "petani",
+        "hari_kerja": [
+            "Senin",
+            " Jum'at"
+        ],
+        "jam_kerja": "08"
     }
 }
