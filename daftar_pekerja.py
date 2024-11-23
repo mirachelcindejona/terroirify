@@ -49,7 +49,6 @@ def add_pekerja():
         print("Error: Format tanggal tidak valid.")
         return
 
-    # Cek email unik
     for pekerja in data.values():
         if pekerja['email'] == email:
             print("Email sudah terdaftar! Gunakan email lain.")
@@ -122,7 +121,6 @@ def update_pekerja():
         print("Error: Format tanggal tidak valid.")
         return
 
-    # Cek email unik kecuali untuk pekerja yang sedang diupdate
     for pid, pekerja in data.items():
         if pekerja['email'] == email and pid != id_pekerja:
             print("Email sudah terdaftar! Gunakan email lain.")
