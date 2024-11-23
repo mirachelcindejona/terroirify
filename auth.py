@@ -43,28 +43,33 @@ def register():
     password = input("Password: ")
     no_telepon = input("Nomor Telepon: ")
     alamat_kebun = input("Alamat Kebun: ")
+    id_kebun = input("ID Unik Kebun: ")
     tanggal_registrasi = datetime.now().strftime("%Y-%m-%d")
 
     for user in data.values():
         if user['email'] == email:
             print("Email sudah terdaftar! Gunakan email lain.")
             return False, None
+        elif user['username'] == username:
+            print("Username sudah terdaftar! Gunakan username lain.")
+            return False, None
 
     data[id_pengelola] = {
-        "id": id_pengelola,
+        "id_pengelola": id_pengelola,
         "nama": nama,
         "username": username,
         "email": email,
         "password": hash_password(password),
         "no_telepon": no_telepon,
         "alamat_kebun": alamat_kebun,
+        "id_kebun": id_kebun,
         "tanggal_registrasi": tanggal_registrasi
     }
 
     save_data(data)
     print("Registrasi berhasil!")
     print("Silakan login dengan akun baru Anda.")
-    return login()
+    return True, None
 
 def login():
     data = load_data()

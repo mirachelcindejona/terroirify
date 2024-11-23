@@ -33,7 +33,7 @@ def add_pekerja():
     
     print("\n=== Tambah Pekerja Baru ===")
     id_pekerja = generate_id(data)
-    id_pengelola = user_login['id']
+    id_kebun = user_login['id_kebun']
     nama = input("Nama Lengkap: ")
     email = input("Email: ")
     kontak = input("Kontak: ")
@@ -55,8 +55,8 @@ def add_pekerja():
             return
 
     data[id_pekerja] = {
-        "id": id_pekerja,
-        "id_pengelola": id_pengelola,
+        "id_pekerja": id_pekerja,
+        "id_kebun": id_kebun,
         "nama": nama,
         "email": email,
         "kontak": kontak,
@@ -76,9 +76,9 @@ def read_pekerja():
     if data:
         print("\n=== Data Pekerja ===")
         for pekerja_id, pekerja in data.items():
-            if pekerja['id_pengelola'] == user_login['id']:
-                print(f"ID: {pekerja['id']}")
-                print(f"ID Pengelola: {pekerja['id_pengelola']}")
+            if pekerja['id_kebun'] == user_login['id_kebun']:
+                print(f"ID: {pekerja['id_pekerja']}")
+                print(f"Lokasi Kebun: {user_login['alamat_kebun']}")
                 print(f"Nama: {pekerja['nama']}")
                 print(f"Email: {pekerja['email']}")
                 print(f"Kontak: {pekerja['kontak']}")
@@ -101,7 +101,7 @@ def update_pekerja():
         print("Pekerja dengan ID tersebut tidak ditemukan.")
         return
         
-    if data[id_pekerja]['id_pengelola'] != user_login['id']:
+    if data[id_pekerja]['id_kebun'] != user_login['id_kebun']:
         print("Anda tidak memiliki akses untuk mengubah data pekerja ini!")
         return
         
@@ -150,7 +150,7 @@ def delete_pekerja():
         print("Pekerja dengan ID tersebut tidak ditemukan.")
         return
         
-    if data[id_pekerja]['id_pengelola'] != user_login['id']:
+    if data[id_pekerja]['id_kebun'] != user_login['id_kebun']:
         print("Anda tidak memiliki akses untuk menghapus data pekerja ini!")
         return
     

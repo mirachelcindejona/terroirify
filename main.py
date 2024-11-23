@@ -34,7 +34,12 @@ def main_menu():
             pilihan = input("Pilih opsi (1/2/3): ")
 
             if pilihan == "1":
-                register()
+                success, _ = register()
+                if success:
+                    is_logged_in, current_user = login()
+                    if is_logged_in:
+                        current_user = get_current_user()
+                        print(f"\nAnda berhasil login sebagai {current_user['nama']}")
             elif pilihan == "2":
                 is_logged_in, current_user = login()
                 if is_logged_in:
