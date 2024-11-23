@@ -1,0 +1,22 @@
+{
+  "PNGL01": {
+    "id": "PNGL01",
+    "nama": "Aseep",
+    "username": "sepsep",
+    "email": "asep@gmail.com",
+    "password": "9b8769a4a742959a2d0298c36fb70623f2dfacda8436237df08d8dfd5b37374c",
+    "no_telepon": "098982832",
+    "alamat_kebun": "bandung",
+    "tanggal_registrasi": "2024-11-13"
+  },
+  "PNGL02": {
+    "id": "PNGL02",
+    "nama": "Ica Apriyanti Rahayu",
+    "username": "icaw",
+    "email": "ica@gmail.com",
+    "password": "fcfbeabff2ac416cc8805965d6e36aee2829c004437b621fd682ceb8825e3669",
+    "no_telepon": "089777565434",
+    "alamat_kebun": "Tanjungsari",
+    "tanggal_registrasi": "2024-11-13"
+  }
+}
