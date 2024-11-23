@@ -25,7 +25,7 @@ def add_pupuk():
     
     print("\n=== Tambah Pupuk Baru ===")
     id_pupuk = generate_id(data)
-    nama = input("Nama Pupuk: ")
+    nama_pupuk = input("Nama Pupuk: ")
     stok = input("Jumlah Stok: ")
     tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
     catatan = input("Catatan Penggunaan: ")
@@ -39,7 +39,7 @@ def add_pupuk():
 
     data[id_pupuk] = {
         "id": id_pupuk,
-        "nama": nama,
+        "nama_pupuk": nama_pupuk,
         "stok": stok,
         "tanggal_penerimaan": tanggal_penerimaan,
         "catatan": catatan
@@ -54,7 +54,7 @@ def read_pupuk():
         print("\n=== Data Pupuk ===")
         for pupuk_id, pupuk in data.items():
             print(f"ID: {pupuk['id']}")
-            print(f"Nama: {pupuk['nama']}")
+            print(f"Nama Pupuk: {pupuk['nama_pupuk']}")
             print(f"Stok: {pupuk['stok']}")
             print(f"Tanggal Penerimaan: {pupuk['tanggal_penerimaan']}")
             print(f"Catatan: {pupuk['catatan']}")
@@ -71,7 +71,7 @@ def update_pupuk():
         return
         
     print("\n=== Update Data Pupuk ===")
-    nama = input("Nama Pupuk: ")
+    nama_pupuk = input("Nama Pupuk: ")
     stok = input("Jumlah Stok: ")
     tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
     catatan = input("Catatan Penggunaan: ")
@@ -85,7 +85,7 @@ def update_pupuk():
 
     data[id_pupuk] = {
         "id": id_pupuk,
-        "nama": nama,
+        "nama_pupuk": nama_pupuk,
         "stok": stok,
         "tanggal_penerimaan": tanggal_penerimaan,
         "catatan": catatan
@@ -109,10 +109,10 @@ def menu_pupuk():
     from main import main_menu
     while True:
         print("\n=== Menu Pupuk ===")
-        print("1. Tambah Pupuk")
-        print("2. Lihat Semua Pupuk")
+        print("1. Tambah Data Pupuk")
+        print("2. Lihat Data Pupuk")
         print("3. Update Data Pupuk")
-        print("4. Hapus Pupuk")
+        print("4. Hapus Data Pupuk")
         print("5. Kembali ke Awal")
         
         pilihan = input("Pilih menu: ")

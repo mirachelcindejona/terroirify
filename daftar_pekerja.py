@@ -166,10 +166,10 @@ def menu_pekerja():
     from main import main_menu
     while True:
         print("\n=== Menu Pekerja ===")
-        print("1. Tambah Pekerja")
-        print("2. Lihat Semua Pekerja")
+        print("1. Tambah Data Pekerja")
+        print("2. Lihat Data Pekerja")
         print("3. Update Data Pekerja")
-        print("4. Hapus Pekerja")
+        print("4. Hapus Data Pekerja")
         print("5. Kembali ke Awal")
         
         pilihan = input("Pilih menu: ")

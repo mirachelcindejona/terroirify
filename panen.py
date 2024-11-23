@@ -116,10 +116,10 @@ def menu_panen():
     from main import main_menu
     while True:
         print("\n=== Menu Panen ===")
-        print("1. Tambah Panen")
-        print("2. Lihat Semua Panen")
+        print("1. Tambah Data Panen")
+        print("2. Lihat Data Panen")
         print("3. Update Data Panen")
-        print("4. Hapus Panen")
+        print("4. Hapus Data Panen")
         print("5. Kembali ke Awal")
         
         pilihan = input("Pilih menu: ")

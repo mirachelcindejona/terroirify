@@ -1,5 +1,6 @@
 import json
 from auth import register, login, clear_login_data
+from tanaman import menu_tanaman
 from daftar_pekerja import menu_pekerja
 from pupuk import menu_pupuk
 from panen import menu_panen

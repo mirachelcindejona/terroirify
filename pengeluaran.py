@@ -25,13 +25,13 @@ def add_pengeluaran():
     
     print ("\n=== Tambah Data Pengeluaran ===")
     id_pengeluaran = generate_id(data) 
-    pengeluaran_operasional = input("Masukkan jumlah pengeluaran: ")
-    nama_pengeluaran = input("Masukkan nama pengeluaran: ")
+    kategori_pengeluaran = input("Masukkan kategori pengeluaran: ")
+    jumlah_pengeluaran = input("Masukkan jumlah pengeluaran: ")
     tanggal_pengeluaran = input("Tanggal Pengeluaran (YYYY-MM-DD): ")
-    kategori_pengeluaran = input("Masukkan kategori pengeluaran (Biaya pupuk atau Biaya tenaga kerja): ")
+    keterangan = input("Masukkan keterangan pengeluaran: ")
     
     try:
-        pengeluaran_operasional = float(pengeluaran_operasional)
+        jumlah_pengeluaran = float(jumlah_pengeluaran)
         datetime.strptime(tanggal_pengeluaran, "%Y-%m-%d")
     except ValueError:
         print("Error: Input tidak valid. Pastikan pengeluaran operasional adlah angka dan tanggal pengeluaran dalam format yang benar! ")
@@ -39,10 +39,10 @@ def add_pengeluaran():
 
     data[id_pengeluaran] = {
         "id": id_pengeluaran, 
-        "pengeluaran_operasional": pengeluaran_operasional,
+        "jumlah_pengeluaran": jumlah_pengeluaran,
         "tanggal_pengeluaran": tanggal_pengeluaran,
         "kategori_pengeluaran": kategori_pengeluaran,
-        "nama_pengeluaran": nama_pengeluaran
+        "keterangan": keterangan
     }
 
     save_data(data)
@@ -54,8 +54,8 @@ def read_pengeluara():
         print (("\n=== Data Pengeluaran"))
         for pengeluaran_id, pengeluaran in data.items():
             print(f"ID: {pengeluaran["id"]}")
-            print(f"Pengeluaran operasional: {pengeluaran["pengeluaran_operasional"]}")
-            print(f"Nama pengeluaran:{pengeluaran["nama_pengeluaran"]}")
+            print(f"Pengeluaran operasional: {pengeluaran["jumlah_pengeluaran"]}")
+            print(f"Nama pengeluaran:{pengeluaran["keterangan"]}")
             print(f"Tanggal pengeluaran: {pengeluaran["tanggal_pengeluaran"]}")  
             print(f"Kategori pengeluaran: {pengeluaran["kategori_pengeluaran"]}")
             print("-" * 30)
@@ -71,13 +71,13 @@ def update_pengeluaran():
         return
     
     print("\n=== Update Data Pengeluaran ===")
-    pengeluaran_operasional = input("Masukkan jumlah pengeluaran: ")
-    nama_pengeluaran = input("Nama Pengeluaran: ")
+    jumlah_pengeluaran = input("Masukkan jumlah pengeluaran: ")
+    keterangan = input("Keterangan Pengeluaran: ")
     tanggal_pengeluaran= input("Tanggal Pengeluaran (YYYY-MM-DD):")
     kategori_pengeluaran = input("Masukkan kategori pengeluaran (Biaya pupuk atau Biaya tenaga kerja): ")  
 
     try:
-        pengeluaran_operasional = int(pengeluaran_operasional)
+        jumlah_pengeluaran = int(jumlah_pengeluaran)
         datetime.strptime(tanggal_pengeluaran, "%Y-%m-%d")
     except ValueError:
         print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
@@ -85,10 +85,10 @@ def update_pengeluaran():
     
     data[id_pengeluaran] = {
         "id": id_pengeluaran, 
-        "pengeluaran_operasional": pengeluaran_operasional,
+        "jumlah_pengeluaran": jumlah_pengeluaran,
         "tanggal_pengeluaran": tanggal_pengeluaran,
         "kategori_pengeluaran": kategori_pengeluaran,
-        "nama_pengeluaran": nama_pengeluaran
+        "keterangan": keterangan
     }
 
     save_data(data)
@@ -109,10 +109,10 @@ def menu_pengeluaran():
     from main import main_menu
     while True:
         print("\n=== Menu Pupuk ===")
-        print("1. Tambah pengeluaran")
-        print("2. Lihat Semua data pengeluaran")
-        print("3. Update Data pengeluaran")
-        print("4. Hapus pengeluaran")
+        print("1. Tambah Data Pengeluaran")
+        print("2. Lihat Data Pengeluaran")
+        print("3. Update Data Pengeluaran")
+        print("4. Hapus Data Pengeluaran")
         print("5. Kembali ke Awal")
 
         pilihan = input("Pilih menu: ")
