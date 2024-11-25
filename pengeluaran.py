@@ -53,11 +53,11 @@ def read_pengeluara():
     if data:
         print (("\n=== Data Pengeluaran"))
         for pengeluaran_id, pengeluaran in data.items():
-            print(f"ID: {pengeluaran["id"]}")
-            print(f"Pengeluaran operasional: {pengeluaran["jumlah_pengeluaran"]}")
-            print(f"Nama pengeluaran:{pengeluaran["keterangan"]}")
-            print(f"Tanggal pengeluaran: {pengeluaran["tanggal_pengeluaran"]}")  
-            print(f"Kategori pengeluaran: {pengeluaran["kategori_pengeluaran"]}")
+            print(f"ID: {pengeluaran['id']}")
+            print(f"Pengeluaran operasional: {pengeluaran['jumlah_pengeluaran']}")
+            print(f"Nama pengeluaran:{pengeluaran['keterangan']}")
+            print(f"Tanggal pengeluaran: {pengeluaran['tanggal_pengeluaran']}")  
+            print(f"Kategori pengeluaran: {pengeluaran['kategori_pengeluaran']}")
             print("-" * 30)
     else:
         print("Tidak ada data pengeluaran.")

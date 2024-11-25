@@ -51,10 +51,10 @@ def read_pemasukan():
     if data:
         print("\n=== Data Pemasukan ===")
         for pemasukan_id, pemasukan in data.items():
-            print(f"ID: {pemasukan["id"]}")
-            print(f"Jumlah Penjualan: {pemasukan["jumlah_penjualan"]}")
-            print(f"Tanggal Penerimaan: {pemasukan["tanggal_penerimaan"]}")
-            print(f"ID Panen: {pemasukan["id_panen"]}")
+            print(f"ID: {pemasukan['id']}")
+            print(f"Jumlah Penjualan: {pemasukan['jumlah_penjualan']}")
+            print(f"Tanggal Penerimaan: {pemasukan['tanggal_penerimaan']}")
+            print(f"ID Panen: {pemasukan['id_panen']}")
             print("-" * 30)
     else:
         print("Tidak ada data pemasukan.")
