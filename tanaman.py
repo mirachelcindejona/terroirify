@@ -32,7 +32,6 @@ def add_tanaman():
    lokasi_tanaman = input("Lokasi Tanaman: ")
 
    try:
-      stok = int(stok)
       datetime.strptime(tanggal_tanam, "%Y-%m-%d")
    except ValueError:
       print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
