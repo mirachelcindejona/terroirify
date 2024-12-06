@@ -6,6 +6,8 @@ from pupuk import menu_pupuk
 from panen import menu_panen
 from pemasukan import menu_pemasukan
 from pengeluaran import menu_pengeluaran
+from jadwal_pengingat import menu_jadwal_pengingat
+from pencarian import pencarian
 
 DATA_LOGIN = "data/data_login.json"
 
@@ -55,7 +57,7 @@ def main_menu():
             print(f"\nAnda sudah login sebagai {current_user['nama']}")
             print("\n=== Menu Pengelola ===\n")
             print("1. Pencatatan Tanaman")
-            print("2. Pengingat Penyiraman dan Pemupukan")
+            print("2. Jadwal Pengingat Penyiraman dan Pemupukan")
             print("3. Pencatatan Panen")
             print("4. Pengelolaan Pupuk")
             print("5. Pemasukan")
@@ -69,7 +71,7 @@ def main_menu():
             if pilihan == "1":
                 menu_tanaman()
             elif pilihan == "2":
-                menu_pengingat()
+                menu_jadwal_pengingat()
             elif pilihan == "3":
                 menu_panen()
             elif pilihan == "4":
