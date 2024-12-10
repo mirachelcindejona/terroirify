@@ -108,7 +108,7 @@ def delete_pengeluaran():
 def menu_pengeluaran():
     from main import main_menu
     while True:
-        print("\n=== Menu Pupuk ===")
+        print("\n=== Menu Pengeluaran ===")
         print("1. Tambah Data Pengeluaran")
         print("2. Lihat Data Pengeluaran")
         print("3. Update Data Pengeluaran")
