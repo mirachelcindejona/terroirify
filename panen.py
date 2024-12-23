@@ -74,6 +74,7 @@ def read_panen():
         print("=" * 100)
         print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah (kg)':<15} | {'Tanggal':<15} | {'Kualitas':<15} | {'Harga (Rp)':<15}")
         print("=" * 100)
+        data_tanaman = load_data_tanaman()
         for panen_id, panen in data.items():
             nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
             print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<15} | {panen['tanggal_panen']:<15} | {panen['kualitas_panen']:<15} | Rp {panen['harga_per_unit']:,.2f}")
