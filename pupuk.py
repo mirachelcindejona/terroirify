@@ -52,13 +52,11 @@ def read_pupuk():
     data = load_data()
     if data:
         print("\n=== Data Pupuk ===")
+        print(f"{'ID':<10} {'Nama Pupuk':<20} {'Stok':<10} {'Tanggal Penerimaan':<20} {'Catatan':<20}")
+        print("=" * 100)
         for pupuk_id, pupuk in data.items():
-            print(f"ID: {pupuk['id']}")
-            print(f"Nama Pupuk: {pupuk['nama_pupuk']}")
-            print(f"Stok: {pupuk['stok']}")
-            print(f"Tanggal Penerimaan: {pupuk['tanggal_penerimaan']}")
-            print(f"Catatan: {pupuk['catatan']}")
-            print("-" * 30)
+            print(f"{pupuk['id']:<10} {pupuk['nama_pupuk']:<20} {pupuk['stok']:<10} {pupuk['tanggal_penerimaan']:<20} {pupuk['catatan']:<20}")
+            print("-" * 100)
     else:
         print("Tidak ada data pupuk.")
 

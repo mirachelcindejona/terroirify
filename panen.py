@@ -55,14 +55,11 @@ def read_panen():
     data = load_data()
     if data:
         print("\n=== Data Panen ===")
+        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah (kg)':<15} | {'Tanggal':<15} | {'Kualitas':<15} | {'Harga (Rp)':<15}")
+        print("-" * 100)
         for panen_id, panen in data.items():
-            print(f"ID: {panen['id']}")
-            print(f"Nama Tanaman: {panen['nama_tanaman']}")
-            print(f"Jumlah Panen: {panen['jumlah_panen']} kg")
-            print(f"Tanggal Panen: {panen['tanggal_panen']}")
-            print(f"Kualitas Panen: {panen['kualitas_panen']}")
-            print(f"Harga Per Unit: Rp {panen['harga_per_unit']:,.2f}")
-            print("-" * 30)
+            print(f"{panen['id']:<10} | {panen['nama_tanaman']:<20} | {panen['jumlah_panen']:<15} | {panen['tanggal_panen']:<15} | {panen['kualitas_panen']:<15} | Rp {panen['harga_per_unit']:,.2f}")
+            print("-" * 100)
     else:
         print("Tidak ada data panen.")
 

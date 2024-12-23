@@ -53,14 +53,11 @@ def read_tanaman():
    data = load_data()
    if data:
       print("\n=== Data Tanaman ===")
+      print(f"{'ID':<10} {'Nama Tanaman':<20} {'Jenis Tanaman':<20} {'Tanggal Tanam':<15} {'Kondisi':<15} {'Lokasi':<20}")
+      print("=" * 100)
       for id_tanaman, tanaman in data.items():
-         print(f"ID: {tanaman['id']}")
-         print(f"Nama Tanaman: {tanaman['nama_tanaman']}")
-         print(f"Jenis Tanaman: {tanaman['jenis_tanaman']}")
-         print(f"Tanggal Tanam: {tanaman['tanggal_tanam']}")
-         print(f"Kondisi Tanaman: {tanaman['kondisi_tanaman']}")
-         print(f"Lokasi Tanaman: {tanaman['lokasi_tanaman']}")
-         print("-" * 30)
+         print(f"{tanaman['id']:<10} {tanaman['nama_tanaman']:<20} {tanaman['jenis_tanaman']:<20} {tanaman['tanggal_tanam']:<15} {tanaman['kondisi_tanaman']:<15} {tanaman['lokasi_tanaman']:<20}")
+         print("-" * 100)
    else:
       print("Tidak ada data tanaman.")
 

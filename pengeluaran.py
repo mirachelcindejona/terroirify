@@ -51,14 +51,12 @@ def add_pengeluaran():
 def read_pengeluara():
     data = load_data()
     if data:
-        print (("\n=== Data Pengeluaran"))
+        print("\n=== Data Pengeluaran ===")
+        print(f"{'ID':<10} {'Jumlah Pengeluaran':<20} {'Keterangan':<30} {'Tanggal Pengeluaran':<20} {'Kategori':<20}")
+        print("=" * 100)
         for pengeluaran_id, pengeluaran in data.items():
-            print(f"ID: {pengeluaran['id']}")
-            print(f"Pengeluaran operasional: {pengeluaran['jumlah_pengeluaran']}")
-            print(f"Nama pengeluaran:{pengeluaran['keterangan']}")
-            print(f"Tanggal pengeluaran: {pengeluaran['tanggal_pengeluaran']}")  
-            print(f"Kategori pengeluaran: {pengeluaran['kategori_pengeluaran']}")
-            print("-" * 30)
+            print(f"{pengeluaran['id']:<10} {pengeluaran['jumlah_pengeluaran']:<20} {pengeluaran['keterangan']:<30} {pengeluaran['tanggal_pengeluaran']:<20} {pengeluaran['kategori_pengeluaran']:<20}")
+            print("-" * 100)
     else:
         print("Tidak ada data pengeluaran.")
 

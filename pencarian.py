@@ -48,14 +48,9 @@ def cari_tanaman():
     nama_tanaman = input("Masukkan nama tanaman yang dicari: ")
     if any(tanaman['nama_tanaman'] == nama_tanaman for tanaman in data.values()):
         print(f"\nMencari tanaman dengan nama: {nama_tanaman}")
+        print(f"{'ID':<10} {'Nama Tanaman':<20} {'Jenis Tanaman':<20} {'Tanggal Tanam':<20} {'Kondisi Tanaman':<20} {'Lokasi Tanaman':<20}")
         for tanaman in data.values():
-            print(f"ID: {tanaman['id']}")
-            print(f"Nama Tanaman: {tanaman['nama_tanaman']}")
-            print(f"Jenis Tanaman: {tanaman['jenis_tanaman']}")
-            print(f"Tanggal Tanam: {tanaman['tanggal_tanam']}")
-            print(f"Kondisi Tanaman: {tanaman['kondisi_tanaman']}")
-            print(f"Lokasi Tanaman: {tanaman['lokasi_tanaman']}")
-            print("-" * 30)
+            print(f"{tanaman['id']:<10} {tanaman['nama_tanaman']:<20} {tanaman['jenis_tanaman']:<20} {tanaman['tanggal_tanam']:<20} {tanaman['kondisi_tanaman']:<20} {tanaman['lokasi_tanaman']:<20}")
     else:
         print("\nTanaman tidak ditemukan.")
 
@@ -64,11 +59,9 @@ def cari_pemasukan():
     id_pemasukan = input("Masukkan ID pemasukan yang dicari: ")
     if id_pemasukan in data:
         print(f"\nMencari pemasukan dengan ID: {id_pemasukan}")
-        for pemasukan_id, pemasukan in data.items():
-            print(f"Jumlah Penjualan: {pemasukan['jumlah_penjualan']}")
-            print(f"Tanggal Penerimaan: {pemasukan['tanggal_penerimaan']}")
-            print(f"ID Panen: {pemasukan['id_panen']}")
-            print("-" * 30)
+        print(f"{'Jumlah Penjualan':<20} {'Tanggal Penerimaan':<20} {'ID Panen':<10}")
+        for pemasukan in data.values():
+            print(f"{pemasukan['jumlah_penjualan']:<20} {pemasukan['tanggal_penerimaan']:<20} {pemasukan['id_panen']:<10}")
     else:
         print("\nPemasukan tidak ditemukan.")
 
@@ -77,13 +70,9 @@ def cari_pengeluaran():
     id_pengeluaran = input("Masukkan ID pengeluaran yang dicari: ")
     if id_pengeluaran in data:
         print(f"\nMencari pengeluaran dengan ID: {id_pengeluaran}")
-        for pengeluaran_id, pengeluaran in data.items():
-            print(f"Pengeluaran operasional: {pengeluaran['jumlah_pengeluaran']}")
-            print(f"Nama pengeluaran:{pengeluaran['keterangan']}")
-            print(f"Tanggal pengeluaran: {pengeluaran['tanggal_pengeluaran']}")  
-            print(f"Kategori pengeluaran: {pengeluaran['kategori_pengeluaran']}")
-            print("-" * 30)
-        
+        print(f"{'Jumlah Pengeluaran':<20} {'Keterangan':<20} {'Tanggal Pengeluaran':<20} {'Kategori Pengeluaran':<20}")
+        for pengeluaran in data.values():
+            print(f"{pengeluaran['jumlah_pengeluaran']:<20} {pengeluaran['keterangan']:<20} {pengeluaran['tanggal_pengeluaran']:<20} {pengeluaran['kategori_pengeluaran']:<20}")
     else:
         print("\nPengeluaran tidak ditemukan.")
 
@@ -93,19 +82,10 @@ def cari_pekerja():
     nama_pekerja = input("Masukkan nama pekerja yang dicari: ")
     if any(pekerja['nama'] == nama_pekerja for pekerja in data.values()):
         print(f"\nMencari pekerja dengan nama: {nama_pekerja}")
+        print(f"{'ID':<10} {'Lokasi Kebun':<20} {'Nama':<20} {'Email':<20} {'Kontak':<20} {'Status':<20} {'Tanggal Bergabung':<20} {'Posisi/Jabatan':<20} {'Hari Kerja':<20} {'Jam Kerja':<20}")
         for pekerja in data.values():
             if pekerja['id_kebun'] == user_login['id_kebun']:
-                print(f"ID: {pekerja['id_pekerja']}")
-                print(f"Lokasi Kebun: {user_login['alamat_kebun']}")
-                print(f"Nama: {pekerja['nama']}")
-                print(f"Email: {pekerja['email']}")
-                print(f"Kontak: {pekerja['kontak']}")
-                print(f"Status: {pekerja['status']}")
-                print(f"Tanggal Bergabung: {pekerja['tanggal_bergabung']}")
-                print(f"Posisi/Jabatan: {pekerja['posisi_jabatan']}")
-                print(f"Hari Kerja: {', '.join(pekerja['hari_kerja'])}")
-                print(f"Jam Kerja: {pekerja['jam_kerja']}")
-                print("-" * 30)
+                print(f"{pekerja['id_pekerja']:<10} {user_login['alamat_kebun']:<20} {pekerja['nama']:<20} {pekerja['email']:<20} {pekerja['kontak']:<20} {pekerja['status']:<20} {pekerja['tanggal_bergabung']:<20} {pekerja['posisi_jabatan']:<20} {', '.join(pekerja['hari_kerja']):<20} {pekerja['jam_kerja']:<20}")
     else:
         print("\nPekerja tidak ditemukan.")
 
@@ -114,13 +94,9 @@ def cari_pupuk():
     nama_pupuk = input("Masukkan nama pupuk yang dicari: ")
     if any(pupuk['nama_pupuk'] == nama_pupuk for pupuk in data.values()):
         print(f"\nMencari pupuk dengan nama: {nama_pupuk}")
+        print(f"{'ID':<10} {'Nama Pupuk':<20} {'Stok':<10} {'Tanggal Penerimaan':<20} {'Catatan':<20}")
         for pupuk in data.values():
-            print(f"ID: {pupuk['id']}")
-            print(f"Nama Pupuk: {pupuk['nama_pupuk']}")
-            print(f"Stok: {pupuk['stok']}")
-            print(f"Tanggal Penerimaan: {pupuk['tanggal_penerimaan']}")
-            print(f"Catatan: {pupuk['catatan']}")
-            print("-" * 30)
+            print(f"{pupuk['id']:<10} {pupuk['nama_pupuk']:<20} {pupuk['stok']:<10} {pupuk['tanggal_penerimaan']:<20} {pupuk['catatan']:<20}")
     else:
         print("\nPupuk tidak ditemukan.")
 
@@ -129,9 +105,8 @@ def cari_jadwal_pengingat():
     id_jadwal = input("Masukkan ID jadwal pengingat yang dicari: ")
     if id_jadwal in data:
         print(f"\nMencari jadwal pengingat dengan ID: {id_jadwal}")
-        for jadwal_pengingat_id, pengingat in data.items():
-            print(f"Waktu Pengingat: {pengingat['waktu_pengingat']}")
-            print(f"Frekuensi: Setiap {pengingat['frekuensi_hari']} hari")
-            print("-" * 30)
+        print(f"{'Waktu Pengingat':<20} {'Frekuensi':<20}")
+        for pengingat in data.values():
+            print(f"{pengingat['waktu_pengingat']:<20} {'Setiap ' + str(pengingat['frekuensi_hari']) + ' hari':<20}")
     else:
         print("\nJadwal pengingat tidak ditemukan.")

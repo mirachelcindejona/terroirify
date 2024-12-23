@@ -44,11 +44,11 @@ def read_jadwal_pengingat():
     data = load_data()
     if data:
         print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
+        print(f"{'ID':<10} | {'Waktu Pengingat':<15} | {'Frekuensi (hari)':<20}")
+        print("-" * 50)
         for jadwal_pengingat_id, pengingat in data.items():
-            print(f"ID: {pengingat['id']}")
-            print(f"Waktu Pengingat: {pengingat['waktu_pengingat']}")
-            print(f"Frekuensi: Setiap {pengingat['frekuensi_hari']} hari")
-            print("-" * 30)
+            print(f"{pengingat['id']:<10} | {pengingat['waktu_pengingat']:<15} | {pengingat['frekuensi_hari']:<20}")
+        print("-" * 50)
     else:
         print("Tidak ada data jadwal pengingat.")
 
