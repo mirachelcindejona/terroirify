@@ -67,7 +67,13 @@ def update_pupuk():
     if id_pupuk not in data:
         print("Pupuk dengan ID tersebut tidak ditemukan.")
         return
-        
+    
+    print("\n=== Data Pupuk Lama ===")
+    print(f"{'ID':<10} {'Nama Pupuk':<20} {'Stok':<10} {'Tanggal Penerimaan':<20} {'Catatan':<20}")
+    print("=" * 100)
+    print(f"{data[id_pupuk]['id']:<10} {data[id_pupuk]['nama_pupuk']:<20} {data[id_pupuk]['stok']:<10} {data[id_pupuk]['tanggal_penerimaan']:<20} {data[id_pupuk]['catatan']:<20}")
+    print("-" * 100)
+
     print("\n=== Update Data Pupuk ===")
     nama_pupuk = input("Nama Pupuk: ")
     stok = input("Jumlah Stok: ")

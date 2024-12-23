@@ -25,7 +25,7 @@ def add_pengeluaran():
     
     print ("\n=== Tambah Data Pengeluaran ===")
     id_pengeluaran = generate_id(data) 
-    kategori_pengeluaran = input("Masukkan kategori pengeluaran: ")
+    kategori_pengeluaran = input("Masukkan kategori pengeluaran (Biaya pupuk atau Biaya tenaga kerja): ")
     jumlah_pengeluaran = input("Masukkan jumlah pengeluaran: ")
     tanggal_pengeluaran = input("Tanggal Pengeluaran (YYYY-MM-DD): ")
     keterangan = input("Masukkan keterangan pengeluaran: ")
@@ -68,6 +68,12 @@ def update_pengeluaran():
         print("pupuk dengan ID tersebut tidak ditemukan.")
         return
     
+    print("\n=== Data Pengeluaran Lama ===")
+    print(f"{'ID':<10} {'Jumlah Pengeluaran':<20} {'Keterangan':<30} {'Tanggal Pengeluaran':<20} {'Kategori':<20}")
+    print("=" * 100)
+    print(f"{data[id_pengeluaran]['id']:<10} {data[id_pengeluaran]['jumlah_pengeluaran']:<20} {data[id_pengeluaran]['keterangan']:<30} {data[id_pengeluaran]['tanggal_pengeluaran']:<20} {data[id_pengeluaran]['kategori_pengeluaran']:<20}")
+    print("-" * 100)
+
     print("\n=== Update Data Pengeluaran ===")
     jumlah_pengeluaran = input("Masukkan jumlah pengeluaran: ")
     keterangan = input("Keterangan Pengeluaran: ")

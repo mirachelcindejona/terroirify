@@ -56,7 +56,7 @@ def read_panen():
     if data:
         print("\n=== Data Panen ===")
         print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah (kg)':<15} | {'Tanggal':<15} | {'Kualitas':<15} | {'Harga (Rp)':<15}")
-        print("-" * 100)
+        print("=" * 100)
         for panen_id, panen in data.items():
             print(f"{panen['id']:<10} | {panen['nama_tanaman']:<20} | {panen['jumlah_panen']:<15} | {panen['tanggal_panen']:<15} | {panen['kualitas_panen']:<15} | Rp {panen['harga_per_unit']:,.2f}")
             print("-" * 100)
@@ -70,7 +70,13 @@ def update_panen():
     if id_panen not in data:
         print("Panen dengan ID tersebut tidak ditemukan.")
         return
-        
+    
+    print("\n=== Data Panen Lama ===")
+    print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah (kg)':<15} | {'Tanggal':<15} | {'Kualitas':<15} | {'Harga (Rp)':<15}")
+    print("=" * 100)
+    print(f"{data[id_panen]['id']:<10} | {data[id_panen]['nama_tanaman']:<20} | {data[id_panen]['jumlah_panen']:<15} | {data[id_panen]['tanggal_panen']:<15} | {data[id_panen]['kualitas_panen']:<15} | Rp {data[id_panen]['harga_per_unit']:,.2f}")
+    print("-" * 100)
+
     print("\n=== Update Data Panen ===")
     nama_tanaman = input("Nama Tanaman: ")
     jumlah_panen = input("Jumlah Panen (kg): ")

@@ -45,7 +45,7 @@ def read_jadwal_pengingat():
     if data:
         print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
         print(f"{'ID':<10} | {'Waktu Pengingat':<15} | {'Frekuensi (hari)':<20}")
-        print("-" * 50)
+        print("=" * 50)
         for jadwal_pengingat_id, pengingat in data.items():
             print(f"{pengingat['id']:<10} | {pengingat['waktu_pengingat']:<15} | {pengingat['frekuensi_hari']:<20}")
         print("-" * 50)
@@ -60,6 +60,12 @@ def update_jadwal_pengingat():
         print("Jadwal Pengingat dengan ID tersebut tidak ditemukan.")
         return
     
+    print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan Lama ===")
+    print(f"{'ID':<10} | {'Waktu Pengingat':<15} | {'Frekuensi (hari)':<20}")
+    print("=" * 50)
+    print(f"{data[id_jadwal_pengingat]['id']:<10} | {data[id_jadwal_pengingat]['waktu_pengingat']:<15} | {data[id_jadwal_pengingat]['frekuensi_hari']:<20}")
+    print("-" * 50)
+
     print("\n=== Update Data Jadwal Pengingat ===")
     waktu_pengingat = input("Masukkan waktu pengingat (HH:MM): ")
     frekuensi_hari = int(input("Masukkan frekuensi pengingat (dalam hari): "))
