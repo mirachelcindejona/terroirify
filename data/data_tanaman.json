@@ -1,0 +1,10 @@
+{
+    "TNMN01": {
+        "id": "TNMN01",
+        "nama_tanaman": "rijal",
+        "jenis_tanaman": "manusia",
+        "tanggal_tanam": "2006-01-11",
+        "kondisi_tanaman": "sangat kacau",
+        "lokasi_tanaman": "pasmen"
+    }
+}

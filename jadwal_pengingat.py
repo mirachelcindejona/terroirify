@@ -34,10 +34,12 @@ def add_jadwal_pengingat():
 
     print("\n=== Tambah Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
     print("\nDaftar Tanaman:")
+    print("=" * 70)
     print(f"{'ID':<10} {'Nama Tanaman':<20} {'Jenis Tanaman':<20} {'Lokasi':<20}")
-    print("-" * 70)
+    print("=" * 70)
     for id_tanaman, tanaman in data_tanaman.items():
         print(f"{tanaman['id']:<10} {tanaman['nama_tanaman']:<20} {tanaman['jenis_tanaman']:<20} {tanaman['lokasi_tanaman']:<20}")
+    print("-" * 70)
 
     id_tanaman = input("\nMasukkan ID tanaman yang ingin dijadwalkan: ")
     if id_tanaman not in data_tanaman:
@@ -83,6 +85,7 @@ def read_jadwal_pengingat():
     data = load_data()
     if data:
         print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
+        print("=" * 105)
         print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Waktu Pengingat':<15} | {'Hari Notifikasi':<30} | {'Tipe':<15} | {'Status':<10}")
         print("=" * 105)
         for jadwal_pengingat_id, pengingat in data.items():
@@ -101,6 +104,7 @@ def update_jadwal_pengingat():
         return
     
     print("\n=== Data Jadwal Pengingat Lama ===")
+    print("=" * 105)
     print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Waktu Pengingat':<15} | {'Hari Notifikasi':<30} | {'Tipe':<15} | {'Status':<10}")
     print("=" * 105)
     jadwal = data[id_jadwal_pengingat]
@@ -108,10 +112,12 @@ def update_jadwal_pengingat():
     print("-" * 105)
 
     print("\nDaftar Tanaman:")
-    print(f"{'ID':<10} {'Nama Tanaman':<20} {'Jenis Tanaman':<20} {'Lokasi':<20}")
-    print("-" * 70)
+    print("=" * 70)
+    print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Lokasi':<20}")
+    print("=" * 70)
     for id_tanaman, tanaman in data_tanaman.items():
-        print(f"{tanaman['id']:<10} {tanaman['nama_tanaman']:<20} {tanaman['jenis_tanaman']:<20} {tanaman['lokasi_tanaman']:<20}")
+        print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['lokasi_tanaman']:<20}")
+    print("-" * 70)
 
     id_tanaman = input("\nMasukkan ID tanaman yang ingin dijadwalkan: ")
     if id_tanaman not in data_tanaman:
