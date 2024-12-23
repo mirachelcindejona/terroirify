@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from tanaman import load_data as load_data_tanaman
 
 DATA_PANEN = "data/data_panen.json"
 
@@ -25,7 +26,22 @@ def add_panen():
     
     print("\n=== Tambah Panen Baru ===")
     id_panen = generate_id(data)
-    nama_tanaman = input("Nama Tanaman: ")
+
+    # Memuat data tanaman untuk pilihan
+    data_tanaman = load_data_tanaman()
+    if not data_tanaman:
+        print("Tidak ada data tanaman tersedia.")
+        return
+
+    print("Pilih tanaman yang ingin dipanen:")
+    for tanaman_id, tanaman in data_tanaman.items():
+        print(f"{tanaman_id}: {tanaman['nama_tanaman']}")
+
+    nama_tanaman_id = input("Masukkan ID tanaman yang ingin dipanen: ")
+    if nama_tanaman_id not in data_tanaman:
+        print("ID tanaman tidak valid.")
+        return
+
     jumlah_panen = input("Jumlah Panen (kg): ")
     tanggal_panen = input("Tanggal Panen (YYYY-MM-DD): ")
     kualitas_panen = input("Kualitas Panen: ")
@@ -41,7 +57,7 @@ def add_panen():
 
     data[id_panen] = {
         "id": id_panen,
-        "nama_tanaman": nama_tanaman,
+        "id_tanaman": nama_tanaman_id,
         "jumlah_panen": jumlah_panen,
         "tanggal_panen": tanggal_panen,
         "kualitas_panen": kualitas_panen,
@@ -54,11 +70,13 @@ def add_panen():
 def read_panen():
     data = load_data()
     if data:
-        print("\n=== Data Panen ===")
+        print("\n=== Data Panen ===\n")
+        print("=" * 100)
         print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah (kg)':<15} | {'Tanggal':<15} | {'Kualitas':<15} | {'Harga (Rp)':<15}")
         print("=" * 100)
         for panen_id, panen in data.items():
-            print(f"{panen['id']:<10} | {panen['nama_tanaman']:<20} | {panen['jumlah_panen']:<15} | {panen['tanggal_panen']:<15} | {panen['kualitas_panen']:<15} | Rp {panen['harga_per_unit']:,.2f}")
+            nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
+            print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<15} | {panen['tanggal_panen']:<15} | {panen['kualitas_panen']:<15} | Rp {panen['harga_per_unit']:,.2f}")
             print("-" * 100)
     else:
         print("Tidak ada data panen.")
@@ -78,7 +96,22 @@ def update_panen():
     print("-" * 100)
 
     print("\n=== Update Data Panen ===")
-    nama_tanaman = input("Nama Tanaman: ")
+    
+    # Memuat data tanaman untuk pilihan
+    data_tanaman = load_data_tanaman()
+    if not data_tanaman:
+        print("Tidak ada data tanaman tersedia.")
+        return
+
+    print("Pilih tanaman yang ingin dipanen:")
+    for tanaman_id, tanaman in data_tanaman.items():
+        print(f"{tanaman_id}: {tanaman['nama_tanaman']}")
+
+    nama_tanaman_id = input("Masukkan ID tanaman yang ingin dipanen: ")
+    if nama_tanaman_id not in data_tanaman:
+        print(f"\nID tanaman tidak valid.")
+        return
+
     jumlah_panen = input("Jumlah Panen (kg): ")
     tanggal_panen = input("Tanggal Panen (YYYY-MM-DD): ")
     kualitas_panen = input("Kualitas Panen: ")
@@ -94,7 +127,7 @@ def update_panen():
 
     data[id_panen] = {
         "id": id_panen,
-        "nama_tanaman": nama_tanaman,
+        "id_tanaman": nama_tanaman_id,
         "jumlah_panen": jumlah_panen,
         "tanggal_panen": tanggal_panen,
         "kualitas_panen": kualitas_panen,
@@ -102,7 +135,7 @@ def update_panen():
     }
     
     save_data(data)
-    print("Data panen berhasil diperbarui!")
+    print(f"\nData panen berhasil diperbarui!")
 
 def delete_panen():
     data = load_data()
