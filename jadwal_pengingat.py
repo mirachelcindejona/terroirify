@@ -73,8 +73,7 @@ def add_jadwal_pengingat():
         "waktu_pengingat": waktu_pengingat,
         "hari_notifikasi": hari_notifikasi,
         "status": "aktif",
-        "tipe": tipe,
-        "last_notification": None
+        "tipe": tipe
     }
 
     save_data(data)
