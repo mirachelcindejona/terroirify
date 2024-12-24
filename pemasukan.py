@@ -39,11 +39,16 @@ def add_pemasukan():
         print("Tidak ada data tanaman tersedia.")
         return
     
-    print("Pilih data panen yang ingin ditambah ke pemasukkan:")
+    print("\nPilih data panen yang ingin ditambah ke pemasukkan.")
+    print("=" * 120)
+    print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
+    print("=" * 120)
     for panen_id, panen in data_panen.items():
-        print(f"{panen_id}: {data_tanaman[panen['id_tanaman']]['nama_tanaman']}")
+        nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
+        print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
+        print("-" * 120)
     
-    nama_panen_id = input("Masukkan ID panen yang ingin ditambah ke pemasukkan: ")
+    nama_panen_id = input("\nMasukkan ID panen yang ingin ditambah ke pemasukkan: ")
     if nama_panen_id not in data_panen:
         print("ID panen tidak valid.")
     
@@ -110,11 +115,16 @@ def update_pemasukan():
         print("Tidak ada data tanaman tersedia.")
         return
     
-    print("\nPilih data panen yang ingin diperbarui ke pemasukkan:")
+    print("\nPilih data panen yang ingin diperbarui ke pemasukkan.")
+    print("=" * 120)
+    print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
+    print("=" * 120)
     for panen_id, panen in data_panen.items():
-        print(f"{panen_id}: {data_tanaman[panen['id_tanaman']]['nama_tanaman']}")
+        nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
+        print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
+        print("-" * 120)
     
-    nama_panen_id = input(f"Masukkan ID panen yang ingin diperbarui ke pemasukkan [{data[id_pemasukan]['id_panen']}]: ") or data[id_pemasukan]['id_panen']
+    nama_panen_id = input(f"\nMasukkan ID panen yang ingin diperbarui ke pemasukkan [{data[id_pemasukan]['id_panen']}]: ") or data[id_pemasukan]['id_panen']
     if nama_panen_id not in data_panen:
         print("ID panen tidak valid.")
         return
