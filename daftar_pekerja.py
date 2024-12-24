@@ -75,11 +75,12 @@ def read_pekerja():
     user_login = get_data_login()
     if data:
         print("\n=== Data Pekerja ===")
-        print(f"{'ID':<10} {'Lokasi Kebun':<20} {'Nama':<20} {'Email':<20} {'Kontak':<20} {'Status':<20} {'Tanggal Bergabung':<20} {'Posisi/Jabatan':<20} {'Hari Kerja':<20} {'Jam Kerja':<20}")
+        print("-" * 100)
+        print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
         print("-" * 100)
         for pekerja_id, pekerja in data.items():
             if pekerja['id_kebun'] == user_login['id_kebun']:
-                print(f"{pekerja['id_pekerja']:<10} {user_login['alamat_kebun']:<20} {pekerja['nama']:<20} {pekerja['email']:<20} {pekerja['kontak']:<20} {pekerja['status']:<20} {pekerja['tanggal_bergabung']:<20} {pekerja['posisi_jabatan']:<20} {', '.join(pekerja['hari_kerja']):<20} {pekerja['jam_kerja']:<20}")
+                print(f"{pekerja['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {pekerja['nama']:<20} | {pekerja['email']:<20} | {pekerja['kontak']:<20} | {pekerja['status']:<20} | {pekerja['tanggal_bergabung']:<20} | {pekerja['posisi_jabatan']:<20} | {', '.join(pekerja['hari_kerja']):<20} | {pekerja['jam_kerja']:<20}")
                 print("-" * 100)
     else:
         print("Tidak ada data pekerja.")
@@ -99,9 +100,10 @@ def update_pekerja():
         return
     
     print("\n=== Data Pekerja Lama ===")
-    print(f"{'ID':<10} {'Lokasi Kebun':<20} {'Nama':<20} {'Email':<20} {'Kontak':<20} {'Status':<20} {'Tanggal Bergabung':<20} {'Posisi/Jabatan':<20} {'Hari Kerja':<20} {'Jam Kerja':<20}")
     print("=" * 100)
-    print(f"{data[id_pekerja]['id_pekerja']:<10} {user_login['alamat_kebun']:<20} {data[id_pekerja]['nama']:<20} {data[id_pekerja]['email']:<20} {data[id_pekerja]['kontak']:<20} {data[id_pekerja]['status']:<20} {data[id_pekerja]['tanggal_bergabung']:<20} {data[id_pekerja]['posisi_jabatan']:<20} {', '.join(data[id_pekerja]['hari_kerja']):<20} {data[id_pekerja]['jam_kerja']:<20}")
+    print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
+    print("=" * 100)
+    print(f"{data[id_pekerja]['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {data[id_pekerja]['nama']:<20} | {data[id_pekerja]['email']:<20} | {data[id_pekerja]['kontak']:<20} | {data[id_pekerja]['status']:<20} | {data[id_pekerja]['tanggal_bergabung']:<20} | {data[id_pekerja]['posisi_jabatan']:<20} | {', '.join(data[id_pekerja]['hari_kerja']):<20} | {data[id_pekerja]['jam_kerja']:<20}")
     print("-" * 100)
 
     print("\n=== Update Data Pekerja ===")

@@ -52,10 +52,11 @@ def read_pengeluara():
     data = load_data()
     if data:
         print("\n=== Data Pengeluaran ===")
-        print(f"{'ID':<10} {'Jumlah Pengeluaran':<20} {'Keterangan':<30} {'Tanggal Pengeluaran':<20} {'Kategori':<20}")
+        print("=" * 100)
+        print(f"{'ID':<10} | {'Jumlah Pengeluaran':<20} | {'Keterangan':<30} | {'Tanggal Pengeluaran':<20} | {'Kategori':<20}")
         print("=" * 100)
         for pengeluaran_id, pengeluaran in data.items():
-            print(f"{pengeluaran['id']:<10} {pengeluaran['jumlah_pengeluaran']:<20} {pengeluaran['keterangan']:<30} {pengeluaran['tanggal_pengeluaran']:<20} {pengeluaran['kategori_pengeluaran']:<20}")
+            print(f"{pengeluaran['id']:<10} | {pengeluaran['jumlah_pengeluaran']:<20} | {pengeluaran['keterangan']:<30} | {pengeluaran['tanggal_pengeluaran']:<20} | {pengeluaran['kategori_pengeluaran']:<20}")
             print("-" * 100)
     else:
         print("Tidak ada data pengeluaran.")
@@ -69,9 +70,10 @@ def update_pengeluaran():
         return
     
     print("\n=== Data Pengeluaran Lama ===")
-    print(f"{'ID':<10} {'Jumlah Pengeluaran':<20} {'Keterangan':<30} {'Tanggal Pengeluaran':<20} {'Kategori':<20}")
     print("=" * 100)
-    print(f"{data[id_pengeluaran]['id']:<10} {data[id_pengeluaran]['jumlah_pengeluaran']:<20} {data[id_pengeluaran]['keterangan']:<30} {data[id_pengeluaran]['tanggal_pengeluaran']:<20} {data[id_pengeluaran]['kategori_pengeluaran']:<20}")
+    print(f"{'ID':<10} | {'Jumlah Pengeluaran':<20} | {'Keterangan':<30} | {'Tanggal Pengeluaran':<20} | {'Kategori':<20}")
+    print("=" * 100)
+    print(f"{data[id_pengeluaran]['id']:<10} | {data[id_pengeluaran]['jumlah_pengeluaran']:<20} | {data[id_pengeluaran]['keterangan']:<30} | {data[id_pengeluaran]['tanggal_pengeluaran']:<20} | {data[id_pengeluaran]['kategori_pengeluaran']:<20}")
     print("-" * 100)
 
     print("\n=== Update Data Pengeluaran ===")

@@ -1,1 +1,9 @@
-{}
+{
+    "PLRN1": {
+        "id": "PLRN1",
+        "jumlah_pengeluaran": 12.0,
+        "tanggal_pengeluaran": "2222-11-22",
+        "kategori_pengeluaran": "1",
+        "keterangan": "ga tau ilang"
+    }
+}

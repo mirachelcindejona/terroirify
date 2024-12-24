@@ -1,1 +1,15 @@
-{}
+{
+    "JP001": {
+        "id": "JP001",
+        "id_tanaman": "TNMN01",
+        "nama_tanaman": "rijal",
+        "waktu_pengingat": "04:00",
+        "hari_notifikasi": [
+            "Senin",
+            "Kamis",
+            "Jumat"
+        ],
+        "status": "aktif",
+        "tipe": "pemupukan"
+    }
+}

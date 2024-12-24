@@ -50,10 +50,11 @@ def read_pemasukan():
     data = load_data()
     if data:
         print("\n=== Data Pemasukan ===")
-        print(f"{'ID':<10} {'Jumlah Penjualan':<20} {'Tanggal Penerimaan':<20} {'ID Panen':<10}")
+        print("=" * 60)
+        print(f"{'ID':<10} | {'Jumlah Penjualan':<20} | {'Tanggal Penerimaan':<20} | {'ID Panen':<10}")
         print("=" * 60)
         for pemasukan_id, pemasukan in data.items():
-            print(f"{pemasukan['id']:<10} {pemasukan['jumlah_penjualan']:<20} {pemasukan['tanggal_penerimaan']:<20} {pemasukan['id_panen']:<10}")
+            print(f"{pemasukan['id']:<10} | {pemasukan['jumlah_penjualan']:<20} | {pemasukan['tanggal_penerimaan']:<20} | {pemasukan['id_panen']:<10}")
         print("-" * 60)
     else:
         print("Tidak ada data pemasukan.")
@@ -67,9 +68,10 @@ def update_pupuk():
         return
     
     print("\n=== Data Pemasukan ===")
-    print(f"{'ID':<10} {'Jumlah Penjualan':<20} {'Tanggal Penerimaan':<20} {'ID Panen':<10}")
     print("=" * 100)
-    print(f"{data[id_pemasukan]['id']:<10} {data[id_pemasukan]['jumlah_penjualan']:<20} {data[id_pemasukan]['tanggal_penerimaan']:<20} {data[id_pemasukan]['id_panen']:<10}")
+    print(f"{'ID':<10} | {'Jumlah Penjualan':<20} | {'Tanggal Penerimaan':<20} | {'ID Panen':<10}")
+    print("=" * 100)
+    print(f"{data[id_pemasukan]['id']:<10} | {data[id_pemasukan]['jumlah_penjualan']:<20} | {data[id_pemasukan]['tanggal_penerimaan']:<20} | {data[id_pemasukan]['id_panen']:<10}")
     print("-" * 100)
     
     print("\n=== Update Data Pemasukan ===")
