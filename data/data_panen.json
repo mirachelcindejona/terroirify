@@ -1,12 +1,1 @@
-{
-    "PNN01": {
-        "id": "PNN01",
-        "id_tanaman": "TNMN01",
-        "jumlah_panen": 123.0,
-        "satuan_panen": "kg",
-        "tanggal_panen": "2023-12-12",
-        "kualitas_panen": "fdsdfd",
-        "harga_per_satuan": 1233423.0,
-        "total_harga": 151711029.0
-    }
-}
+{}
