@@ -51,7 +51,7 @@ def add_pengeluaran():
 def read_pengeluara():
     data = load_data()
     if data:
-        print("\n=== Data Pengeluaran ===")
+        print("\n=== Data Pengeluaran ===\n")
         print("=" * 100)
         print(f"{'ID':<10} | {'Jumlah Pengeluaran':<20} | {'Keterangan':<30} | {'Tanggal Pengeluaran':<20} | {'Kategori':<20}")
         print("=" * 100)
@@ -66,27 +66,28 @@ def update_pengeluaran():
     id_pengeluaran = input("Masukkan ID pengeluaran yang akan diperbarui: ")
 
     if id_pengeluaran not in data:
-        print("pupuk dengan ID tersebut tidak ditemukan.")
+        print("Pengeluaran dengan ID tersebut tidak ditemukan.")
         return
     
-    print("\n=== Data Pengeluaran Lama ===")
+    print(f"\n=== Data pengeluaran saat ini dengan ID {id_pengeluaran} ===\n")
     print("=" * 100)
     print(f"{'ID':<10} | {'Jumlah Pengeluaran':<20} | {'Keterangan':<30} | {'Tanggal Pengeluaran':<20} | {'Kategori':<20}")
     print("=" * 100)
     print(f"{data[id_pengeluaran]['id']:<10} | {data[id_pengeluaran]['jumlah_pengeluaran']:<20} | {data[id_pengeluaran]['keterangan']:<30} | {data[id_pengeluaran]['tanggal_pengeluaran']:<20} | {data[id_pengeluaran]['kategori_pengeluaran']:<20}")
     print("-" * 100)
 
-    print("\n=== Update Data Pengeluaran ===")
-    jumlah_pengeluaran = input("Masukkan jumlah pengeluaran: ")
-    keterangan = input("Keterangan Pengeluaran: ")
-    tanggal_pengeluaran= input("Tanggal Pengeluaran (YYYY-MM-DD):")
-    kategori_pengeluaran = input("Masukkan kategori pengeluaran (Biaya pupuk atau Biaya tenaga kerja): ")  
+    print("\n=== Update Data Pengeluaran ===\n(Tidak perlu diisi jika tidak ingin diubah)")
+    
+    kategori_pengeluaran = input(f"Masukkan kategori pengeluaran (Biaya pupuk atau Biaya tenaga kerja) [{data[id_pengeluaran]['kategori_pengeluaran']}]: ") or data[id_pengeluaran]['kategori_pengeluaran']
+    jumlah_pengeluaran = input(f"Masukkan jumlah pengeluaran [{data[id_pengeluaran]['jumlah_pengeluaran']}]: ") or data[id_pengeluaran]['jumlah_pengeluaran']
+    tanggal_pengeluaran = input(f"Tanggal Pengeluaran (YYYY-MM-DD) [{data[id_pengeluaran]['tanggal_pengeluaran']}]: ") or data[id_pengeluaran]['tanggal_pengeluaran']
+    keterangan = input(f"Masukkan keterangan pengeluaran [{data[id_pengeluaran]['keterangan']}]: ") or data[id_pengeluaran]['keterangan']
 
     try:
-        jumlah_pengeluaran = int(jumlah_pengeluaran)
+        jumlah_pengeluaran = float(jumlah_pengeluaran)
         datetime.strptime(tanggal_pengeluaran, "%Y-%m-%d")
     except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
+        print("Error: Input tidak valid. Pastikan jumlah pengeluaran adalah angka dan tanggal dalam format yang benar.")
         return
     
     data[id_pengeluaran] = {
@@ -98,7 +99,7 @@ def update_pengeluaran():
     }
 
     save_data(data)
-    print("Data pengeluaran berhasil diperbarui!")
+    print("\nData pengeluaran berhasil diperbarui!")
 
 def delete_pengeluaran():
     data = load_data()

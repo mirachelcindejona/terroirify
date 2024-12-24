@@ -74,10 +74,10 @@ def read_pekerja():
     data = load_data()
     user_login = get_data_login()
     if data:
-        print("\n=== Data Pekerja ===")
-        print("-" * 100)
+        print("\n=== Data Pekerja ===\n")
+        print("=" * 100)
         print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
-        print("-" * 100)
+        print("=" * 100)
         for pekerja_id, pekerja in data.items():
             if pekerja['id_kebun'] == user_login['id_kebun']:
                 print(f"{pekerja['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {pekerja['nama']:<20} | {pekerja['email']:<20} | {pekerja['kontak']:<20} | {pekerja['status']:<20} | {pekerja['tanggal_bergabung']:<20} | {pekerja['posisi_jabatan']:<20} | {', '.join(pekerja['hari_kerja']):<20} | {pekerja['jam_kerja']:<20}")
@@ -99,22 +99,22 @@ def update_pekerja():
         print("Anda tidak memiliki akses untuk mengubah data pekerja ini!")
         return
     
-    print("\n=== Data Pekerja Lama ===")
+    print(f"\n=== Data pekerja saat ini dengan ID {id_pekerja} ===")
     print("=" * 100)
     print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
     print("=" * 100)
     print(f"{data[id_pekerja]['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {data[id_pekerja]['nama']:<20} | {data[id_pekerja]['email']:<20} | {data[id_pekerja]['kontak']:<20} | {data[id_pekerja]['status']:<20} | {data[id_pekerja]['tanggal_bergabung']:<20} | {data[id_pekerja]['posisi_jabatan']:<20} | {', '.join(data[id_pekerja]['hari_kerja']):<20} | {data[id_pekerja]['jam_kerja']:<20}")
     print("-" * 100)
 
-    print("\n=== Update Data Pekerja ===")
-    nama = input("Nama Lengkap: ")
-    email = input("Email: ")
-    kontak = input("Kontak: ")
-    status = input("Status (aktif/non-aktif): ")
-    tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ")
-    posisi_jabatan = input("Posisi/Jabatan: ")
-    hari_kerja = input("Hari Kerja (pisahkan dengan koma): ").split(",")
-    jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
+    print(f"\n=== Update Data Pekerja ===\n(Tidak perlu diisi jika tidak ingin diubah)")
+    nama = input(f"Nama Lengkap [{data[id_pekerja]['nama']}]: ") or data[id_pekerja]['nama']
+    email = input(f"Email [{data[id_pekerja]['email']}]: ") or data[id_pekerja]['email']
+    kontak = input(f"Kontak [{data[id_pekerja]['kontak']}]: ") or data[id_pekerja]['kontak']
+    status = input(f"Status (aktif/non-aktif) [{data[id_pekerja]['status']}]: ") or data[id_pekerja]['status']
+    tanggal_bergabung = input(f"Tanggal Bergabung (YYYY-MM-DD) [{data[id_pekerja]['tanggal_bergabung']}]: ") or data[id_pekerja]['tanggal_bergabung']
+    posisi_jabatan = input(f"Posisi/Jabatan [{data[id_pekerja]['posisi_jabatan']}]: ") or data[id_pekerja]['posisi_jabatan']
+    hari_kerja = input(f"Hari Kerja (pisahkan dengan koma) [{', '.join(data[id_pekerja]['hari_kerja'])}]: ").split(",") or data[id_pekerja]['hari_kerja']
+    jam_kerja = input(f"Jam Kerja (format HH:MM - HH:MM) [{data[id_pekerja]['jam_kerja']}]: ") or data[id_pekerja]['jam_kerja']
 
     try:
         datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
@@ -139,7 +139,7 @@ def update_pekerja():
     })
     
     save_data(data)
-    print("Data pekerja berhasil diperbarui!")
+    print("\nData pekerja berhasil diperbarui!")
 
 def delete_pekerja():
     data = load_data()

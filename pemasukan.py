@@ -72,7 +72,7 @@ def add_pemasukan():
 def read_pemasukan():
     data = load_data()
     if data:
-        print("\n=== Data Pemasukan ===")
+        print("\n=== Data Pemasukan ===\n")
         print("=" * 60)
         print(f"{'ID':<10} | {'Jumlah Penjualan':<20} | {'Tanggal Penerimaan':<20} | {'ID Panen':<10}")
         print("=" * 60)
@@ -82,22 +82,22 @@ def read_pemasukan():
     else:
         print("Tidak ada data pemasukan.")
 
-def update_pupuk():
+def update_pemasukan():
     data = load_data()
-    id_pemasukan = input("Masukkan Id Pemasukan yang akan diperbarui: ")
+    id_pemasukan = input("Masukkan ID pemasukan yang akan diperbarui: ")
 
     if id_pemasukan not in data:
         print("Pemasukan dengan ID tersebut tidak ditemukan.")
         return
     
-    print("\n=== Data Pemasukan ===")
+    print(f"\n=== Data pemasukan saat ini dengan ID {id_pemasukan} ===\n")
     print("=" * 100)
     print(f"{'ID':<10} | {'Jumlah Penjualan':<20} | {'Tanggal Penerimaan':<20} | {'ID Panen':<10}")
     print("=" * 100)
     print(f"{data[id_pemasukan]['id']:<10} | {data[id_pemasukan]['jumlah_penjualan']:<20} | {data[id_pemasukan]['tanggal_penerimaan']:<20} | {data[id_pemasukan]['id_panen']:<10}")
     print("-" * 100)
     
-    print("\n=== Update Data Pemasukan ===")
+    print("\n=== Update Data Pemasukan ===\n(Tidak perlu diisi jika tidak ingin diubah)")
 
     # Memuat data panen untuk pilihan
     data_panen = load_data_panen()
@@ -110,43 +110,49 @@ def update_pupuk():
         print("Tidak ada data tanaman tersedia.")
         return
     
-    print("Pilih data panen yang ingin diperbarui ke pemasukkan:")
+    print("\nPilih data panen yang ingin diperbarui ke pemasukkan:")
     for panen_id, panen in data_panen.items():
         print(f"{panen_id}: {data_tanaman[panen['id_tanaman']]['nama_tanaman']}")
     
-    nama_panen_id = input("Masukkan ID panen yang ingin diperbarui ke pemasukkan: ")
+    nama_panen_id = input(f"Masukkan ID panen yang ingin diperbarui ke pemasukkan [{data[id_pemasukan]['id_panen']}]: ") or data[id_pemasukan]['id_panen']
     if nama_panen_id not in data_panen:
         print("ID panen tidak valid.")
+        return
     
-    jumlah_penjualan = input("Masukkan jumlah penjualan: ")
-    tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
-    id_panen = input("Masukkan ID Panen: ")
+    jumlah_penjualan = input(f"Masukkan jumlah penjualan [{data[id_pemasukan]['jumlah_penjualan']}]: ") or data[id_pemasukan]['jumlah_penjualan']
+    tanggal_penerimaan = input(f"Tanggal Penerimaan (YYYY-MM-DD) [{data[id_pemasukan]['tanggal_penerimaan']}]: ") or data[id_pemasukan]['tanggal_penerimaan']
+    id_panen = input(f"Masukkan ID Panen [{data[id_pemasukan]['id_panen']}]: ") or data[id_pemasukan]['id_panen']
 
     try:
         jumlah_penjualan = float(jumlah_penjualan)
         datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
     except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
+        print("Error: Input tidak valid. Pastikan jumlah penjualan adalah angka dan tanggal dalam format yang benar.")
         return
     
     data[id_pemasukan] = {
         "id": id_pemasukan,
+        "id_panen": nama_panen_id,
         "jumlah_penjualan": jumlah_penjualan,
         "tanggal_penerimaan": tanggal_penerimaan,
         "id_panen": id_panen
     }
 
     save_data(data)
-    print("Data Pemasukan berhasil diperbarui!")
+    print("\nData pemasukan berhasil diperbarui!")
 
 def delete_pemasukan():
     data = load_data()
     id_pemasukan = input("Masukkan ID Pemasukan yang akan dihapus: ")
 
     if id_pemasukan in data:
-        del data[id_pemasukan]
-        save_data(data)
-        print("Pemasukan berhasil dihapus!")
+        konfirmasi = input(f"Anda yakin ingin menghapus pemasukan {id_pemasukan}? (y/n): ").lower()
+        if konfirmasi == 'y':
+            del data[id_pemasukan]
+            save_data(data)
+            print("Pemasukan berhasil dihapus!")
+        else:
+            print("Penghapusan dibatalkan.")
     else:
         print("Pemasukan dengan ID tersebut tidak ditemukan.")
 
@@ -167,7 +173,7 @@ def menu_pemasukan():
         elif pilihan == "2":
             read_pemasukan()
         elif pilihan == "3":
-            update_pupuk()
+            update_pemasukan()
         elif pilihan == "4":
             delete_pemasukan()
         elif pilihan == "5":

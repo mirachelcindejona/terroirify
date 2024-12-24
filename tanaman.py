@@ -52,7 +52,7 @@ def add_tanaman():
 def read_tanaman():
    data = load_data()
    if data:
-      print("\n=== Data Tanaman ===")
+      print("\n=== Data Tanaman ===\n")
       print("=" * 100)
       print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<20}")
       print("=" * 100)
@@ -70,19 +70,19 @@ def update_tanaman():
       print("Tanaman dengan ID tersebut tidak ditemukan.")
       return
    
-   print("\n=== Data Tanaman Lama ===")
+   print(f"\n=== Data tanaman saat ini dengan ID {id_tanaman} ===\n")
    print("=" * 100)
    print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<20}")
    print("=" * 100)
    print(f"{data[id_tanaman]['id']:<10} | {data[id_tanaman]['nama_tanaman']:<20} | {data[id_tanaman]['jenis_tanaman']:<20} | {data[id_tanaman]['tanggal_tanam']:<15} | {data[id_tanaman]['kondisi_tanaman']:<15} | {data[id_tanaman]['lokasi_tanaman']:<20}")
    print("-" * 100)
 
-   print("\n=== Update Data Tanaman ===")
-   nama_tanaman = input("Nama Tanaman: ")
-   jenis_tanaman = input("Jenis Tanaman: ")
-   tanggal_tanam = input("Tanggal Tanam (YYYY-MM-DD): ")
-   kondisi_tanaman = input("Kondisi Tanaman: ")
-   lokasi_tanaman = input("Lokasi Tanaman: ")
+   print("\n=== Update Data Tanaman ===\n(Tidak perlu diisi jika tidak ingin diubah)")
+   nama_tanaman = input(f"Nama Tanaman [{data[id_tanaman]['nama_tanaman']}]: ") or data[id_tanaman]['nama_tanaman']
+   jenis_tanaman = input(f"Jenis Tanaman [{data[id_tanaman]['jenis_tanaman']}]: ") or data[id_tanaman]['jenis_tanaman']
+   tanggal_tanam = input(f"Tanggal Tanam (YYYY-MM-DD) [{data[id_tanaman]['tanggal_tanam']}]: ") or data[id_tanaman]['tanggal_tanam']
+   kondisi_tanaman = input(f"Kondisi Tanaman [{data[id_tanaman]['kondisi_tanaman']}]: ") or data[id_tanaman]['kondisi_tanaman']
+   lokasi_tanaman = input(f"Lokasi Tanaman [{data[id_tanaman]['lokasi_tanaman']}]: ") or data[id_tanaman]['lokasi_tanaman']
 
    try:
       datetime.strptime(tanggal_tanam, "%Y-%m-%d")
@@ -100,7 +100,7 @@ def update_tanaman():
    }
    
    save_data(data)
-   print("Data tanaman berhasil diperbarui!")
+   print("\nData tanaman berhasil diperbarui!")
 
 def delete_tanaman():
    data = load_data()

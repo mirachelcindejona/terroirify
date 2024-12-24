@@ -51,7 +51,7 @@ def add_pupuk():
 def read_pupuk():
     data = load_data()
     if data:
-        print("\n=== Data Pupuk ===")
+        print("\n=== Data Pupuk ===\n")
         print("=" * 100)
         print(f"{'ID':<10} | {'Nama Pupuk':<20} | {'Stok':<10} | {'Tanggal Penerimaan':<20} | {'Catatan':<20}")
         print("=" * 100)
@@ -69,18 +69,18 @@ def update_pupuk():
         print("Pupuk dengan ID tersebut tidak ditemukan.")
         return
     
-    print("\n=== Data Pupuk Lama ===")
+    print(f"\n=== Data pupuk saat ini dengan ID {id_pupuk} ===\n")
     print("=" * 100)
     print(f"{'ID':<10} | {'Nama Pupuk':<20} | {'Stok':<10} | {'Tanggal Penerimaan':<20} | {'Catatan':<20}")
     print("=" * 100)
     print(f"{data[id_pupuk]['id']:<10} | {data[id_pupuk]['nama_pupuk']:<20} | {data[id_pupuk]['stok']:<10} | {data[id_pupuk]['tanggal_penerimaan']:<20} | {data[id_pupuk]['catatan']:<20}")
     print("-" * 100)
 
-    print("\n=== Update Data Pupuk ===")
-    nama_pupuk = input("Nama Pupuk: ")
-    stok = input("Jumlah Stok: ")
-    tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
-    catatan = input("Catatan Penggunaan: ")
+    print("\n=== Update Data Pupuk ===\n(Tidak perlu diisi jika tidak ingin diubah)")
+    nama_pupuk = input(f"Nama Pupuk [{data[id_pupuk]['nama_pupuk']}]: ") or data[id_pupuk]['nama_pupuk']
+    stok = input(f"Jumlah Stok [{data[id_pupuk]['stok']}]: ") or data[id_pupuk]['stok']
+    tanggal_penerimaan = input(f"Tanggal Penerimaan (YYYY-MM-DD) [{data[id_pupuk]['tanggal_penerimaan']}]: ") or data[id_pupuk]['tanggal_penerimaan']
+    catatan = input(f"Catatan Penggunaan [{data[id_pupuk]['catatan']}]: ") or data[id_pupuk]['catatan']
 
     try:
         stok = int(stok)
@@ -98,7 +98,7 @@ def update_pupuk():
     }
     
     save_data(data)
-    print("Data pupuk berhasil diperbarui!")
+    print("\nData pupuk berhasil diperbarui!")
 
 def delete_pupuk():
     data = load_data()

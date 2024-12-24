@@ -35,10 +35,10 @@ def add_jadwal_pengingat():
     print("\n=== Tambah Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
     print("\nDaftar Tanaman:")
     print("=" * 70)
-    print(f"{'ID':<10} {'Nama Tanaman':<20} {'Jenis Tanaman':<20} {'Lokasi':<20}")
+    print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Lokasi':<20}")
     print("=" * 70)
     for id_tanaman, tanaman in data_tanaman.items():
-        print(f"{tanaman['id']:<10} {tanaman['nama_tanaman']:<20} {tanaman['jenis_tanaman']:<20} {tanaman['lokasi_tanaman']:<20}")
+        print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['lokasi_tanaman']:<20}")
     print("-" * 70)
 
     id_tanaman = input("\nMasukkan ID tanaman yang ingin dijadwalkan: ")
@@ -84,7 +84,7 @@ def add_jadwal_pengingat():
 def read_jadwal_pengingat():
     data = load_data()
     if data:
-        print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
+        print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan ===\n")
         print("=" * 105)
         print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Waktu Pengingat':<15} | {'Hari Notifikasi':<30} | {'Tipe':<15} | {'Status':<10}")
         print("=" * 105)
@@ -103,13 +103,15 @@ def update_jadwal_pengingat():
         print("Jadwal Pengingat dengan ID tersebut tidak ditemukan.")
         return
     
-    print("\n=== Data Jadwal Pengingat Lama ===")
+    print(f"\n=== Data jadwal pengingat saat ini dengan ID {id_jadwal_pengingat} ===\n")
     print("=" * 105)
     print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Waktu Pengingat':<15} | {'Hari Notifikasi':<30} | {'Tipe':<15} | {'Status':<10}")
     print("=" * 105)
     jadwal = data[id_jadwal_pengingat]
     print(f"{jadwal['id']:<10} | {jadwal['nama_tanaman']:<20} | {jadwal['waktu_pengingat']:<15} | {', '.join(jadwal['hari_notifikasi']):<30} | {jadwal['tipe']:<15} | {jadwal['status']:<10}")
     print("-" * 105)
+
+    print("\n=== Update Data Jadwal Pengingat ===\n(Tidak perlu diisi jika tidak ingin diubah)")
 
     print("\nDaftar Tanaman:")
     print("=" * 70)
@@ -119,31 +121,31 @@ def update_jadwal_pengingat():
         print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['lokasi_tanaman']:<20}")
     print("-" * 70)
 
-    id_tanaman = input("\nMasukkan ID tanaman yang ingin dijadwalkan: ")
+    id_tanaman = input(f"\nMasukkan ID tanaman yang ingin dijadwalkan [{data[id_jadwal_pengingat]['id_tanaman']}]: ") or data[id_jadwal_pengingat]['id_tanaman']
     if id_tanaman not in data_tanaman:
         print("ID tanaman tidak valid!")
         return
 
-    print("\n=== Update Data Jadwal Pengingat ===")
     while True:
         try:
-            waktu_pengingat = input("Masukkan waktu pengingat (HH:MM): ")
+            waktu_pengingat = input(f"Masukkan waktu pengingat (HH:MM) [{data[id_jadwal_pengingat]['waktu_pengingat']}]: ") or data[id_jadwal_pengingat]['waktu_pengingat']
             datetime.strptime(waktu_pengingat, "%H:%M")
             break
         except ValueError:
             print("Format waktu tidak valid! Gunakan format HH:MM")
 
     while True:
-        hari_notifikasi = input("Masukkan hari notifikasi (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
-        hari_notifikasi = [hari.strip().capitalize() for hari in hari_notifikasi]
+        hari_notifikasi = input(f"Masukkan hari notifikasi (pisahkan dengan koma) [{', '.join(data[id_jadwal_pengingat]['hari_notifikasi'])}]: ").split(",") or data[id_jadwal_pengingat]['hari_notifikasi']
+        if isinstance(hari_notifikasi, str):
+            hari_notifikasi = [hari.strip().capitalize() for hari in hari_notifikasi]
         if all(hari in ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] for hari in hari_notifikasi):
             break
         print("Masukkan hari yang valid!")
 
-    status = input("Masukkan status (aktif/non-aktif): ").strip().lower()
+    status = input(f"Masukkan status (aktif/non-aktif) [{data[id_jadwal_pengingat]['status']}]: ") or data[id_jadwal_pengingat]['status']
     while status not in ["aktif", "non-aktif"]:
         print("Status tidak valid! Masukkan 'aktif' atau 'non-aktif'")
-        status = input("Masukkan status (aktif/non-aktif): ").strip().lower()
+        status = input(f"Masukkan status (aktif/non-aktif) [{data[id_jadwal_pengingat]['status']}]: ") or data[id_jadwal_pengingat]['status']
 
     data[id_jadwal_pengingat].update({
         "id_tanaman": id_tanaman,
@@ -154,7 +156,7 @@ def update_jadwal_pengingat():
     })
 
     save_data(data)
-    print("Data Jadwal Pengingat berhasil diperbarui!")
+    print("\nData Jadwal Pengingat berhasil diperbarui!")
 
 def delete_jadwal_pengingat():
     data = load_data()
