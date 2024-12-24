@@ -1,5 +1,7 @@
 import json
 from datetime import datetime
+from panen import load_data as load_data_panen
+from tanaman import load_data as load_data_tanaman
 
 DATA_PEMASUKAN = "data/data_pemasukan.json"
 
@@ -25,6 +27,26 @@ def add_pemasukan():
 
     print("\n=== Tambah Data Pemasukan ===")
     id_pemasukan = generate_id(data)
+
+    # Memuat data panen untuk pilihan
+    data_panen = load_data_panen()
+    if not data_panen:
+        print("Tidak ada data panen tersedia.")
+        return
+    
+    data_tanaman = load_data_tanaman()
+    if not data_tanaman:
+        print("Tidak ada data tanaman tersedia.")
+        return
+    
+    print("Pilih data panen yang ingin ditambah ke pemasukkan:")
+    for panen_id, panen in data_panen.items():
+        print(f"{panen_id}: {data_tanaman[panen['id_tanaman']]['nama_tanaman']}")
+    
+    nama_panen_id = input("Masukkan ID panen yang ingin ditambah ke pemasukkan: ")
+    if nama_panen_id not in data_panen:
+        print("ID panen tidak valid.")
+    
     jumlah_penjualan = input("Masukkan jumlah penjualan: ")
     tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
     id_panen = input("Masukkan ID Panen: ")
@@ -38,6 +60,7 @@ def add_pemasukan():
     
     data[id_pemasukan] = {
         "id": id_pemasukan,
+        "id_panen": nama_panen_id,
         "jumlah_penjualan": jumlah_penjualan,
         "tanggal_penerimaan": tanggal_penerimaan,
         "id_panen": id_panen
@@ -75,6 +98,26 @@ def update_pupuk():
     print("-" * 100)
     
     print("\n=== Update Data Pemasukan ===")
+
+    # Memuat data panen untuk pilihan
+    data_panen = load_data_panen()
+    if not data_panen:
+        print("Tidak ada data panen tersedia.")
+        return
+    
+    data_tanaman = load_data_tanaman()
+    if not data_tanaman:
+        print("Tidak ada data tanaman tersedia.")
+        return
+    
+    print("Pilih data panen yang ingin diperbarui ke pemasukkan:")
+    for panen_id, panen in data_panen.items():
+        print(f"{panen_id}: {data_tanaman[panen['id_tanaman']]['nama_tanaman']}")
+    
+    nama_panen_id = input("Masukkan ID panen yang ingin diperbarui ke pemasukkan: ")
+    if nama_panen_id not in data_panen:
+        print("ID panen tidak valid.")
+    
     jumlah_penjualan = input("Masukkan jumlah penjualan: ")
     tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
     id_panen = input("Masukkan ID Panen: ")
