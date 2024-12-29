@@ -25,17 +25,36 @@ def add_tanaman():
    
    print("\n=== Tambah Tanaman Baru ===")
    id_tanaman = generate_id(data)
+   
    nama_tanaman = input("Masukkan Nama Tanaman: ")
+   if not nama_tanaman:
+      print("Error: Nama tanaman tidak boleh kosong!")
+      return
+   
    jenis_tanaman = input("Masukkan Jenis Tanaman: ")
+   if not jenis_tanaman:
+      print("Error: Jenis tanaman tidak boleh kosong!")
+      return
+      
    tanggal_tanam = input("Tanggal Tanam (YYYY-MM-DD): ")
-   kondisi_tanaman = input("Kondisi Tanaman: ")
-   lokasi_tanaman = input("Lokasi Tanaman: ")
-
+   if not tanggal_tanam:
+      print("Error: Tanggal tanam tidak boleh kosong!")
    try:
       datetime.strptime(tanggal_tanam, "%Y-%m-%d")
    except ValueError:
-      print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
+      print("Error: Input tidak valid. Pastikan tanggal dalam format yang benar.")
       return
+      
+   kondisi_tanaman = input("Kondisi Tanaman: ")
+   if not kondisi_tanaman:
+      print("Error: Kondisi tanaman tidak boleh kosong!")
+      return
+   
+   lokasi_tanaman = input("Lokasi Tanaman: ")
+   if not lokasi_tanaman:
+      print("Error: Lokasi tanaman tidak boleh kosong!")
+      return
+
 
    data[id_tanaman] = {
       "id": id_tanaman,
