@@ -1,1 +1,12 @@
-{}
+{
+    "PNN01": {
+        "id": "PNN01",
+        "id_tanaman": "TNMN01",
+        "jumlah_panen": 3.0,
+        "satuan_panen": "2",
+        "tanggal_panen": "2023-12-12",
+        "kualitas_panen": "ya",
+        "harga_per_satuan": 67000.0,
+        "total_harga": 201000.0
+    }
+}
