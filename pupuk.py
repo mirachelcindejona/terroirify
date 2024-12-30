@@ -25,17 +25,47 @@ def add_pupuk():
     
     print("\n=== Tambah Pupuk Baru ===")
     id_pupuk = generate_id(data)
-    nama_pupuk = input("Nama Pupuk: ")
-    stok = input("Jumlah Stok: ")
-    tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
-    catatan = input("Catatan Penggunaan: ")
+    
+    while True:
+        nama_pupuk = input("Nama Pupuk: ").strip().lower()
+        if not nama_pupuk:
+            print("Error: Nama Pupuk tidak boleh kosong!\n")
+            continue
+        break
+    
+    while True:    
+        stok = input("Jumlah Stok: ").strip()
+        if not stok:
+            print("Error: Jumlah Stok tidak boleh kosong!\n")
+            continue
+        try:
+            stok = int(stok)
+            if stok < 0:
+                print("Error: Jumlah Stok tidak boleh negatif!\n")
+                continue
+            break
+        except ValueError:
+            print("Error: Jumlah Stok harus berupa angka!\n")
 
-    try:
-        stok = int(stok)
-        datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
-        return
+    while True:
+        tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ").strip()
+        if not tanggal_penerimaan:
+            print("Error: Tanggal Penerimaan tidak boleh kosong!\n")
+            continue
+        else:
+            try:
+                datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+            except ValueError:
+                print("Error: Pastikan tanggal dalam format yang benar!\n")
+                continue
+            break
+        
+    while True:    
+        catatan = input("Catatan Penggunaan: ").strip().lower()
+        if not catatan:
+            print("Error: Catatan Penggunaan tidak boleh kosong!\n")
+            continue
+        break
 
     data[id_pupuk] = {
         "id": id_pupuk,
@@ -63,8 +93,11 @@ def read_pupuk():
 
 def update_pupuk():
     data = load_data()
-    id_pupuk = input("Masukkan ID pupuk yang akan diperbarui: ")
-    
+    id_pupuk = input("\nMasukkan ID pupuk yang akan diperbarui: ").strip() 
+        
+    if not id_pupuk:
+      print("Error: ID pupuk tidak boleh kosong!\n")
+      return
     if id_pupuk not in data:
         print("Pupuk dengan ID tersebut tidak ditemukan.")
         return
@@ -77,17 +110,31 @@ def update_pupuk():
     print("-" * 100)
 
     print("\n=== Update Data Pupuk ===\n(Tidak perlu diisi jika tidak ingin diubah)")
-    nama_pupuk = input(f"Nama Pupuk [{data[id_pupuk]['nama_pupuk']}]: ") or data[id_pupuk]['nama_pupuk']
-    stok = input(f"Jumlah Stok [{data[id_pupuk]['stok']}]: ") or data[id_pupuk]['stok']
-    tanggal_penerimaan = input(f"Tanggal Penerimaan (YYYY-MM-DD) [{data[id_pupuk]['tanggal_penerimaan']}]: ") or data[id_pupuk]['tanggal_penerimaan']
-    catatan = input(f"Catatan Penggunaan [{data[id_pupuk]['catatan']}]: ") or data[id_pupuk]['catatan']
+    
+    nama_pupuk = input(f"Nama Pupuk [{data[id_pupuk]['nama_pupuk']}]: ").strip().lower() or data[id_pupuk]['nama_pupuk']    
+    
+    while True:
+        stok = input(f"Jumlah Stok [{data[id_pupuk]['stok']}]: ").strip() or data[id_pupuk]['stok']
+        try:
+            stok = int(stok)
+            if stok < 0:
+                print("Error: Jumlah Stok tidak boleh negatif!\n")
+                continue
+            break
+        except ValueError:
+            print("Error: Jumlah Stok harus berupa angka!\n")
+    
+    while True:    
+        tanggal_penerimaan = input(f"Tanggal Penerimaan (YYYY-MM-DD) [{data[id_pupuk]['tanggal_penerimaan']}]: ").strip() or data[id_pupuk]['tanggal_penerimaan']
+        try:
+            datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+        except ValueError:
+            print("Error: Pastikan tanggal dalam format yang benar.\n")
+            continue
+        break
+    
+    catatan = input(f"Catatan Penggunaan [{data[id_pupuk]['catatan']}]: ").strip().lower() or data[id_pupuk]['catatan']
 
-    try:
-        stok = int(stok)
-        datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
-        return
 
     data[id_pupuk] = {
         "id": id_pupuk,
@@ -102,12 +149,15 @@ def update_pupuk():
 
 def delete_pupuk():
     data = load_data()
-    id_pupuk = input("Masukkan ID pupuk yang akan dihapus: ")
+    id_pupuk = input("\nMasukkan ID pupuk yang akan dihapus: ").strip()
     
     if id_pupuk in data:
         del data[id_pupuk]
         save_data(data)
         print("Pupuk berhasil dihapus!")
+    if not id_pupuk:
+      print("Error: ID pupuk tidak boleh kosong!\n")
+      return
     else:
         print("Pupuk dengan ID tersebut tidak ditemukan.")
 
@@ -121,7 +171,7 @@ def menu_pupuk():
         print("4. Hapus Data Pupuk")
         print("5. Kembali ke Awal")
         
-        pilihan = input("Pilih menu: ")
+        pilihan = input("Pilih menu: ").strip()
         
         if pilihan == "1":
             add_pupuk()

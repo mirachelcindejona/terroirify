@@ -34,25 +34,69 @@ def add_pekerja():
     print("\n=== Tambah Pekerja Baru ===")
     id_pekerja = generate_id(data)
     id_kebun = user_login['id_kebun']
-    nama = input("Nama Lengkap: ")
-    email = input("Email: ")
-    kontak = input("Kontak: ")
-    status = input("Status (aktif/non-aktif): ")
-    tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ")
-    posisi_jabatan = input("Posisi/Jabatan: ")
-    hari_kerja = input("Hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
-    jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
+    
+    while True:
+        nama = input("Nama Lengkap: ").strip()
+        if not nama:
+            print("Error: Nama lengkap tidak boleh kosong!\n")
+            continue
+        break
 
-    try:
-        datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Format tanggal tidak valid.")
-        return
-
+    while True:
+        email = input("Email: ").strip().lower()
+        if not email:
+            print("Error: Email tidak boleh kosong!\n")
+            continue
+        if "@" not in email or "." not in email.split("@")[-1]:
+            print("Error: Format email tidak valid!\n")
+            continue
+        break
     for pekerja in data.values():
         if pekerja['email'] == email:
-            print("Email sudah terdaftar! Gunakan email lain.")
+            print("Email sudah terdaftar! Gunakan email lain.\n")
             return
+    
+    while True:
+        kontak = input("Kontak: ").strip()
+        if not kontak:
+            print("Error: Kontak tidak boleh kosong!\n")
+            continue 
+        try:
+            kontak = int(kontak)
+            break
+        except ValueError:
+            print("Error: Kontak harus berupa angka!\n")
+    
+    while True:
+        status = input("Status (aktif/non-aktif): ").strip().lower()
+        if status not in ["aktif", "non-aktif"]:
+            print("Error: Status harus 'aktif' atau 'non-aktif'!\n")
+            continue
+        break
+    
+    while True:
+        tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ").strip()
+        if not tanggal_bergabung:
+            print("Error: Tanggal bergabung tidak boleh kosong!\n")
+            continue
+        try:
+            datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+        except ValueError:
+            print("Error: Pastikan tanggal bergabung dalam format yang benar (YYYY-MM-DD)!\n")
+            continue
+        break
+    
+    while True:
+        posisi_jabatan = input("Posisi/Jabatan: ").strip()
+        if not posisi_jabatan:
+            print("Error: Posisi/Jabatan tidak boleh kosong!\n")
+            continue
+        break
+
+        """hari_kerja = input("Hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
+        jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
+"""
+
 
     data[id_pekerja] = {
         "id_pekerja": id_pekerja,
@@ -63,8 +107,8 @@ def add_pekerja():
         "status": status,
         "tanggal_bergabung": tanggal_bergabung,
         "posisi_jabatan": posisi_jabatan,
-        "hari_kerja": hari_kerja,
-        "jam_kerja": jam_kerja
+        #"hari_kerja": hari_kerja,#
+        #"jam_kerja": jam_kerja#
     }
     
     save_data(data)
@@ -76,11 +120,11 @@ def read_pekerja():
     if data:
         print("\n=== Data Pekerja ===\n")
         print("=" * 100)
-        print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
+        print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | ""{'Hari Kerja':<20} | {'Jam Kerja':<20}""")
         print("=" * 100)
         for pekerja_id, pekerja in data.items():
             if pekerja['id_kebun'] == user_login['id_kebun']:
-                print(f"{pekerja['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {pekerja['nama']:<20} | {pekerja['email']:<20} | {pekerja['kontak']:<20} | {pekerja['status']:<20} | {pekerja['tanggal_bergabung']:<20} | {pekerja['posisi_jabatan']:<20} | {', '.join(pekerja['hari_kerja']):<20} | {pekerja['jam_kerja']:<20}")
+                print(f"{pekerja['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {pekerja['nama']:<20} | {pekerja['email']:<20} | {pekerja['kontak']:<20} | {pekerja['status']:<20} | {pekerja['tanggal_bergabung']:<20} | {pekerja['posisi_jabatan']:<20} | ""{', '.join(pekerja['hari_kerja']):<20} | {pekerja['jam_kerja']:<20}""")
                 print("-" * 100)
     else:
         print("Tidak ada data pekerja.")
@@ -89,7 +133,7 @@ def update_pekerja():
     data = load_data()
     user_login = get_data_login()
         
-    id_pekerja = input("Masukkan ID pekerja yang akan diperbarui: ")
+    id_pekerja = input("Masukkan ID pekerja yang akan diperbarui: ").strip()
     
     if id_pekerja not in data:
         print("Pekerja dengan ID tersebut tidak ditemukan.")
@@ -101,27 +145,54 @@ def update_pekerja():
     
     print(f"\n=== Data pekerja saat ini dengan ID {id_pekerja} ===")
     print("=" * 100)
-    print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
+    print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | ""{'Hari Kerja':<20} | {'Jam Kerja':<20}""")
     print("=" * 100)
-    print(f"{data[id_pekerja]['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {data[id_pekerja]['nama']:<20} | {data[id_pekerja]['email']:<20} | {data[id_pekerja]['kontak']:<20} | {data[id_pekerja]['status']:<20} | {data[id_pekerja]['tanggal_bergabung']:<20} | {data[id_pekerja]['posisi_jabatan']:<20} | {', '.join(data[id_pekerja]['hari_kerja']):<20} | {data[id_pekerja]['jam_kerja']:<20}")
+    print(f"{data[id_pekerja]['id_pekerja']:<10} | {user_login['alamat_kebun']:<20} | {data[id_pekerja]['nama']:<20} | {data[id_pekerja]['email']:<20} | {data[id_pekerja]['kontak']:<20} | {data[id_pekerja]['status']:<20} | {data[id_pekerja]['tanggal_bergabung']:<20} | {data[id_pekerja]['posisi_jabatan']:<20} | ""{', '.join(data[id_pekerja]['hari_kerja']):<20} | {data[id_pekerja]['jam_kerja']:<20}""")
     print("-" * 100)
 
     print(f"\n=== Update Data Pekerja ===\n(Tidak perlu diisi jika tidak ingin diubah)")
-    nama = input(f"Nama Lengkap [{data[id_pekerja]['nama']}]: ") or data[id_pekerja]['nama']
-    email = input(f"Email [{data[id_pekerja]['email']}]: ") or data[id_pekerja]['email']
-    kontak = input(f"Kontak [{data[id_pekerja]['kontak']}]: ") or data[id_pekerja]['kontak']
-    status = input(f"Status (aktif/non-aktif) [{data[id_pekerja]['status']}]: ") or data[id_pekerja]['status']
-    tanggal_bergabung = input(f"Tanggal Bergabung (YYYY-MM-DD) [{data[id_pekerja]['tanggal_bergabung']}]: ") or data[id_pekerja]['tanggal_bergabung']
+    nama = input(f"Nama Lengkap [{data[id_pekerja]['nama']}]: ").strip().lower() or data[id_pekerja]['nama']
+    
+    while True:
+        email = input(f"Email [{data[id_pekerja]['email']}]: ").strip().lower() or data[id_pekerja]['email']
+        if "@" not in email or "." not in email.split("@")[-1]:
+            print("Error: Format email tidak valid!\n")
+            continue
+        break
+    
+    for pekerja in data.values():
+        if pekerja['email'] == email:
+            print("Email sudah terdaftar! Gunakan email lain.\n")
+            return
+        
+    while True:
+        kontak = input(f"Kontak [{data[id_pekerja]['kontak']}]: ").strip() or data[id_pekerja]['kontak']
+        try:
+            kontak = int(kontak)
+            break
+        except ValueError:
+            print("Error: Kontak harus berupa angka!\n")
+    
+    while True:        
+        status = input(f"Status (aktif/non-aktif) [{data[id_pekerja]['status']}]: ").strip().lower() or data[id_pekerja]['status']
+        if status not in ["aktif", "non-aktif"]:
+            print("Error: Status harus 'aktif' atau 'non-aktif'!\n")
+            continue
+        break
+    
+    while True:
+        tanggal_bergabung = input(f"Tanggal Bergabung (YYYY-MM-DD) [{data[id_pekerja]['tanggal_bergabung']}]: ").strip() or data[id_pekerja]['tanggal_bergabung']
+        try:
+            datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+        except ValueError:
+            print("Error: Pastikan tanggal bergabung dalam format yang benar (YYYY-MM-DD)!\n")
+            continue
+        break
+    
     posisi_jabatan = input(f"Posisi/Jabatan [{data[id_pekerja]['posisi_jabatan']}]: ") or data[id_pekerja]['posisi_jabatan']
-    hari_kerja = input(f"Hari Kerja (pisahkan dengan koma) [{', '.join(data[id_pekerja]['hari_kerja'])}]: ").split(",") or data[id_pekerja]['hari_kerja']
-    jam_kerja = input(f"Jam Kerja (format HH:MM - HH:MM) [{data[id_pekerja]['jam_kerja']}]: ") or data[id_pekerja]['jam_kerja']
-
-    try:
-        datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Format tanggal tidak valid.")
-        return
-
+    #hari_kerja = input(f"Hari Kerja (pisahkan dengan koma) [{', '.join(data[id_pekerja]['hari_kerja'])}]: ").split(",") or data[id_pekerja]['hari_kerja']
+    #jam_kerja = input(f"Jam Kerja (format HH:MM - HH:MM) [{data[id_pekerja]['jam_kerja']}]: ") or data[id_pekerja]['jam_kerja']
+    
     for pid, pekerja in data.items():
         if pekerja['email'] == email and pid != id_pekerja:
             print("Email sudah terdaftar! Gunakan email lain.")
@@ -134,8 +205,8 @@ def update_pekerja():
         "status": status,
         "tanggal_bergabung": tanggal_bergabung,
         "posisi_jabatan": posisi_jabatan,
-        "hari_kerja": hari_kerja,
-        "jam_kerja": jam_kerja
+        #"hari_kerja": hari_kerja,
+        #"jam_kerja": jam_kerja
     })
     
     save_data(data)
@@ -145,14 +216,14 @@ def delete_pekerja():
     data = load_data()
     user_login = get_data_login()
         
-    id_pekerja = input("Masukkan ID pekerja yang akan dihapus: ")
+    id_pekerja = input("\nMasukkan ID pekerja yang akan dihapus: ")
     
     if id_pekerja not in data:
         print("Pekerja dengan ID tersebut tidak ditemukan.")
         return
         
     if data[id_pekerja]['id_kebun'] != user_login['id_kebun']:
-        print("Anda tidak memiliki akses untuk menghapus data pekerja ini!")
+        print("\nAnda tidak memiliki akses untuk menghapus data pekerja ini!")
         return
     
     konfirmasi = input(f"Anda yakin ingin menghapus pekerja {data[id_pekerja]['nama']}? (y/n): ")

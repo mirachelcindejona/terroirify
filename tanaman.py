@@ -26,34 +26,46 @@ def add_tanaman():
    print("\n=== Tambah Tanaman Baru ===")
    id_tanaman = generate_id(data)
    
-   nama_tanaman = input("Masukkan Nama Tanaman: ")
-   if not nama_tanaman:
-      print("Error: Nama tanaman tidak boleh kosong!")
-      return
+   while True:
+      nama_tanaman = input("Masukkan Nama Tanaman: ").strip().lower()
+      if not nama_tanaman:
+         print("Error: Nama tanaman tidak boleh kosong!\n")
+         continue
+      break
+    
+   while True:  
+      jenis_tanaman = input("Masukkan Jenis Tanaman: ").strip().lower()
+      if not jenis_tanaman:
+         print("Error: Jenis tanaman tidak boleh kosong!\n")
+         continue
+      break
    
-   jenis_tanaman = input("Masukkan Jenis Tanaman: ")
-   if not jenis_tanaman:
-      print("Error: Jenis tanaman tidak boleh kosong!")
-      return
+   while True: 
+      tanggal_tanam = input("Tanggal Tanam (YYYY-MM-DD): ").strip()
+      if not tanggal_tanam:
+         print("Error: Tanggal tanam tidak boleh kosong!\n")
+         continue
+      else:
+         try:
+            datetime.strptime(tanggal_tanam, "%Y-%m-%d")
+         except ValueError:
+            print("Error: Pastikan tanggal dalam format yang benar.\n")
+            continue
+         break
+         
+   while True:       
+      kondisi_tanaman = input("Kondisi Tanaman: ").strip().lower()
+      if not kondisi_tanaman:
+         print("Error: Kondisi tanaman tidak boleh kosong!\n")
+         continue
+      break
       
-   tanggal_tanam = input("Tanggal Tanam (YYYY-MM-DD): ")
-   if not tanggal_tanam:
-      print("Error: Tanggal tanam tidak boleh kosong!")
-   try:
-      datetime.strptime(tanggal_tanam, "%Y-%m-%d")
-   except ValueError:
-      print("Error: Input tidak valid. Pastikan tanggal dalam format yang benar.")
-      return
-      
-   kondisi_tanaman = input("Kondisi Tanaman: ")
-   if not kondisi_tanaman:
-      print("Error: Kondisi tanaman tidak boleh kosong!")
-      return
-   
-   lokasi_tanaman = input("Lokasi Tanaman: ")
-   if not lokasi_tanaman:
-      print("Error: Lokasi tanaman tidak boleh kosong!")
-      return
+   while True:    
+      lokasi_tanaman = input("Lokasi Tanaman: ").strip().lower()
+      if not lokasi_tanaman:
+         print("Error: Lokasi tanaman tidak boleh kosong!\n")
+         continue
+      break
 
 
    data[id_tanaman] = {
@@ -83,8 +95,11 @@ def read_tanaman():
 
 def update_tanaman():
    data = load_data()
-   id_tanaman = input("Masukkan ID tanaman yang akan diperbarui: ")
+   id_tanaman = input("\nMasukkan ID tanaman yang akan diperbarui: ").strip()
    
+   if not id_tanaman:
+      print("Error: ID tanaman tidak boleh kosong!\n")
+      return
    if id_tanaman not in data:
       print("Tanaman dengan ID tersebut tidak ditemukan.")
       return
@@ -97,17 +112,21 @@ def update_tanaman():
    print("-" * 100)
 
    print("\n=== Update Data Tanaman ===\n(Tidak perlu diisi jika tidak ingin diubah)")
-   nama_tanaman = input(f"Nama Tanaman [{data[id_tanaman]['nama_tanaman']}]: ") or data[id_tanaman]['nama_tanaman']
-   jenis_tanaman = input(f"Jenis Tanaman [{data[id_tanaman]['jenis_tanaman']}]: ") or data[id_tanaman]['jenis_tanaman']
-   tanggal_tanam = input(f"Tanggal Tanam (YYYY-MM-DD) [{data[id_tanaman]['tanggal_tanam']}]: ") or data[id_tanaman]['tanggal_tanam']
-   kondisi_tanaman = input(f"Kondisi Tanaman [{data[id_tanaman]['kondisi_tanaman']}]: ") or data[id_tanaman]['kondisi_tanaman']
-   lokasi_tanaman = input(f"Lokasi Tanaman [{data[id_tanaman]['lokasi_tanaman']}]: ") or data[id_tanaman]['lokasi_tanaman']
+   nama_tanaman = input(f"Nama Tanaman [{data[id_tanaman]['nama_tanaman']}]: ").strip().lower() or data[id_tanaman]['nama_tanaman']
+   jenis_tanaman = input(f"Jenis Tanaman [{data[id_tanaman]['jenis_tanaman']}]: ").strip().lower() or data[id_tanaman]['jenis_tanaman']
+   
+   while True:
+      tanggal_tanam = input(f"Tanggal Tanam (YYYY-MM-DD) [{data[id_tanaman]['tanggal_tanam']}]: ").strip() or data[id_tanaman]['tanggal_tanam']
+      try:
+         datetime.strptime(tanggal_tanam, "%Y-%m-%d")
+      except ValueError:
+         print("Error:  Pastikan tanggal tanam dalam format yang benar.\n")
+         continue
+      break
 
-   try:
-      datetime.strptime(tanggal_tanam, "%Y-%m-%d")
-   except ValueError:
-      print("Error: Input tidak valid. Pastikan tanggal tanam dalam format yang benar.")
-      return
+   kondisi_tanaman = input(f"Kondisi Tanaman [{data[id_tanaman]['kondisi_tanaman']}]: ").strip().lower() or data[id_tanaman]['kondisi_tanaman']
+   lokasi_tanaman = input(f"Lokasi Tanaman [{data[id_tanaman]['lokasi_tanaman']}]: ").strip().lower() or data[id_tanaman]['lokasi_tanaman']
+
 
    data[id_tanaman] = {
       "id": id_tanaman,
@@ -123,15 +142,19 @@ def update_tanaman():
 
 def delete_tanaman():
    data = load_data()
-   id_tanaman = input("Masukkan ID tanaman yang akan dihapus: ")
+   id_tanaman = input("\nMasukkan ID tanaman yang akan dihapus: ").strip()
    
    if id_tanaman in data:
       del data[id_tanaman]
       save_data(data)
       print("Tanaman berhasil dihapus!")
+   if not id_tanaman:
+      print("Error: ID tanaman tidak boleh kosong!\n")
+      return
    else:
       print("Tanaman dengan ID tersebut tidak ditemukan.")
-
+      return
+   
 def menu_tanaman():
    from main import main_menu
    while True:
@@ -142,7 +165,7 @@ def menu_tanaman():
       print("4. Hapus Data Tanaman")
       print("5. Kembali ke Awal")
       
-      pilihan = input("Pilih menu: ")
+      pilihan = input("Pilih menu: ").strip()
       
       if pilihan == "1":
          add_tanaman()

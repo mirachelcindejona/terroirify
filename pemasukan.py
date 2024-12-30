@@ -43,32 +43,50 @@ def add_pemasukan():
     print("=" * 120)
     print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
     print("=" * 120)
-    for panen_id, panen in data_panen.items():
+    for nama_panen_id, panen in data_panen.items():
         nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
         print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
         print("-" * 120)
     
-    nama_panen_id = input("\nMasukkan ID panen yang ingin ditambah ke pemasukkan: ")
-    if nama_panen_id not in data_panen:
-        print("ID panen tidak valid.")
-    
-    jumlah_penjualan = input("Masukkan jumlah penjualan: ")
-    tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ")
-    id_panen = input("Masukkan ID Panen: ")
-
-    try:
-        jumlah_penjualan = float(jumlah_penjualan)
-        datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah stok adalah angka dan tanggal dalam format yang benar.")
-        return
+    while True:
+        nama_panen_id = input("\nMasukkan ID panen yang ingin ditambah ke pemasukkan: ").strip()
+        if nama_panen_id not in data_panen:
+            print("ID panen tidak valid. Silakan memilih ID panen yang ada.\n")
+            continue
+        break
+            
+    while True:    
+        jumlah_penjualan = input("Masukkan jumlah penjualan: ").strip()
+        if not jumlah_penjualan:
+            print("Error: Jumlah penjualan tidak boleh kosong!\n")
+            continue
+        try:
+            jumlah_penjualan = float(jumlah_penjualan)
+            if jumlah_penjualan <= 0:
+                print("Error: Jumlah penjualan harus lebih besar dari 0!\n")
+                continue
+            break
+        except ValueError:
+            print("Error: Jumlah penjualan harus berupa angka!\n")
+            
+    while True: 
+      tanggal_penerimaan = input("Tanggal Penerimaan (YYYY-MM-DD): ").strip()
+      if not tanggal_penerimaan:
+         print("Error: Tanggal penerimaan tidak boleh kosong!\n")
+         continue
+      else:
+         try:
+            datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+         except ValueError:
+            print("Error: Pastikan tanggal dalam format yang benar.\n")
+            continue
+         break
     
     data[id_pemasukan] = {
         "id": id_pemasukan,
         "id_panen": nama_panen_id,
         "jumlah_penjualan": jumlah_penjualan,
         "tanggal_penerimaan": tanggal_penerimaan,
-        "id_panen": id_panen
     }
 
     save_data(data)
@@ -89,8 +107,11 @@ def read_pemasukan():
 
 def update_pemasukan():
     data = load_data()
-    id_pemasukan = input("Masukkan ID pemasukan yang akan diperbarui: ")
+    id_pemasukan = input("Masukkan ID pemasukan yang akan diperbarui: ").strip()
 
+    if not id_pemasukan:
+      print("Error: ID pemasukan tidak boleh kosong!\n")
+      return
     if id_pemasukan not in data:
         print("Pemasukan dengan ID tersebut tidak ditemukan.")
         return
@@ -104,7 +125,6 @@ def update_pemasukan():
     
     print("\n=== Update Data Pemasukan ===\n(Tidak perlu diisi jika tidak ingin diubah)")
 
-    # Memuat data panen untuk pilihan
     data_panen = load_data_panen()
     if not data_panen:
         print("Tidak ada data panen tersedia.")
@@ -124,28 +144,37 @@ def update_pemasukan():
         print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
         print("-" * 120)
     
-    nama_panen_id = input(f"\nMasukkan ID panen yang ingin diperbarui ke pemasukkan [{data[id_pemasukan]['id_panen']}]: ") or data[id_pemasukan]['id_panen']
+    nama_panen_id = input(f"\nMasukkan ID panen yang ingin diperbarui ke pemasukkan [{data[id_pemasukan]['id_panen']}]: ").strip() or data[id_pemasukan]['id_panen']
     if nama_panen_id not in data_panen:
-        print("ID panen tidak valid.")
+        print("Error: ID panen tidak ada! Pastikan ID panen sesuai dengan data panen yang ada.")
         return
-    
-    jumlah_penjualan = input(f"Masukkan jumlah penjualan [{data[id_pemasukan]['jumlah_penjualan']}]: ") or data[id_pemasukan]['jumlah_penjualan']
-    tanggal_penerimaan = input(f"Tanggal Penerimaan (YYYY-MM-DD) [{data[id_pemasukan]['tanggal_penerimaan']}]: ") or data[id_pemasukan]['tanggal_penerimaan']
-    id_panen = input(f"Masukkan ID Panen [{data[id_pemasukan]['id_panen']}]: ") or data[id_pemasukan]['id_panen']
+    if not nama_panen_id:
+        print("Error: ID panen tidak boleh kosong!")
+        return
 
-    try:
-        jumlah_penjualan = float(jumlah_penjualan)
-        datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah penjualan adalah angka dan tanggal dalam format yang benar.")
-        return
+    while True:
+        jumlah_penjualan = input(f"Masukkan jumlah penjualan [{data[id_pemasukan]['jumlah_penjualan']}]: ").strip() or data[id_pemasukan]['jumlah_penjualan']
+        try:
+            jumlah_penjualan = float(jumlah_penjualan)
+        except ValueError:
+            print("Error: Jumlah penjualan harus berupa angka!\n")
+            continue
+        break
+    
+    while True:
+        tanggal_penerimaan = input(f"Tanggal Penerimaan (YYYY-MM-DD) [{data[id_pemasukan]['tanggal_penerimaan']}]: ").strip() or data[id_pemasukan]['tanggal_penerimaan']
+        try:
+            datetime.strptime(tanggal_penerimaan, "%Y-%m-%d")
+        except ValueError:
+            print("Error: Pastikan tanggal dalam format yang benar.\n")
+            continue
+        break
     
     data[id_pemasukan] = {
         "id": id_pemasukan,
         "id_panen": nama_panen_id,
         "jumlah_penjualan": jumlah_penjualan,
         "tanggal_penerimaan": tanggal_penerimaan,
-        "id_panen": id_panen
     }
 
     save_data(data)
@@ -153,7 +182,7 @@ def update_pemasukan():
 
 def delete_pemasukan():
     data = load_data()
-    id_pemasukan = input("Masukkan ID Pemasukan yang akan dihapus: ")
+    id_pemasukan = input("\nMasukkan ID Pemasukan yang akan dihapus: ").strip()
 
     if id_pemasukan in data:
         konfirmasi = input(f"Anda yakin ingin menghapus pemasukan {id_pemasukan}? (y/n): ").lower()
@@ -176,7 +205,7 @@ def menu_pemasukan():
         print("4. Hapus Data Pemasukan")
         print("5. Kembali ke Awal")
 
-        pilihan = input("Pilih menu: ")
+        pilihan = input("Pilih menu: ").strip()
 
         if pilihan == "1":
             add_pemasukan()

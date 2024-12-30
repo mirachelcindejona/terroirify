@@ -19,8 +19,8 @@ def get_current_user():
                 return data
             return None
     except (FileNotFoundError, json.JSONDecodeError):
-        return None
-
+        return None 
+    
 current_user = get_current_user()
 is_logged_in = current_user is not None
 

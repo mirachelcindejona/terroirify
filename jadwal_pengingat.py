@@ -54,18 +54,18 @@ def add_jadwal_pengingat():
             datetime.strptime(waktu_pengingat, "%H:%M")
             break
         except ValueError:
-            print("Format waktu tidak valid! Gunakan format HH:MM")
+            print("Error: Format waktu tidak valid! Gunakan format HH:MM\n")
 
     while True:
         hari_notifikasi = input("Masukkan hari notifikasi (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
         hari_notifikasi = [hari.strip().capitalize() for hari in hari_notifikasi]
         if all(hari in ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] for hari in hari_notifikasi):
             break
-        print("Masukkan hari yang valid!")
+        print("Error: Masukkan hari yang valid!\n")
 
     tipe = input("Masukkan tipe pengingat (penyiraman/pemupukan): ").strip().lower()
     while tipe not in ["penyiraman", "pemupukan"]:
-        print("Tipe tidak valid! Silakan masukkan 'penyiraman' atau 'pemupukan'.")
+        print("Error: Tipe tidak valid! Silakan masukkan 'penyiraman' atau 'pemupukan'.\n")
         tipe = input("Masukkan tipe pengingat (penyiraman/pemupukan): ").strip().lower()
 
     data[id_jadwal_pengingat] = {
@@ -97,10 +97,10 @@ def read_jadwal_pengingat():
 def update_jadwal_pengingat():
     data = load_data()
     data_tanaman = load_data_tanaman()
-    id_jadwal_pengingat = input("Masukkan ID Jadwal Pengingat yang akan diperbarui: ")
+    id_jadwal_pengingat = input("\nMasukkan ID Jadwal Pengingat yang akan diperbarui: ")
 
     if id_jadwal_pengingat not in data:
-        print("Jadwal Pengingat dengan ID tersebut tidak ditemukan.")
+        print("Jadwal Pengingat dengan ID tersebut tidak ditemukan.\n")
         return
     
     print(f"\n=== Data jadwal pengingat saat ini dengan ID {id_jadwal_pengingat} ===\n")
@@ -132,7 +132,7 @@ def update_jadwal_pengingat():
             datetime.strptime(waktu_pengingat, "%H:%M")
             break
         except ValueError:
-            print("Format waktu tidak valid! Gunakan format HH:MM")
+            print("Error: Format waktu tidak valid! Gunakan format HH:MM\n")
 
     while True:
         hari_notifikasi = input(f"Masukkan hari notifikasi (pisahkan dengan koma) [{', '.join(data[id_jadwal_pengingat]['hari_notifikasi'])}]: ").split(",") or data[id_jadwal_pengingat]['hari_notifikasi']
@@ -140,11 +140,11 @@ def update_jadwal_pengingat():
             hari_notifikasi = [hari.strip().capitalize() for hari in hari_notifikasi]
         if all(hari in ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] for hari in hari_notifikasi):
             break
-        print("Masukkan hari yang valid!")
+        print("Masukkan hari yang valid!\n")
 
     status = input(f"Masukkan status (aktif/non-aktif) [{data[id_jadwal_pengingat]['status']}]: ") or data[id_jadwal_pengingat]['status']
     while status not in ["aktif", "non-aktif"]:
-        print("Status tidak valid! Masukkan 'aktif' atau 'non-aktif'")
+        print("Error: Status tidak valid! Masukkan 'aktif' atau 'non-aktif'.\n")
         status = input(f"Masukkan status (aktif/non-aktif) [{data[id_jadwal_pengingat]['status']}]: ") or data[id_jadwal_pengingat]['status']
 
     data[id_jadwal_pengingat].update({
@@ -160,7 +160,7 @@ def update_jadwal_pengingat():
 
 def delete_jadwal_pengingat():
     data = load_data()
-    id_jadwal_pengingat = input("Masukkan ID Jadwal Pengingat yang akan dihapus: ")
+    id_jadwal_pengingat = input("\nMasukkan ID Jadwal Pengingat yang akan dihapus: ")
 
     if id_jadwal_pengingat in data:
         konfirmasi = input(f"Anda yakin ingin menghapus jadwal pengingat {id_jadwal_pengingat}? (y/n): ").lower()
@@ -171,7 +171,7 @@ def delete_jadwal_pengingat():
         else:
             print("Penghapusan dibatalkan.")
     else:
-        print("Jadwal Pengingat dengan ID tersebut tidak ditemukan.")
+        print("Jadwal Pengingat dengan ID tersebut tidak ditemukan.\n")
 
 def notifikasi():
     while True:

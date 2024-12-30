@@ -41,26 +41,78 @@ def add_panen():
         print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['tanggal_tanam']:<15} | {tanaman['kondisi_tanaman']:<15} | {tanaman['lokasi_tanaman']:<20}")
         print("-" * 100)
 
-    nama_tanaman_id = input("\nMasukkan ID tanaman yang ingin dipanen: ")
-    if nama_tanaman_id not in data_tanaman:
-        print("ID tanaman tidak valid.")
-        return
+    while True:
+        nama_tanaman_id = input("\nMasukkan ID tanaman yang ingin dipanen: ").strip()
+        if not nama_tanaman_id:
+            print("Error: ID tanaman tidak boleh kosong!\n")
+            continue
+        if nama_tanaman_id not in data_tanaman:
+            print("ID tanaman tidak valid! Pastikan ID yang Anda masukkan sudah ada di database tanaman.\n")
+            continue
+        break
 
-    jumlah_panen = input("Jumlah Panen: ")
-    satuan_panen = input("Satuan Panen (kg/buah/ikat): ")
-    tanggal_panen = input("Tanggal Panen (YYYY-MM-DD): ")
-    kualitas_panen = input("Kualitas Panen: ")
-    harga_per_satuan = input("Harga Per Satuan (Rp): ")
-
-    try:
-        jumlah_panen = float(jumlah_panen)
-        harga_per_satuan = float(harga_per_satuan)
-        total_harga = jumlah_panen * harga_per_satuan
-        datetime.strptime(tanggal_panen, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah panen dan harga per unit adalah angka, dan tanggal dalam format yang benar.")
-        return
-
+    while True: 
+        jumlah_panen = input("Jumlah Panen: ").strip()
+        if not jumlah_panen:
+            print("Error: Jumlah panen tidak boleh kosong!\n")
+            continue
+        try:
+            jumlah_panen = float(jumlah_panen)
+        except ValueError:
+            print("Error: Jumlah panen harus berupa angka!\n")
+            continue
+        if jumlah_panen <= 0:
+            print("Error: Jumlah panen tidak boleh kurang dari atau sama dengan 0\n")
+            continue
+        break
+    
+    while True:
+        satuan_panen = input("Satuan Panen (kg/buah/ikat): ").strip().lower()
+        if not satuan_panen:
+            print("Error: Satuan panen tidak boleh kosong!\n")
+            continue
+        if satuan_panen not in ['kg', 'buah', 'ikat']:
+            print("Error: Satuan panen tidak valid! Pastikan Anda memasukkan salah satu dari 'kg', 'buah', atau 'ikat'\n")
+            continue
+        break
+        
+    while True: 
+        tanggal_panen = input("Tanggal Panen (YYYY-MM-DD): ").strip()
+        if not tanggal_panen:
+            print("Error: Tanggal panen tidak boleh kosong!\n")
+            continue
+        else:
+            try:
+                datetime.strptime(tanggal_panen, "%Y-%m-%d")
+            except ValueError:
+                print("Error: Input tidak valid. Pastikan tanggal dalam format yang benar.\n")
+                continue
+            break
+    
+    while True:
+        kualitas_panen = input("Kualitas Panen: ").strip().lower()
+        if not kualitas_panen:
+            print("Error: Kualitas panen tidak boleh kosong!\n")
+            continue
+        break
+        
+    while True:
+        harga_per_satuan = input("Harga Per Satuan (Rp): ").strip()
+        if not harga_per_satuan:
+            print("Error: Harga per satuan tidak boleh kosong!\n")
+            continue
+        try:
+            harga_per_satuan = float(harga_per_satuan)  
+            if harga_per_satuan <= 0:
+                print("Error: Harga per satuan tidak boleh kurang dari atau sama dengan 0\n") 
+                continue
+        except ValueError:
+            print("Error: Harga per satuan harus berupa angka!\n")  
+            continue
+        break    
+        
+    total_harga = jumlah_panen * harga_per_satuan
+        
     data[id_panen] = {
         "id": id_panen,
         "id_tanaman": nama_tanaman_id,
@@ -92,10 +144,12 @@ def read_panen():
 
 def update_panen():
     data = load_data()
-    id_panen = input("Masukkan ID panen yang akan diperbarui: ")
-    
+    id_panen = input("\nMasukkan ID panen yang akan diperbarui: ").strip()
     if id_panen not in data:
         print("Panen dengan ID tersebut tidak ditemukan.")
+        return
+    if not id_panen:
+        print("Error: ID panen tidak boleh kosong!\n")
         return
     
     print(f"\n=== Data panen saat ini dengan ID {id_panen} ===\n")
@@ -125,23 +179,52 @@ def update_panen():
 
     nama_tanaman_id = input(f"Masukkan ID tanaman yang ingin dipanen [{data[id_panen]['id_tanaman']}]: ") or data[id_panen]['id_tanaman']
     if nama_tanaman_id not in data_tanaman:
-        print(f"\nID tanaman tidak valid.")
+        print(f"\nID tanaman tidak valid! Pastikan ID tanaman sesuai dengan data yang ada.")
         return
-
-    jumlah_panen = input(f"Jumlah Panen [{data[id_panen]['jumlah_panen']}]: ") or data[id_panen]['jumlah_panen']
-    satuan_panen = input(f"Satuan Panen (kg/buah/ikat) [{data[id_panen]['satuan_panen']}]: ") or data[id_panen]['satuan_panen']
-    tanggal_panen = input(f"Tanggal Panen (YYYY-MM-DD) [{data[id_panen]['tanggal_panen']}]: ") or data[id_panen]['tanggal_panen']
-    kualitas_panen = input(f"Kualitas Panen [{data[id_panen]['kualitas_panen']}]: ") or data[id_panen]['kualitas_panen']
-    harga_per_satuan = input(f"Harga Per Satuan (Rp) [{data[id_panen]['harga_per_satuan']}]: ") or data[id_panen]['harga_per_satuan']
-
-    try:
-        jumlah_panen = float(jumlah_panen)
-        harga_per_satuan = float(harga_per_satuan)
-        total_harga = jumlah_panen * harga_per_satuan
-        datetime.strptime(tanggal_panen, "%Y-%m-%d")
-    except ValueError:
-        print("Error: Input tidak valid. Pastikan jumlah panen dan harga per unit adalah angka, dan tanggal dalam format yang benar.")
-        return
+    
+    while True:
+        jumlah_panen = input(f"Jumlah Panen [{data[id_panen]['jumlah_panen']}]: ").strip() or data[id_panen]['jumlah_panen']
+        try:
+            jumlah_panen = float(jumlah_panen)
+        except ValueError:
+            print("Error: Jumlah panen harus berupa angka!\n")
+            continue
+        if jumlah_panen <= 0:
+            print("Error: Jumlah panen tidak boleh kurang dari atau sama dengan 0\n")
+            continue
+        break
+    
+    while True:
+        satuan_panen = input(f"Satuan Panen (kg/buah/ikat) [{data[id_panen]['satuan_panen']}]: ").strip().lower() or data[id_panen]['satuan_panen']
+        if satuan_panen not in ['kg', 'buah', 'ikat']:
+            print("Error: Satuan panen tidak valid! Pastikan Anda memasukkan salah satu dari 'kg', 'buah', atau 'ikat'\n")
+            continue
+        break
+    
+    while True:
+      tanggal_panen = input(f"Tanggal Panen (YYYY-MM-DD) [{data[id_panen]['tanggal_panen']}]: ").strip() or data[id_panen]['tanggal_panen']
+      try:
+         datetime.strptime(tanggal_panen, "%Y-%m-%d")
+      except ValueError:
+         print("Error:  Pastikan tanggal panen dalam format yang benar.\n")
+         continue
+      break
+    
+    kualitas_panen = input(f"Kualitas Panen [{data[id_panen]['kualitas_panen']}]: ").strip().lower() or data[id_panen]['kualitas_panen']
+        
+    while True:
+        harga_per_satuan = input(f"Harga Per Satuan (Rp) [{data[id_panen]['harga_per_satuan']}]: ").strip() or data[id_panen]['harga_per_satuan']
+        try:
+            harga_per_satuan = float(harga_per_satuan)  
+            if harga_per_satuan <= 0:
+                print("Error: Harga per satuan tidak boleh kurang dari atau sama dengan 0\n") 
+                continue
+        except ValueError:
+            print("Error: Harga per satuan harus berupa angka!\n")  
+            continue
+        break
+    
+    total_harga = jumlah_panen * harga_per_satuan
 
     data[id_panen] = {
         "id": id_panen,
@@ -159,7 +242,7 @@ def update_panen():
 
 def delete_panen():
     data = load_data()
-    id_panen = input("Masukkan ID panen yang akan dihapus: ")
+    id_panen = input("Masukkan ID panen yang akan dihapus: ").strip()
     
     if id_panen in data:
         del data[id_panen]
@@ -178,7 +261,7 @@ def menu_panen():
         print("4. Hapus Data Panen")
         print("5. Kembali ke Awal")
         
-        pilihan = input("Pilih menu: ")
+        pilihan = input("Pilih menu: ").strip()
         
         if pilihan == "1":
             add_panen()
