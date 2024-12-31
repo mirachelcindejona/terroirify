@@ -240,12 +240,12 @@ def cari_pekerja():
     
     elif pilihan == "4":
         kontak_pekerja = input("Masukkan kontak pekerja yang dicari: ").strip() 
-        hasil = [pekerja for pekerja in data.values() if pekerja["email"].lower() == kontak_pekerja]
+        hasil = [pekerja for pekerja in data.values() if pekerja["kontak"] == kontak_pekerja]
 
     elif pilihan == "5":
             tanggal_bergabung = input("Masukkan tanggal bergabung (YYYY-MM-DD): ").strip()
             try:
-                datetime.strp("tanggal_bergabung, %Y-%m-%d")
+                datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
                 hasil = [pekerja for pekerja in data.values() if pekerja["tanggal_bergabung"] == tanggal_bergabung]
             except ValueError:
                 print("Format tanggal tidak valid. Gunakan format YYYY-MM-DD.")

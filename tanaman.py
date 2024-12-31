@@ -144,13 +144,13 @@ def delete_tanaman():
    data = load_data()
    id_tanaman = input("\nMasukkan ID tanaman yang akan dihapus: ").strip()
    
+   if not id_tanaman:
+      print("Error: ID tanaman tidak boleh kosong!\n")
+      return
    if id_tanaman in data:
       del data[id_tanaman]
       save_data(data)
       print("Tanaman berhasil dihapus!")
-   if not id_tanaman:
-      print("Error: ID tanaman tidak boleh kosong!\n")
-      return
    else:
       print("Tanaman dengan ID tersebut tidak ditemukan.")
       return

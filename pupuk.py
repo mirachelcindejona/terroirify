@@ -151,13 +151,13 @@ def delete_pupuk():
     data = load_data()
     id_pupuk = input("\nMasukkan ID pupuk yang akan dihapus: ").strip()
     
+    if not id_pupuk:
+        print("Error: ID pupuk tidak boleh kosong!\n")
+        return
     if id_pupuk in data:
         del data[id_pupuk]
         save_data(data)
         print("Pupuk berhasil dihapus!")
-    if not id_pupuk:
-      print("Error: ID pupuk tidak boleh kosong!\n")
-      return
     else:
         print("Pupuk dengan ID tersebut tidak ditemukan.")
 

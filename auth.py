@@ -37,22 +37,69 @@ def register():
     data = load_data()
     print("\n=== Registrasi Pengelola ===")
     id_pengelola = generate_user_id(data)
-    nama = input("Nama: ")
-    username = input("Username: ")
-    email = input("Email: ")
-    password = input("Password: ")
-    no_telepon = input("Nomor Telepon: ")
-    alamat_kebun = input("Alamat Kebun: ")
-    id_kebun = input("ID Unik Kebun: ")
-    tanggal_registrasi = datetime.now().strftime("%Y-%m-%d")
+    
+    while True:
+        nama = input("Nama: ").strip()
+        if not nama:
+            print("Error: Nama tidak boleh kosong!\n")
+            continue
+        break
+        
+    while True:
+        username = input("Username: ").strip()
+        if not username:
+            print("Error: Username tidak boleh kosong!\n") 
+            continue
+        if any(user['username'] == username for user in data.values()):
+            print("Error: Username sudah terdaftar! Gunakan username lain.\n")
+            continue
+        break
+        
+    while True:
+        email = input("Email: ").strip().lower()
+        if not email:
+            print("Error: Email tidak boleh kosong!\n")
+            continue
+        if "@" not in email or "." not in email.split("@")[-1]:
+            print("Error: Format email tidak valid!\n")
+            continue
+        if any(user['email'] == email for user in data.values()):
+            print("Error: Email sudah terdaftar! Gunakan email lain.\n")
+            continue
+        break
+        
+    while True:
+        password = input("Password: ").strip()
+        if len(password) < 6:
+            print("Error: Password minimal 6 karakter!\n")
+            continue
+        break
+        
+    while True:
+        no_telepon = input("Nomor Telepon: ").strip()
+        if not no_telepon.isdigit():
+            print("Error: Nomor telepon harus berupa angka!\n")
+            continue
+        break
+        
+    while True:
+        alamat_kebun = input("Alamat Kebun: ").strip()
+        if not alamat_kebun:
+            print("Error: Alamat kebun tidak boleh kosong!\n")
+            continue
+        break
+        
+    while True:
+        id_kebun = input("ID Unik Kebun: ").strip()
+        if not id_kebun:
+            print("Error: ID kebun tidak boleh kosong!\n")
+            continue
+        if any(user['id_kebun'] == id_kebun for user in data.values()):
+            print("Error: ID kebun sudah terdaftar! Gunakan ID lain.\n")
+            continue
+        break
 
-    for user in data.values():
-        if user['email'] == email:
-            print("Email sudah terdaftar! Gunakan email lain.")
-            return False, None
-        elif user['username'] == username:
-            print("Username sudah terdaftar! Gunakan username lain.")
-            return False, None
+    tanggal_registrasi = datetime.now().strftime("%Y-%m-%d")
 
     data[id_pengelola] = {
         "id_pengelola": id_pengelola,
