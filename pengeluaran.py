@@ -149,7 +149,7 @@ def delete_pengeluaran():
     id_pengeluaran = input("Masukkan ID pengeluaran yang akan dihapus: ").strip()
 
     if id_pengeluaran in data:
-        konfirmasi = input(f"Anda yakin ingin menghapus pemasukan {id_pengeluaran}? (y/n): ").lower()
+        konfirmasi = input(f"Anda yakin ingin menghapus pengeluaran {id_pengeluaran}? (y/n): ").lower()
         if konfirmasi == 'y':
             del data[id_pengeluaran]
             save_data(data)

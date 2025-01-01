@@ -74,17 +74,18 @@ def add_pekerja():
             continue
         break
     
-    while True:
-        tanggal_bergabung = input("Tanggal Bergabung (YYYY-MM-DD): ").strip()
+    while True: 
+        tanggal_bergabung = input("Tanggal bergabung (YYYY-MM-DD): ").strip()
         if not tanggal_bergabung:
             print("Error: Tanggal bergabung tidak boleh kosong!\n")
             continue
-        try:
-            datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
-        except ValueError:
-            print("Error: Pastikan tanggal bergabung dalam format yang benar (YYYY-MM-DD)!\n")
-            continue
-        break
+        else:
+            try:
+                datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+            except ValueError:
+                print("Error: Pastikan tanggal dalam format yang benar.\n")
+                continue
+            break
     
     while True:
         posisi_jabatan = input("Posisi/Jabatan: ").strip()
@@ -92,12 +93,45 @@ def add_pekerja():
             print("Error: Posisi/Jabatan tidak boleh kosong!\n")
             continue
         break
+    
+    while True:
+        if id_pekerja in data:
+            hari_kerja_default = '_ '.join([id_pekerja, 'hari_kerja'])
+        else:
+            hari_kerja_default = " "
+            
+        hari_kerja = input(f"Masukkan hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa) [{hari_kerja_default}]: ").split(",") or (data[id_pekerja]['hari_kerja'] if id_pekerja in data else [])
+        hari_kerja = [hari.strip().capitalize() for hari in hari_kerja]        
+        
+        if all(hari in ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] for hari in hari_kerja):
+            break
+        print("Masukkan hari yang valid!\n")
+    
+    while True:
+        if id_pekerja in data:
+            jam_kerja_default = ' - '.join(data[id_pekerja]['jam_kerja'])
+        else:
+            jam_kerja_default = ""
 
-        """hari_kerja = input("Hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa): ").split(",")
-        jam_kerja = input("Jam Kerja (format HH:MM - HH:MM): ")
-"""
+        jam_kerja_input = input(f"Masukkan jam Kerja (format HH:MM - HH:MM) [{jam_kerja_default}]: ").strip()
 
+        if not jam_kerja_input and jam_kerja_default:
+            jam_kerja = jam_kerja_default.split(" - ")
+            break
 
+        jam_kerja = jam_kerja_input.split(" - ")
+
+        try:
+            if len(jam_kerja) != 2:
+                print("Error: Format jam tidak valid. Gunakan format HH:MM - HH:MM.")
+                continue
+            
+            for jam in jam_kerja:
+                datetime.strptime(jam.strip(), "%H:%M")
+            break
+        except ValueError:
+            print("Error: Format waktu tidak valid! Gunakan format HH:MM\n")
+    
     data[id_pekerja] = {
         "id_pekerja": id_pekerja,
         "id_kebun": id_kebun,
@@ -107,8 +141,8 @@ def add_pekerja():
         "status": status,
         "tanggal_bergabung": tanggal_bergabung,
         "posisi_jabatan": posisi_jabatan,
-        #"hari_kerja": hari_kerja,#
-        #"jam_kerja": jam_kerja#
+        "hari_kerja": hari_kerja,
+        "jam_kerja": jam_kerja
     }
     
     save_data(data)
@@ -155,15 +189,18 @@ def update_pekerja():
     
     while True:
         email = input(f"Email [{data[id_pekerja]['email']}]: ").strip().lower() or data[id_pekerja]['email']
+        if email == data[id_pekerja]['email']:
+            break
         if "@" not in email or "." not in email.split("@")[-1]:
             print("Error: Format email tidak valid!\n")
             continue
-        break
     
     for pekerja in data.values():
-        if pekerja['email'] == email:
-            print("Email sudah terdaftar! Gunakan email lain.\n")
-            return
+        if email: 
+            if pekerja['email'] == email and pekerja['id_pekerja'] != id_pekerja:
+                print("Email sudah terdaftar! Gunakan email lain.\n")
+                return
+        break
         
     while True:
         kontak = input(f"Kontak [{data[id_pekerja]['kontak']}]: ").strip() or data[id_pekerja]['kontak']
@@ -181,18 +218,56 @@ def update_pekerja():
         break
     
     while True:
-        tanggal_bergabung = input(f"Tanggal Bergabung (YYYY-MM-DD) [{data[id_pekerja]['tanggal_bergabung']}]: ").strip() or data[id_pekerja]['tanggal_bergabung']
-        try:
-            datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
-        except ValueError:
-            print("Error: Pastikan tanggal bergabung dalam format yang benar (YYYY-MM-DD)!\n")
-            continue
-        break
+      tanggal_bergabung = input(f"Tanggal Bergabung (YYYY-MM-DD) [{data[id_pekerja]['tanggal_bergabung']}]: ").strip() or data[id_pekerja]['tanggal_bergabung']
+      try:
+         datetime.strptime(tanggal_bergabung, "%Y-%m-%d")
+      except ValueError:
+         print("Error:  Pastikan tanggal bergabung dalam format yang benar.\n")
+         continue
+      break
     
     posisi_jabatan = input(f"Posisi/Jabatan [{data[id_pekerja]['posisi_jabatan']}]: ") or data[id_pekerja]['posisi_jabatan']
-    #hari_kerja = input(f"Hari Kerja (pisahkan dengan koma) [{', '.join(data[id_pekerja]['hari_kerja'])}]: ").split(",") or data[id_pekerja]['hari_kerja']
-    #jam_kerja = input(f"Jam Kerja (format HH:MM - HH:MM) [{data[id_pekerja]['jam_kerja']}]: ") or data[id_pekerja]['jam_kerja']
+   
+    while True:
+        hari_kerja_default = ', '.join(data[id_pekerja]['hari_kerja'])
+        hari_kerja_input = input(f"Masukkan hari Kerja (pisahkan dengan koma, misalnya: Senin, Selasa) [{hari_kerja_default}]: ").strip()
+ 
+        if not hari_kerja_input:
+            hari_kerja = data[id_pekerja]['hari_kerja']
+            break
+
+        hari_kerja = [hari.strip().capitalize() for hari in hari_kerja_input.split(",")]
+
+        if all(hari in ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"] for hari in hari_kerja):
+            break
+        else:
+            print("Masukkan hari yang valid!\n")
     
+    while True:
+        if id_pekerja in data:
+            jam_kerja_default = ' - '.join(data[id_pekerja]['jam_kerja'])
+        else:
+            jam_kerja_default = ""
+
+        jam_kerja_input = input(f"Masukkan jam Kerja (format HH:MM - HH:MM) [{jam_kerja_default}]: ").strip()
+
+        if not jam_kerja_input and jam_kerja_default:
+            jam_kerja = jam_kerja_default.split(" - ")
+            break
+
+        jam_kerja = jam_kerja_input.split(" - ")
+
+        try:
+            if len(jam_kerja) != 2:
+                print("Error: Format jam tidak valid. Gunakan format HH:MM - HH:MM.")
+                continue
+            
+            for jam in jam_kerja:
+                datetime.strptime(jam.strip(), "%H:%M")
+            break
+        except ValueError:
+            print("Error: Format waktu tidak valid! Gunakan format HH:MM\n")
+            
     for pid, pekerja in data.items():
         if pekerja['email'] == email and pid != id_pekerja:
             print("Email sudah terdaftar! Gunakan email lain.")
@@ -205,8 +280,8 @@ def update_pekerja():
         "status": status,
         "tanggal_bergabung": tanggal_bergabung,
         "posisi_jabatan": posisi_jabatan,
-        #"hari_kerja": hari_kerja,
-        #"jam_kerja": jam_kerja
+        "hari_kerja": hari_kerja,
+        "jam_kerja": jam_kerja
     })
     
     save_data(data)

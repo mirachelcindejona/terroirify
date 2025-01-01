@@ -245,9 +245,13 @@ def delete_panen():
     id_panen = input("Masukkan ID panen yang akan dihapus: ").strip()
     
     if id_panen in data:
-        del data[id_panen]
-        save_data(data)
-        print("Data panen berhasil dihapus!")
+        konfirmasi = input(f"Anda yakin ingin menghapus panen {id_panen}? (y/n): ").lower()
+        if konfirmasi == 'y':
+            del data[id_panen]
+            save_data(data)
+            print("Panen berhasil dihapus!")
+        else:
+            print("Penghapusan dibatalkan.")
     else:
         print("Panen dengan ID tersebut tidak ditemukan.")
 

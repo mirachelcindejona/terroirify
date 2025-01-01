@@ -147,13 +147,17 @@ def delete_tanaman():
    if not id_tanaman:
       print("Error: ID tanaman tidak boleh kosong!\n")
       return
+   
    if id_tanaman in data:
-      del data[id_tanaman]
-      save_data(data)
-      print("Tanaman berhasil dihapus!")
+        konfirmasi = input(f"Anda yakin ingin menghapus tanaman {id_tanaman}? (y/n): ").lower()
+        if konfirmasi == 'y':
+            del data[id_tanaman]
+            save_data(data)
+            print("Tanaman berhasil dihapus!")
+        else:
+            print("Penghapusan dibatalkan.")
    else:
       print("Tanaman dengan ID tersebut tidak ditemukan.")
-      return
    
 def menu_tanaman():
    from main import main_menu

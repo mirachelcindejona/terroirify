@@ -70,6 +70,9 @@ def register():
         
     while True:
         password = input("Password: ").strip()
+        if not password:
+            print("Error: Password tidak boleh kosong!\n")
+            continue
         if len(password) < 6:
             print("Error: Password minimal 6 karakter!\n")
             continue
@@ -77,6 +80,9 @@ def register():
         
     while True:
         no_telepon = input("Nomor Telepon: ").strip()
+        if not no_telepon:
+            print("Error: Nomor telepon tidak boleh kosong!\n")
+            continue
         if not no_telepon.isdigit():
             print("Error: Nomor telepon harus berupa angka!\n")
             continue
@@ -122,18 +128,18 @@ def login():
     data = load_data()
     print("\n=== Login Pengelola ===")
     while True:
-        email = input("Email: ")
+        email = input("\nEmail: ")
         password = input("Password: ")
 
         hashed_password = hash_password(password)
 
         for user in data.values():
             if user["email"] == email and user["password"] == hashed_password:
-                print("Login berhasil! Selamat datang,", user["nama"])
+                print("\n🌱 Login berhasil! Selamat datang,", user["nama"], "🌱")
                 save_login_data(user)
                 return True, user
 
-        print("Email atau password salah. Coba lagi.")
+        print("Email atau password salah. Coba lagi.\n")
         retry = input("Apakah ingin mencoba login lagi? (y/n): ")
         if retry.lower() != 'y':
             return False, None

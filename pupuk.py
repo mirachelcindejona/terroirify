@@ -155,9 +155,13 @@ def delete_pupuk():
         print("Error: ID pupuk tidak boleh kosong!\n")
         return
     if id_pupuk in data:
-        del data[id_pupuk]
-        save_data(data)
-        print("Pupuk berhasil dihapus!")
+        konfirmasi = input(f"Anda yakin ingin menghapus pupuk {id_pupuk}? (y/n): ").lower()
+        if konfirmasi == 'y':
+            del data[id_pupuk]
+            save_data(data)
+            print("Pupuk berhasil dihapus!")
+        else:
+            print("Penghapusan dibatalkan.")
     else:
         print("Pupuk dengan ID tersebut tidak ditemukan.")
 
