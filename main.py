@@ -20,6 +20,9 @@ def get_current_user():
             return None
     except (FileNotFoundError, json.JSONDecodeError):
         return None 
+    except Exception as e:
+        print(f"Terjadi kesalahan saat membaca data login: {str(e)}")
+        return None
     
 current_user = get_current_user()
 is_logged_in = current_user is not None
@@ -29,68 +32,79 @@ def main_menu():
     print("\n=== Aplikasi Manajemen Kebun ===\n")
 
     while True:
-        if not is_logged_in:
-            print("\n1. Registrasi Pengelola")
-            print("2. Login Pengelola") 
-            print("3. Keluar")
-            pilihan = input("Pilih opsi (1/2/3): ")
+        try:
+            if not is_logged_in:
+                print("\n1. Registrasi Pengelola")
+                print("2. Login Pengelola") 
+                print("3. Keluar")
+                pilihan = input("Pilih opsi (1/2/3): ").strip()
 
-            if pilihan == "1":
-                success, _ = register()
-                if success:
+                if pilihan == "1":
+                    success, _ = register()
+                    if success:
+                        is_logged_in, current_user = login()
+                        if is_logged_in:
+                            current_user = get_current_user()
+                            if current_user:
+                                print(f"\nAnda berhasil login sebagai {current_user['nama']}")
+                elif pilihan == "2":
                     is_logged_in, current_user = login()
                     if is_logged_in:
                         current_user = get_current_user()
-                        print(f"\nAnda berhasil login sebagai {current_user['nama']}")
-            elif pilihan == "2":
-                is_logged_in, current_user = login()
-                if is_logged_in:
-                    current_user = get_current_user()
-                    print(f"\nAnda berhasil login sebagai {current_user['nama']}")
-            elif pilihan == "3":
-                print("Terima kasih telah menggunakan Aplikasi Manajemen Kebun.")
-                exit()
+                        if current_user:
+                            print(f"\nAnda berhasil login sebagai {current_user['nama']}")
+                elif pilihan == "3":
+                    print("Terima kasih telah menggunakan Aplikasi Manajemen Kebun.")
+                    exit()
+                else:
+                    print("\nPilihan tidak valid! Silakan pilih 1, 2, atau 3.")
             else:
-                print("\nPilihan tidak valid!")
-        else:
-            current_user = get_current_user()
-            print(f"\nAnda sudah login sebagai {current_user['nama']}")
-            print("\n=== Menu Pengelola ===\n")
-            print("1. Pencatatan Tanaman")
-            print("2. Jadwal Pengingat Penyiraman dan Pemupukan")
-            print("3. Pencatatan Panen")
-            print("4. Pengelolaan Pupuk")
-            print("5. Pemasukan")
-            print("6. Pengeluaran")
-            print("7. Daftar Pekerja")
-            print("8. Pencarian")
-            print("9. Logout")
+                current_user = get_current_user()
+                if not current_user:
+                    is_logged_in = False
+                    continue
+                    
+                print(f"\nAnda sudah login sebagai {current_user['nama']}")
+                print("\n=== Menu Pengelola ===\n")
+                print("1. Pencatatan Tanaman")
+                print("2. Jadwal Pengingat Penyiraman dan Pemupukan")
+                print("3. Pencatatan Panen")
+                print("4. Pengelolaan Pupuk")
+                print("5. Pemasukan")
+                print("6. Pengeluaran")
+                print("7. Daftar Pekerja")
+                print("8. Pencarian")
+                print("9. Logout")
 
-            pilihan = input("Pilih opsi (1-9): ")
+                pilihan = input("Pilih opsi (1-9): ").strip()
 
-            if pilihan == "1":
-                menu_tanaman()
-            elif pilihan == "2":
-                menu_jadwal_pengingat()
-            elif pilihan == "3":
-                menu_panen()
-            elif pilihan == "4":
-                menu_pupuk()
-            elif pilihan == "5":
-                menu_pemasukan()
-            elif pilihan == "6":
-                menu_pengeluaran()
-            elif pilihan == "7":
-                menu_pekerja()
-            elif pilihan == "8":
-                pencarian()
-            elif pilihan == "9":
-                is_logged_in = False
-                current_user = None
-                clear_login_data()
-                print("\nAnda berhasil logout.")
-            else:
-                print("\nPilihan tidak valid!")
+                if pilihan == "1":
+                    menu_tanaman()
+                elif pilihan == "2":
+                    menu_jadwal_pengingat()
+                elif pilihan == "3":
+                    menu_panen()
+                elif pilihan == "4":
+                    menu_pupuk()
+                elif pilihan == "5":
+                    menu_pemasukan()
+                elif pilihan == "6":
+                    menu_pengeluaran()
+                elif pilihan == "7":
+                    menu_pekerja()
+                elif pilihan == "8":
+                    pencarian()
+                elif pilihan == "9":
+                    is_logged_in = False
+                    current_user = None
+                    clear_login_data()
+                    print("\nAnda berhasil logout.")
+                else:
+                    print("\nPilihan tidak valid! Silakan pilih menu 1-9.")
+        except Exception as e:
+            print(f"\nTerjadi kesalahan: {str(e)}")
+            print("Silakan coba lagi.")
+            continue
 
 if __name__ == "__main__":
     main_menu()
