@@ -21,7 +21,7 @@ def generate_id(data):
     try:
         counter = 1
         while True:
-            id_pengeluaran = f"PLRN{counter:03d}"
+            id_pengeluaran = f"PLRN{counter:02d}"
             if id_pengeluaran not in data:
                 return id_pengeluaran
             counter += 1
