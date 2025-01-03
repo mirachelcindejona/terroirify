@@ -21,7 +21,7 @@ def tampilkan_tabel(data, kolom):
         return
         
     header = "| " + " | ".join(f"{kol[0]:<{kol[2]}}" for kol in kolom) + " |"
-    separator = "+-" + "-+-".join("-" * kol[2] for kol in kolom) + "-+"
+    separator = "+-" + "-+-".join("-" * (kol[2] + 2) for kol in kolom) + "-+"
 
     print(separator)
     print(header)
@@ -94,12 +94,12 @@ def cari_tanaman():
         elif pilihan == "2":
             nama_tanaman = input("Masukkan nama tanaman yang dicari: ").strip()
             if nama_tanaman:
-                hasil = [tanaman for tanaman in data.values() if tanaman.get('nama_tanaman','').lower() == nama_tanaman.lower()]
+                hasil = [tanaman for tanaman in data.values() if tanaman.get('nama','').lower() == nama_tanaman.lower()]
             
         elif pilihan == "3":
             jenis_tanaman = input("Masukkan jenis tanaman yang ingin dicari: ").strip()
             if jenis_tanaman:
-                hasil = [tanaman for tanaman in data.values() if tanaman.get('jenis_tanaman','').lower() == jenis_tanaman.lower()]
+                hasil = [tanaman for tanaman in data.values() if tanaman.get('jenis','').lower() == jenis_tanaman.lower()]
             
         elif pilihan == "4":
             tanggal_tanam = input("Masukkan tanggal tanam yang ingin dicari(YYYY-MM-DD): ").strip()
@@ -119,11 +119,11 @@ def cari_tanaman():
             print("\n=== Hasil Pencarian Tanaman ===")
             kolom_tanaman = [
                 ("ID", "id", 10),
-                ("Nama Tanaman", "nama_tanaman", 20),
-                ("Jenis Tanaman", "jenis_tanaman", 20),
-                ("Tanggal Tanam", "tanggal_tanam", 20),
-                ("Kondisi Tanaman", "kondisi_tanaman", 20),
-                ("Lokasi Tanaman", "lokasi_tanaman", 20)
+                ("Nama Tanaman", "nama", 25),
+                ("Jenis Tanaman", "jenis", 25),
+                ("Tanggal Tanam", "tanggal_tanam", 25),
+                ("Kondisi Tanaman", "kondisi", 25),
+                ("Lokasi Tanaman", "lokasi", 25)
             ]
             tampilkan_tabel(hasil, kolom_tanaman)
             
@@ -168,9 +168,9 @@ def cari_pemasukan():
             print("\n=== Hasil Pencarian Pemasukan ===")
             kolom_pemasukan = [
                 ("ID", "id", 10),
-                ("Jumlah Penjualan", "jumlah_penjualan", 20),
-                ("Tanggal Pemasukan", "tanggal_penerimaan", 20),
-                ("ID Panen", "id_panen", 20)
+                ("Jumlah Penjualan", "jumlah_penjualan", 25),
+                ("Tanggal Pemasukan", "tanggal_penerimaan", 25),
+                ("ID Panen", "id_panen", 25)
             ]
             tampilkan_tabel(hasil, kolom_pemasukan)
             
@@ -202,7 +202,7 @@ def cari_pengeluaran():
         elif pilihan == "2":
             kategori_pengeluaran = input("Masukkan kategori pengeluaran yang ingin dicari: ").strip().lower()
             if kategori_pengeluaran:
-                hasil = [pengeluaran for pengeluaran in data.values() if pengeluaran.get("kategori_pengeluaran","").lower() == kategori_pengeluaran]
+                hasil = [pengeluaran for pengeluaran in data.values() if pengeluaran.get("kategori","").lower() == kategori_pengeluaran]
                 
         elif pilihan == "3":
             tanggal_pengeluaran = input("Masukkan tanggal pengeluaran yang akan dicari (YYYY-MM-DD): ").strip()
@@ -221,10 +221,10 @@ def cari_pengeluaran():
             print("\n=== Hasil Pencarian Pengeluaran ===")
             kolom_pengeluaran = [
                 ("ID", "id", 10), 
-                ("Jumlah Pengeluaran", "jumlah_pengeluaran", 20),
-                ("Tanggal Pengeluaran", "tanggal_pengeluaran", 20),
-                ("Kategori Pengeluaran", "kategori_pengeluaran", 20),
-                ("Keterangan", "keterangan", 20)
+                ("Jumlah Pengeluaran", "jumlah_pengeluaran", 25),
+                ("Tanggal Pengeluaran", "tanggal_pengeluaran", 25),
+                ("Kategori Pengeluaran", "kategori", 25),
+                ("Keterangan", "keterangan", 25)
             ]
             tampilkan_tabel(hasil, kolom_pengeluaran)
         else:
@@ -294,13 +294,13 @@ def cari_pekerja():
             print("\n=== Hasil Pencarian Pekerja ===")
             kolom_pekerja = [
                 ("ID", "id_pekerja", 10),
-                ("Nama", "nama", 20),
+                ("Nama", "nama", 25),
                 ("Email", "email", 30),
-                ("Kontak", "kontak", 15),
-                ("Tanggal Bergabung", "tanggal_bergabung", 20),
-                ("Jabatan", "posisi_jabatan", 20),
+                ("Kontak", "kontak", 20),
+                ("Tanggal Bergabung", "tanggal_bergabung", 25),
+                ("Jabatan", "posisi_jabatan", 25),
                 ("Hari Kerja", "hari_kerja", 30),
-                ("Jam Kerja", "jam_kerja", 15)
+                ("Jam Kerja", "jam_kerja", 20)
             ]
             tampilkan_tabel(hasil, kolom_pekerja)
         else:
@@ -351,9 +351,9 @@ def cari_pupuk():
             print("\n=== Hasil Pencarian Pupuk ===")
             kolom_pupuk = [
                 ("ID", "id", 10),
-                ("Nama Pupuk", "nama_pupuk", 20),
+                ("Nama Pupuk", "nama_pupuk", 25),
                 ("Stok", "stok", 10),
-                ("Tanggal Penerimaan", "tanggal_penerimaan", 20),
+                ("Tanggal Penerimaan", "tanggal_penerimaan", 25),
                 ("Catatan", "catatan", 30)
             ]
             tampilkan_tabel(hasil, kolom_pupuk)
@@ -394,8 +394,8 @@ def cari_jadwal_pengingat():
             print("\n=== Hasil Pencarian Jadwal Pengingat ===")
             kolom_jadwal = [
                 ("ID", "id", 10),
-                ("Waktu Pengingat", "waktu_pengingat", 15),
-                ("Frekuensi (hari)", "frekuensi_hari", 20),
+                ("Waktu Pengingat", "waktu_pengingat", 20),
+                ("Frekuensi (hari)", "frekuensi_hari", 25),
                 ("Status", "status", 10)
             ]
             tampilkan_tabel(hasil, kolom_jadwal)

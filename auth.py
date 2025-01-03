@@ -45,13 +45,14 @@ def hash_password(password):
 
 def generate_user_id(data):
     try:
-        id_pengelola = f"PNGL0{len(data) + 1}"
-        while id_pengelola in data:
-            num = int(id_pengelola[4:]) + 1
-            id_pengelola = f"PNGL0{num}"
-        return id_pengelola
+        counter = 1
+        while True:
+            id_pengelola = f"PNGL{counter:02d}"
+            if id_pengelola not in data:
+                return id_pengelola
+            counter += 1
     except Exception as e:
-        print(f"Terjadi kesalahan saat generate ID: {str(e)}")
+        print(f"Error saat generate ID: {str(e)}")
         return None
 
 def register():

@@ -25,13 +25,14 @@ def save_data(data):
 
 def generate_id(data):
     try:
-        jadwal_pengingat_id = f"JP{str(len(data) + 1).zfill(3)}"
-        while jadwal_pengingat_id in data:
-            num = int(jadwal_pengingat_id[2:]) + 1
-            jadwal_pengingat_id = f"JP{str(num).zfill(3)}"
-        return jadwal_pengingat_id
+        counter = 1
+        while True:
+            jadwal_pengingat_id = f"JP{counter:02d}"
+            if jadwal_pengingat_id not in data:
+                return jadwal_pengingat_id
+            counter += 1
     except Exception as e:
-        print(f"Terjadi kesalahan saat generate ID: {str(e)}")
+        print(f"Error saat generate ID: {str(e)}")
         return None
 
 def add_jadwal_pengingat():
@@ -45,12 +46,12 @@ def add_jadwal_pengingat():
 
         print("\n=== Tambah Data Jadwal Pengingat Penyiraman dan Pemupukan ===")
         print("\nDaftar Tanaman:")
-        print("=" * 70)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Lokasi':<20}")
-        print("=" * 70)
+        print("=" * 80)
+        print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jenis Tanaman':<25} | {'Lokasi':<25}")
+        print("=" * 80)
         for id_tanaman, tanaman in data_tanaman.items():
-            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['lokasi_tanaman']:<20}")
-        print("-" * 70)
+            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<25} | {tanaman['jenis_tanaman']:<25} | {tanaman['lokasi_tanaman']:<25}")
+        print("-" * 80)
 
         while True:
             id_tanaman = input("\nMasukkan ID tanaman yang ingin dijadwalkan: ").strip()
@@ -120,12 +121,12 @@ def read_jadwal_pengingat():
         data = load_data()
         if data:
             print("\n=== Data Jadwal Pengingat Penyiraman dan Pemupukan ===\n")
-            print("=" * 105)
-            print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Waktu Pengingat':<15} | {'Hari Notifikasi':<30} | {'Tipe':<15} | {'Status':<10}")
-            print("=" * 105)
+            print("=" * 120)
+            print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Waktu Pengingat':<20} | {'Hari Notifikasi':<35} | {'Tipe':<20} | {'Status':<15}")
+            print("=" * 120)
             for jadwal_pengingat_id, pengingat in data.items():
-                print(f"{pengingat['id']:<10} | {pengingat['nama_tanaman']:<20} | {pengingat['waktu_pengingat']:<15} | {', '.join(pengingat['hari_notifikasi']):<30} | {pengingat['tipe']:<15} | {pengingat['status']:<10}")
-            print("-" * 105)
+                print(f"{pengingat['id']:<10} | {pengingat['nama_tanaman']:<25} | {pengingat['waktu_pengingat']:<20} | {', '.join(pengingat['hari_notifikasi']):<35} | {pengingat['tipe']:<20} | {pengingat['status']:<15}")
+            print("-" * 120)
         else:
             print("Tidak ada data jadwal pengingat.")
     except Exception as e:
@@ -147,22 +148,22 @@ def update_jadwal_pengingat():
             break
 
         print(f"\n=== Data jadwal pengingat saat ini dengan ID {id_jadwal_pengingat} ===\n")
-        print("=" * 105)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Waktu Pengingat':<15} | {'Hari Notifikasi':<30} | {'Tipe':<15} | {'Status':<10}")
-        print("=" * 105)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Waktu Pengingat':<20} | {'Hari Notifikasi':<35} | {'Tipe':<20} | {'Status':<15}")
+        print("=" * 120)
         jadwal = data[id_jadwal_pengingat]
-        print(f"{jadwal['id']:<10} | {jadwal['nama_tanaman']:<20} | {jadwal['waktu_pengingat']:<15} | {', '.join(jadwal['hari_notifikasi']):<30} | {jadwal['tipe']:<15} | {jadwal['status']:<10}")
-        print("-" * 105)
+        print(f"{jadwal['id']:<10} | {jadwal['nama_tanaman']:<25} | {jadwal['waktu_pengingat']:<20} | {', '.join(jadwal['hari_notifikasi']):<35} | {jadwal['tipe']:<20} | {jadwal['status']:<15}")
+        print("-" * 120)
 
         print("\n=== Update Data Jadwal Pengingat ===\n(Tidak perlu diisi jika tidak ingin diubah)")
 
         print("\nDaftar Tanaman:")
-        print("=" * 70)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Lokasi':<20}")
-        print("=" * 70)
+        print("=" * 80)
+        print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jenis Tanaman':<25} | {'Lokasi':<25}")
+        print("=" * 80)
         for id_tanaman, tanaman in data_tanaman.items():
-            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['lokasi_tanaman']:<20}")
-        print("-" * 70)
+            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<25} | {tanaman['jenis_tanaman']:<25} | {tanaman['lokasi_tanaman']:<25}")
+        print("-" * 80)
 
         while True:
             id_tanaman = input(f"\nMasukkan ID tanaman yang ingin dijadwalkan [{data[id_jadwal_pengingat]['id_tanaman']}]: ").strip() or data[id_jadwal_pengingat]['id_tanaman']

@@ -98,12 +98,12 @@ def read_tanaman():
       data = load_data()
       if data:
          print("\n=== Data Tanaman ===\n")
-         print("=" * 100)
-         print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<20}")
-         print("=" * 100)
+         print("=" * 120)
+         print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jenis Tanaman':<25} | {'Tanggal Tanam':<20} | {'Kondisi':<20} | {'Lokasi':<25}")
+         print("=" * 120)
          for id_tanaman, tanaman in data.items():
-            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['tanggal_tanam']:<15} | {tanaman['kondisi_tanaman']:<15} | {tanaman['lokasi_tanaman']:<20}")
-            print("-" * 100)
+            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<25} | {tanaman['jenis_tanaman']:<25} | {tanaman['tanggal_tanam']:<20} | {tanaman['kondisi_tanaman']:<20} | {tanaman['lokasi_tanaman']:<25}")
+            print("=" * 120)
       else:
          print("Tidak ada data tanaman.")
    except Exception as e:
@@ -122,11 +122,11 @@ def update_tanaman():
          return
       
       print(f"\n=== Data tanaman saat ini dengan ID {id_tanaman} ===\n")
-      print("=" * 100)
-      print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<20}")
-      print("=" * 100)
-      print(f"{data[id_tanaman]['id']:<10} | {data[id_tanaman]['nama_tanaman']:<20} | {data[id_tanaman]['jenis_tanaman']:<20} | {data[id_tanaman]['tanggal_tanam']:<15} | {data[id_tanaman]['kondisi_tanaman']:<15} | {data[id_tanaman]['lokasi_tanaman']:<20}")
-      print("-" * 100)
+      print("=" * 120)
+      print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jenis Tanaman':<25} | {'Tanggal Tanam':<20} | {'Kondisi':<20} | {'Lokasi':<25}")
+      print("=" * 120)
+      print(f"{data[id_tanaman]['id']:<10} | {data[id_tanaman]['nama_tanaman']:<25} | {data[id_tanaman]['jenis_tanaman']:<25} | {data[id_tanaman]['tanggal_tanam']:<20} | {data[id_tanaman]['kondisi_tanaman']:<20} | {data[id_tanaman]['lokasi_tanaman']:<25}")
+      print("=" * 120)
 
       print("\n=== Update Data Tanaman ===\n(Tidak perlu diisi jika tidak ingin diubah)")
       nama_tanaman = input(f"Nama Tanaman [{data[id_tanaman]['nama_tanaman']}]: ").strip().lower() or data[id_tanaman]['nama_tanaman']

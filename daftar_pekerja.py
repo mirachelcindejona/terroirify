@@ -22,13 +22,14 @@ def save_data(data):
 
 def generate_id(data):
     try:
-        pekerja_id = f"PKJ0{len(data) + 1}"
-        while pekerja_id in data:
-            num = int(pekerja_id[3:]) + 1
-            pekerja_id = f"PKJ0{num}"
-        return pekerja_id
+        counter = 1
+        while True:
+            pekerja_id = f"PKJ{counter:02d}"
+            if pekerja_id not in data:
+                return pekerja_id
+            counter += 1
     except Exception as e:
-        print(f"Terjadi kesalahan saat generate ID: {str(e)}")
+        print(f"Error saat generate ID: {str(e)}")
         return None
 
 def get_data_login():
@@ -187,16 +188,16 @@ def read_pekerja():
             return
             
         print("\n=== Data Pekerja ===\n")
-        print("=" * 100)
-        print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
-        print("=" * 100)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Lokasi Kebun':<25} | {'Nama':<25} | {'Email':<25} | {'Kontak':<25} | {'Status':<25} | {'Tanggal Bergabung':<25} | {'Posisi/Jabatan':<25} | {'Hari Kerja':<25} | {'Jam Kerja':<25}")
+        print("=" * 120)
         
         found = False
         for pekerja in data.values():
             if pekerja['id_kebun'] == user_login['id_kebun']:
                 found = True
-                print(f"{pekerja['id_pekerja']:<10} | {user_login.get('alamat_kebun', '-'):<20} | {pekerja['nama']:<20} | {pekerja['email']:<20} | {pekerja['kontak']:<20} | {pekerja['status']:<20} | {pekerja['tanggal_bergabung']:<20} | {pekerja['posisi_jabatan']:<20} | {', '.join(pekerja['hari_kerja']):<20} | {' - '.join(pekerja['jam_kerja']):<20}")
-                print("-" * 100)
+                print(f"{pekerja['id_pekerja']:<10} | {user_login.get('alamat_kebun', '-'):<25} | {pekerja['nama']:<25} | {pekerja['email']:<25} | {pekerja['kontak']:<25} | {pekerja['status']:<25} | {pekerja['tanggal_bergabung']:<25} | {pekerja['posisi_jabatan']:<25} | {', '.join(pekerja['hari_kerja']):<25} | {' - '.join(pekerja['jam_kerja']):<25}")
+                print("-" * 120)
                 
         if not found:
             print("\nTidak ada data pekerja untuk kebun ini.")
@@ -224,11 +225,11 @@ def update_pekerja():
             return
         
         print(f"\n=== Data pekerja saat ini dengan ID {id_pekerja} ===")
-        print("=" * 100)
-        print(f"{'ID':<10} | {'Lokasi Kebun':<20} | {'Nama':<20} | {'Email':<20} | {'Kontak':<20} | {'Status':<20} | {'Tanggal Bergabung':<20} | {'Posisi/Jabatan':<20} | {'Hari Kerja':<20} | {'Jam Kerja':<20}")
-        print("=" * 100)
-        print(f"{data[id_pekerja]['id_pekerja']:<10} | {user_login.get('alamat_kebun', '-'):<20} | {data[id_pekerja]['nama']:<20} | {data[id_pekerja]['email']:<20} | {data[id_pekerja]['kontak']:<20} | {data[id_pekerja]['status']:<20} | {data[id_pekerja]['tanggal_bergabung']:<20} | {data[id_pekerja]['posisi_jabatan']:<20} | {', '.join(data[id_pekerja]['hari_kerja']):<20} | {' - '.join(data[id_pekerja]['jam_kerja']):<20}")
-        print("-" * 100)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Lokasi Kebun':<25} | {'Nama':<25} | {'Email':<25} | {'Kontak':<25} | {'Status':<25} | {'Tanggal Bergabung':<25} | {'Posisi/Jabatan':<25} | {'Hari Kerja':<25} | {'Jam Kerja':<25}")
+        print("=" * 120)
+        print(f"{data[id_pekerja]['id_pekerja']:<10} | {user_login.get('alamat_kebun', '-'):<25} | {data[id_pekerja]['nama']:<25} | {data[id_pekerja]['email']:<25} | {data[id_pekerja]['kontak']:<25} | {data[id_pekerja]['status']:<25} | {data[id_pekerja]['tanggal_bergabung']:<25} | {data[id_pekerja]['posisi_jabatan']:<25} | {', '.join(data[id_pekerja]['hari_kerja']):<25} | {' - '.join(data[id_pekerja]['jam_kerja']):<25}")
+        print("-" * 120)
 
         print("\n=== Update Data Pekerja ===")
         print("(Tekan Enter untuk menggunakan data yang ada)\n")

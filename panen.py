@@ -47,12 +47,12 @@ def add_panen():
             return
 
         print("\nPilih tanaman yang ingin dipanen.")
-        print("=" * 100)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<20}")
-        print("=" * 100)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jenis Tanaman':<25} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<25}")
+        print("=" * 120)
         for id_tanaman, tanaman in data_tanaman.items():
-            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['tanggal_tanam']:<15} | {tanaman['kondisi_tanaman']:<15} | {tanaman['lokasi_tanaman']:<20}")
-            print("-" * 100)
+            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<25} | {tanaman['jenis_tanaman']:<25} | {tanaman['tanggal_tanam']:<15} | {tanaman['kondisi_tanaman']:<15} | {tanaman['lokasi_tanaman']:<25}")
+            print("-" * 120)
 
         while True:
             nama_tanaman_id = input("\nMasukkan ID tanaman yang ingin dipanen: ").strip()
@@ -147,13 +147,13 @@ def read_panen():
         if data:
             print("\n=== Data Panen ===\n")
             print("=" * 120)
-            print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
+            print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
             print("=" * 120)
             data_tanaman = load_data_tanaman()
             for panen_id, panen in data.items():
                 try:
                     nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
-                    print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
+                    print(f"{panen['id']:<10} | {nama_tanaman:<25} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
                     print("-" * 120)
                 except KeyError:
                     print(f"Data tanaman dengan ID {panen['id_tanaman']} tidak ditemukan")
@@ -178,12 +178,12 @@ def update_panen():
 
         print(f"\n=== Data panen saat ini dengan ID {id_panen} ===\n")
         print("=" * 120)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
+        print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
         print("=" * 120)
         data_tanaman = load_data_tanaman()
         try:
             nama_tanaman = data_tanaman[data[id_panen]['id_tanaman']]['nama_tanaman']
-            print(f"{data[id_panen]['id']:<10} | {nama_tanaman:<20} | {data[id_panen]['jumlah_panen']:<10} | {data[id_panen]['satuan_panen']:<8} | {data[id_panen]['tanggal_panen']:<12} | {data[id_panen]['kualitas_panen']:<10} | Rp {data[id_panen]['harga_per_satuan']:,.2f} | Rp {data[id_panen]['total_harga']:,.2f}")
+            print(f"{data[id_panen]['id']:<10} | {nama_tanaman:<25} | {data[id_panen]['jumlah_panen']:<10} | {data[id_panen]['satuan_panen']:<8} | {data[id_panen]['tanggal_panen']:<12} | {data[id_panen]['kualitas_panen']:<10} | Rp {data[id_panen]['harga_per_satuan']:,.2f} | Rp {data[id_panen]['total_harga']:,.2f}")
             print("-" * 120)
         except KeyError:
             print(f"Data tanaman dengan ID {data[id_panen]['id_tanaman']} tidak ditemukan")
@@ -197,12 +197,12 @@ def update_panen():
             return
 
         print("\nPilih tanaman yang ingin dipanen.")
-        print("=" * 100)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jenis Tanaman':<20} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<20}")
-        print("=" * 100)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Nama Tanaman':<25} | {'Jenis Tanaman':<25} | {'Tanggal Tanam':<15} | {'Kondisi':<15} | {'Lokasi':<25}")
+        print("=" * 120)
         for id_tanaman, tanaman in data_tanaman.items():
-            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<20} | {tanaman['jenis_tanaman']:<20} | {tanaman['tanggal_tanam']:<15} | {tanaman['kondisi_tanaman']:<15} | {tanaman['lokasi_tanaman']:<20}")
-            print("-" * 100)
+            print(f"{tanaman['id']:<10} | {tanaman['nama_tanaman']:<25} | {tanaman['jenis_tanaman']:<25} | {tanaman['tanggal_tanam']:<15} | {tanaman['kondisi_tanaman']:<15} | {tanaman['lokasi_tanaman']:<25}")
+            print("-" * 120)
 
         while True:
             nama_tanaman_id = input(f"Masukkan ID tanaman yang ingin dipanen [{data[id_panen]['id_tanaman']}]: ") or data[id_panen]['id_tanaman']

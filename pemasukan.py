@@ -53,14 +53,14 @@ def add_pemasukan():
             return
         
         print("\nPilih data panen yang ingin ditambah ke pemasukkan.")
-        print("=" * 120)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
-        print("=" * 120)
+        print("=" * 140)
+        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<15} | {'Total Harga':<15}")
+        print("=" * 140)
         for nama_panen_id, panen in data_panen.items():
             try:
                 nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
                 print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
-                print("-" * 120)
+                print("-" * 140)
             except KeyError:
                 continue
         
@@ -118,12 +118,12 @@ def read_pemasukan():
         data = load_data()
         if data:
             print("\n=== Data Pemasukan ===\n")
-            print("=" * 60)
+            print("=" * 80)
             print(f"{'ID':<10} | {'Jumlah Penjualan':<20} | {'Tanggal Penerimaan':<20} | {'ID Panen':<10}")
-            print("=" * 60)
+            print("=" * 80)
             for pemasukan_id, pemasukan in data.items():
                 print(f"{pemasukan['id']:<10} | {pemasukan['jumlah_penjualan']:<20} | {pemasukan['tanggal_penerimaan']:<20} | {pemasukan['id_panen']:<10}")
-            print("-" * 60)
+            print("-" * 80)
         else:
             print("Tidak ada data pemasukan.")
     except Exception as e:
@@ -143,11 +143,11 @@ def update_pemasukan():
             break
 
         print(f"\n=== Data pemasukan saat ini dengan ID {id_pemasukan} ===\n")
-        print("=" * 100)
+        print("=" * 120)
         print(f"{'ID':<10} | {'Jumlah Penjualan':<20} | {'Tanggal Penerimaan':<20} | {'ID Panen':<10}")
-        print("=" * 100)
+        print("=" * 120)
         print(f"{data[id_pemasukan]['id']:<10} | {data[id_pemasukan]['jumlah_penjualan']:<20} | {data[id_pemasukan]['tanggal_penerimaan']:<20} | {data[id_pemasukan]['id_panen']:<10}")
-        print("-" * 100)
+        print("-" * 120)
         
         print("\n=== Update Data Pemasukan ===\n(Tidak perlu diisi jika tidak ingin diubah)")
 
@@ -162,14 +162,14 @@ def update_pemasukan():
             return
         
         print("\nPilih data panen yang ingin diperbarui ke pemasukkan.")
-        print("=" * 120)
-        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<12} | {'Total Harga':<15}")
-        print("=" * 120)
+        print("=" * 140)
+        print(f"{'ID':<10} | {'Nama Tanaman':<20} | {'Jumlah':<10} | {'Satuan':<8} | {'Tanggal':<12} | {'Kualitas':<10} | {'Harga/Satuan':<15} | {'Total Harga':<15}")
+        print("=" * 140)
         for panen_id, panen in data_panen.items():
             try:
                 nama_tanaman = data_tanaman[panen['id_tanaman']]['nama_tanaman']
                 print(f"{panen['id']:<10} | {nama_tanaman:<20} | {panen['jumlah_panen']:<10} | {panen['satuan_panen']:<8} | {panen['tanggal_panen']:<12} | {panen['kualitas_panen']:<10} | Rp {panen['harga_per_satuan']:,.2f} | Rp {panen['total_harga']:,.2f}")
-                print("-" * 120)
+                print("-" * 140)
             except KeyError:
                 continue
 

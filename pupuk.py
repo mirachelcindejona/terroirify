@@ -97,12 +97,12 @@ def read_pupuk():
         data = load_data()
         if data:
             print("\n=== Data Pupuk ===\n")
-            print("=" * 100)
-            print(f"{'ID':<10} | {'Nama Pupuk':<20} | {'Stok':<10} | {'Tanggal Penerimaan':<20} | {'Catatan':<20}")
-            print("=" * 100)
+            print("=" * 120)
+            print(f"{'ID':<10} | {'Nama Pupuk':<25} | {'Stok':<15} | {'Tanggal Penerimaan':<25} | {'Catatan':<25}")
+            print("=" * 120)
             for pupuk_id, pupuk in data.items():
-                print(f"{pupuk['id']:<10} | {pupuk['nama_pupuk']:<20} | {pupuk['stok']:<10} | {pupuk['tanggal_penerimaan']:<20} | {pupuk['catatan']:<20}")
-                print("-" * 100)
+                print(f"{pupuk['id']:<10} | {pupuk['nama_pupuk']:<25} | {pupuk['stok']:<15} | {pupuk['tanggal_penerimaan']:<25} | {pupuk['catatan']:<25}")
+                print("-" * 120)
         else:
             print("Tidak ada data pupuk.")
     except Exception as e:
@@ -121,11 +121,11 @@ def update_pupuk():
             return
         
         print(f"\n=== Data pupuk saat ini dengan ID {id_pupuk} ===\n")
-        print("=" * 100)
-        print(f"{'ID':<10} | {'Nama Pupuk':<20} | {'Stok':<10} | {'Tanggal Penerimaan':<20} | {'Catatan':<20}")
-        print("=" * 100)
-        print(f"{data[id_pupuk]['id']:<10} | {data[id_pupuk]['nama_pupuk']:<20} | {data[id_pupuk]['stok']:<10} | {data[id_pupuk]['tanggal_penerimaan']:<20} | {data[id_pupuk]['catatan']:<20}")
-        print("-" * 100)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Nama Pupuk':<25} | {'Stok':<15} | {'Tanggal Penerimaan':<25} | {'Catatan':<25}")
+        print("=" * 120)
+        print(f"{data[id_pupuk]['id']:<10} | {data[id_pupuk]['nama_pupuk']:<25} | {data[id_pupuk]['stok']:<15} | {data[id_pupuk]['tanggal_penerimaan']:<25} | {data[id_pupuk]['catatan']:<25}")
+        print("-" * 120)
 
         print("\n=== Update Data Pupuk ===\n(Tidak perlu diisi jika tidak ingin diubah)")
         

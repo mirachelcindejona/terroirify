@@ -97,12 +97,12 @@ def read_pengeluaran():
         data = load_data()
         if data:
             print("\n=== Data Pengeluaran ===\n")
-            print("=" * 100)
-            print(f"{'ID':<10} | {'Jumlah Pengeluaran':<20} | {'Keterangan':<30} | {'Tanggal Pengeluaran':<20} | {'Kategori':<20}")
-            print("=" * 100)
+            print("=" * 120)
+            print(f"{'ID':<10} | {'Jumlah Pengeluaran':<25} | {'Keterangan':<35} | {'Tanggal Pengeluaran':<25} | {'Kategori':<25}")
+            print("=" * 120)
             for pengeluaran_id, pengeluaran in data.items():
-                print(f"{pengeluaran['id']:<10} | {pengeluaran['jumlah_pengeluaran']:<20} | {pengeluaran['keterangan']:<30} | {pengeluaran['tanggal_pengeluaran']:<20} | {pengeluaran['kategori_pengeluaran']:<20}")
-                print("-" * 100)
+                print(f"{pengeluaran['id']:<10} | {pengeluaran['jumlah_pengeluaran']:<25} | {pengeluaran['keterangan']:<35} | {pengeluaran['tanggal_pengeluaran']:<25} | {pengeluaran['kategori_pengeluaran']:<25}")
+                print("-" * 120)
         else:
             print("\nTidak ada data pengeluaran.")
     except Exception as e:
@@ -122,11 +122,11 @@ def update_pengeluaran():
             return
         
         print(f"\n=== Data pengeluaran saat ini dengan ID {id_pengeluaran} ===\n")
-        print("=" * 100)
-        print(f"{'ID':<10} | {'Jumlah Pengeluaran':<20} | {'Keterangan':<30} | {'Tanggal Pengeluaran':<20} | {'Kategori':<20}")
-        print("=" * 100)
-        print(f"{data[id_pengeluaran]['id']:<10} | {data[id_pengeluaran]['jumlah_pengeluaran']:<20} | {data[id_pengeluaran]['keterangan']:<30} | {data[id_pengeluaran]['tanggal_pengeluaran']:<20} | {data[id_pengeluaran]['kategori_pengeluaran']:<20}")
-        print("-" * 100)
+        print("=" * 120)
+        print(f"{'ID':<10} | {'Jumlah Pengeluaran':<25} | {'Keterangan':<35} | {'Tanggal Pengeluaran':<25} | {'Kategori':<25}")
+        print("=" * 120)
+        print(f"{data[id_pengeluaran]['id']:<10} | {data[id_pengeluaran]['jumlah_pengeluaran']:<25} | {data[id_pengeluaran]['keterangan']:<35} | {data[id_pengeluaran]['tanggal_pengeluaran']:<25} | {data[id_pengeluaran]['kategori_pengeluaran']:<25}")
+        print("-" * 120)
 
         print("\n=== Update Data Pengeluaran ===\n(Tidak perlu diisi jika tidak ingin diubah)")
         
