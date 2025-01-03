@@ -23,7 +23,7 @@ def generate_id(data):
     try:
         counter = 1
         while True:
-            id_pemasukan = f"PMSK{counter:03d}"
+            id_pemasukan = f"PMSK{counter:02d}"
             if id_pemasukan not in data:
                 return id_pemasukan
             counter += 1

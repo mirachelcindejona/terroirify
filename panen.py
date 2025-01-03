@@ -22,7 +22,7 @@ def generate_id(data):
     try:
         counter = 1
         while True:
-            panen_id = f"PNN{counter:03d}"
+            panen_id = f"PNN{counter:02d}"
             if panen_id not in data:
                 return panen_id
             counter += 1

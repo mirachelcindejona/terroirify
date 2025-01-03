@@ -9,5 +9,16 @@
         "alamat_kebun": "bandung",
         "id_kebun": "01",
         "tanggal_registrasi": "2024-12-23"
-}
+    },
+    "PNGL02": {
+        "id_pengelola": "PNGL02",
+        "nama": "Dimas Ditho",
+        "username": "Dimas22",
+        "email": "dimas@gmail.com",
+        "password": "dda6d6de16294c5dcdd3910274d52c26c786af1ce59a1d60dc11e9409d5f8c16",
+        "no_telepon": "081234567890",
+        "alamat_kebun": "Jl. Kebun Raya No. 1",
+        "id_kebun": "KBN123",
+        "tanggal_registrasi": "2025-01-03"
+    }
 }

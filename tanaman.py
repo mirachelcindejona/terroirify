@@ -21,7 +21,7 @@ def generate_id(data):
    try:
       counter = 1
       while True:
-         id_tanaman = f"TNMN{counter:03d}"
+         id_tanaman = f"TNMN{counter:02d}"
          if id_tanaman not in data:
             return id_tanaman
          counter += 1
