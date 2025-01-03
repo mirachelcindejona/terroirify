@@ -84,9 +84,9 @@ def add_jadwal_pengingat():
                 continue
                 
             hari_notifikasi = [hari.strip().capitalize() for hari in hari_input.split(",")]
-            valid_days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+            valid_hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
             
-            if all(hari in valid_days for hari in hari_notifikasi):
+            if all(hari in valid_hari for hari in hari_notifikasi):
                 break
             print("Error: Masukkan hari yang valid!\n")
 
@@ -180,15 +180,17 @@ def update_jadwal_pengingat():
                 print("Error: Format waktu tidak valid! Gunakan format HH:MM\n")
 
         while True:
-            hari_input = input(f"Masukkan hari notifikasi (pisahkan dengan koma) [{', '.join(data[id_jadwal_pengingat]['hari_notifikasi'])}]: ").strip()
+            hari_default = ', '.join(data[id_jadwal_pengingat]['hari_notifikasi'])
+            hari_input = input(f"Masukkan hari notifikasi (pisahkan dengan koma) [{hari_default}]: ").strip()
+
             if not hari_input:
                 hari_notifikasi = data[id_jadwal_pengingat]['hari_notifikasi']
                 break
                 
             hari_notifikasi = [hari.strip().capitalize() for hari in hari_input.split(",")]
-            valid_days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+            valid_hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
             
-            if all(hari in valid_days for hari in hari_notifikasi):
+            if all(hari in valid_hari for hari in hari_notifikasi):
                 break
             print("Error: Masukkan hari yang valid!\n")
 
