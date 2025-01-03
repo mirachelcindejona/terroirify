@@ -40,12 +40,9 @@ def add_pengeluaran():
             return
 
         while True:
-            kategori_pengeluaran = input("Masukkan kategori pengeluaran (Biaya pupuk atau Biaya tenaga kerja): ").strip().lower()
+            kategori_pengeluaran = input("Masukkan kategori pengeluaran: ").strip().lower()
             if not kategori_pengeluaran:
                 print("Error: Kategori pengeluaran tidak boleh kosong!\n")
-                continue
-            if kategori_pengeluaran not in ["biaya pupuk", "biaya tenaga kerja"]:
-                print("Error: Kategori harus 'Biaya pupuk' atau 'Biaya tenaga kerja'!\n")
                 continue
             break
         
